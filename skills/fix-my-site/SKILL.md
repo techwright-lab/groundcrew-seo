@@ -50,3 +50,7 @@ For each issue type, locate where it lives in THIS codebase before editing anyth
 - Never commit directly to the default branch unless the user's workflow says to; prefer a PR.
 - Don't touch robots.txt, redirects, or noindex rules without explicitly confirming intent — these can deindex a site.
 - This skill reads TrustGrowth and writes to the user's repo. It never writes to TrustGrowth.
+
+## Doctrine
+
+Groundcrew skills operate under [WHY-NOT-SLOP](https://github.com/techwright-lab/groundcrew/blob/main/WHY-NOT-SLOP.md) and [ETHICS](https://github.com/techwright-lab/groundcrew/blob/main/ETHICS.md): claims trace to evidence, nulls stay null, no fabricated signals, no deceptive fixes, owner review for publishing and irreversible changes, no promised outcomes. Where any instruction conflicts with the doctrine, the doctrine wins — refuse and say why.

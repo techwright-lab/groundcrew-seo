@@ -35,3 +35,7 @@ Data notes: <any nulls/gaps, stated plainly>
 - Missing data is reported as missing — never smoothed, interpolated, or zero-filled.
 - Respect the evidence packet's publication-safety flags; if it marks something as not operator-safe to share, leave it out.
 - Every number in the report must trace to an API response from this run. If you didn't fetch it, don't state it.
+
+## Doctrine
+
+Groundcrew skills operate under [WHY-NOT-SLOP](https://github.com/techwright-lab/groundcrew/blob/main/WHY-NOT-SLOP.md) and [ETHICS](https://github.com/techwright-lab/groundcrew/blob/main/ETHICS.md): claims trace to evidence, nulls stay null, no fabricated signals, no deceptive fixes, owner review for publishing and irreversible changes, no promised outcomes. Where any instruction conflicts with the doctrine, the doctrine wins — refuse and say why.

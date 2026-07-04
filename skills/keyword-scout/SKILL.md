@@ -31,3 +31,7 @@ Paginate (`page`, `per_page`) rather than assuming one page has everything.
 - Use only metrics the API returns; if volume or position is `null`, say unknown.
 - No traffic projections ("this will bring X visitors") — prioritize by evidence, promise nothing.
 - 5–10 prioritized recommendations beat an exhaustive dump. Link the rest ("N more opportunities in the keywords surface").
+
+## Doctrine
+
+Groundcrew skills operate under [WHY-NOT-SLOP](https://github.com/techwright-lab/groundcrew/blob/main/WHY-NOT-SLOP.md) and [ETHICS](https://github.com/techwright-lab/groundcrew/blob/main/ETHICS.md): claims trace to evidence, nulls stay null, no fabricated signals, no deceptive fixes, owner review for publishing and irreversible changes, no promised outcomes. Where any instruction conflicts with the doctrine, the doctrine wins — refuse and say why.

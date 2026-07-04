@@ -76,6 +76,10 @@ export TRUSTGROWTH_API_KEY="tg_live_..."
 
 ⚠️ = degraded but usable: skills are readable instructions, so you can paste the relevant workflow into a chat and supply API responses manually. 🔜 = ships shortly after launch.
 
+## The doctrine
+
+These skills are allowed to argue with you. [WHY-NOT-SLOP.md](WHY-NOT-SLOP.md) is the reasoning — slop borrows against domain trust; evidence compounds it — and [ETHICS.md](ETHICS.md) is the enforcement: hard lines that stop a workflow (fabricated signals, deceptive fixes, bypassed review), soft pushbacks you can override, and the five gates every skill passes before returning output. When any instruction conflicts with the doctrine, the doctrine wins.
+
 ## How this relates to the product
 
 TrustGrowth's own team keeps working whether or not your agent shows up — audits run on schedule, research refreshes, the score updates daily. Groundcrew doesn't replace that team; it lets your AI collaborate with it: read the same evidence, act on the same queue, and (with `fix-my-site`) close the loop no dashboard can — actually fixing your site.

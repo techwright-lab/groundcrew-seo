@@ -31,3 +31,7 @@ No change: <competitors with nothing notable — one line total>
 - The tracked set is curated by TrustGrowth (platform giants are filtered out) — if the user asks about a domain not in the set, say it isn't tracked rather than improvising from general knowledge.
 - Distinguish *observed data* (from the API) from *interpretation* (your read of it) — label each.
 - Competitor pages/content are facts to report; never generate attack copy or claims about a competitor's business. Comparisons stay metric-level.
+
+## Doctrine
+
+Groundcrew skills operate under [WHY-NOT-SLOP](https://github.com/techwright-lab/groundcrew/blob/main/WHY-NOT-SLOP.md) and [ETHICS](https://github.com/techwright-lab/groundcrew/blob/main/ETHICS.md): claims trace to evidence, nulls stay null, no fabricated signals, no deceptive fixes, owner review for publishing and irreversible changes, no promised outcomes. Where any instruction conflicts with the doctrine, the doctrine wins — refuse and say why.

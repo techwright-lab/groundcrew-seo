@@ -39,3 +39,7 @@ Watch: <anything degrading — score drop, new critical issues>
 - Deltas come from comparing score responses; if the historical date has no data (`null`), say "no baseline yet", don't fabricate a delta.
 - Don't promise outcomes ("this will raise your score by X"). Report state and the team's queue.
 - If nothing changed and nothing needs attention, say exactly that — a one-line standup is a good standup.
+
+## Doctrine
+
+Groundcrew skills operate under [WHY-NOT-SLOP](https://github.com/techwright-lab/groundcrew/blob/main/WHY-NOT-SLOP.md) and [ETHICS](https://github.com/techwright-lab/groundcrew/blob/main/ETHICS.md): claims trace to evidence, nulls stay null, no fabricated signals, no deceptive fixes, owner review for publishing and irreversible changes, no promised outcomes. Where any instruction conflicts with the doctrine, the doctrine wins — refuse and say why.

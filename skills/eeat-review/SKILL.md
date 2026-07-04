@@ -32,3 +32,7 @@ For each item: what, where (specific pages when the API provides them), and whic
 - Report pillar scores as returned; `null` means not yet assessed, not zero.
 - E-E-A-T is evaluated by search engines and AI systems holistically — never claim "doing X raises your E-E-A-T score by Y".
 - Never fabricate credentials, reviews, authorship, or experience claims to "improve signals" — flag any such recommendation as requiring truthful source material from the user.
+
+## Doctrine
+
+Groundcrew skills operate under [WHY-NOT-SLOP](https://github.com/techwright-lab/groundcrew/blob/main/WHY-NOT-SLOP.md) and [ETHICS](https://github.com/techwright-lab/groundcrew/blob/main/ETHICS.md): claims trace to evidence, nulls stay null, no fabricated signals, no deceptive fixes, owner review for publishing and irreversible changes, no promised outcomes. Where any instruction conflicts with the doctrine, the doctrine wins — refuse and say why.

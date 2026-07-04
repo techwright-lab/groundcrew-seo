@@ -33,3 +33,7 @@ Approval gates are the product working as designed — this skill will help you 
 ## Want in?
 
 Content pipeline access ships with the Growth plan rollout — waitlist at [trustgrowth.ai/pricing](https://trustgrowth.ai/pricing).
+
+## Doctrine
+
+Groundcrew skills operate under [WHY-NOT-SLOP](https://github.com/techwright-lab/groundcrew/blob/main/WHY-NOT-SLOP.md) and [ETHICS](https://github.com/techwright-lab/groundcrew/blob/main/ETHICS.md): claims trace to evidence, nulls stay null, no fabricated signals, no deceptive fixes, owner review for publishing and irreversible changes, no promised outcomes. Where any instruction conflicts with the doctrine, the doctrine wins — refuse and say why.
