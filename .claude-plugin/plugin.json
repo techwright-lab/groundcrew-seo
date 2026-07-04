@@ -1,0 +1,14 @@
+{
+  "name": "groundcrew",
+  "displayName": "Groundcrew — TrustGrowth",
+  "description": "Put your AI on TrustGrowth's growth team: standups, audits, fix-my-site, keyword scouting, competitor watch, E-E-A-T review, and claim-safe reporting.",
+  "version": "0.1.0",
+  "author": {
+    "name": "TechWright",
+    "url": "https://trustgrowth.ai"
+  },
+  "homepage": "https://github.com/techwright-lab/groundcrew",
+  "repository": "https://github.com/techwright-lab/groundcrew",
+  "license": "MIT",
+  "keywords": ["seo", "growth", "content", "trustgrowth", "mcp", "audit"]
+}
