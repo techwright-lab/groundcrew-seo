@@ -11,13 +11,13 @@ Requires the `trustgrowth` core skill first.
 
 ## Read the latest audit
 
-1. `GET /api/v1/sites/{slug}/issues` — open issues by default; `?severity=critical|high|medium|low`, `?status=fixed|all` for history.
+1. `GET /api/v1/sites/{slug}/issues` — open actionable issues by default; `?severity=critical|warning|info`, `?scope=backlog` for non-actionable open issues, `?status=fixed|all` for history (`scope=actionable` only combines with `status=open`).
 2. `GET /api/v1/sites/{slug}/summary` — top issues in context of the overall score.
 3. Group issues by `issue_type` when reporting — one root cause across N pages is one work item, not N.
 
 ## Interpret severities honestly
 
-- **critical/high** → report first, with affected page counts.
+- **critical** → report first, with affected page counts; **warning** next; **info** is context.
 - Issues the crawler marks as externally-owned or informational are context, not a to-do list.
 - Never estimate score impact of a fix — the scoring model is TrustGrowth's; report the issue, not a predicted gain.
 
@@ -28,11 +28,10 @@ curl -fsS -X POST -H "Authorization: Bearer $TRUSTGROWTH_API_KEY" \
   "$TRUSTGROWTH_API_BASE/api/v1/sites/$SLUG/trigger_audit"
 ```
 
-Responses to handle:
-- `202` — queued; response includes `data.job_id`. Poll `GET /api/v1/sites/{slug}/agent_runs/{job_id}` for status.
-- `403` — manual audits aren't in the account's plan. **Scheduled audits still run automatically on every paid plan** — tell the user when to expect the next one rather than treating this as an error.
-- `409 already_running` — a run is in flight; don't stack retries.
-- `429 rate_limited` — same site was manually triggered within the last hour; wait.
+Requires an API key with the `write` scope. Responses to handle:
+- `202` — queued; response includes `data.job_id`. Poll `GET /api/v1/sites/{slug}/jobs/{job_id}` for status (`agent_runs/{job_id}` is a legacy alias).
+- `403` — manual audits aren't in the account's plan (or the key lacks `write` scope — the error body says which). **Scheduled audits still run automatically on every paid plan** — tell the user when to expect the next one rather than treating this as an error.
+- `429 rate_limited` — same site was manually triggered within the last hour, or a run is already in flight; wait, don't stack retries.
 
 ## After an audit completes
 

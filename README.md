@@ -18,7 +18,7 @@ Everyone else gives your AI data. TrustGrowth puts a growth team to work — and
 | [`competitor-watch`](skills/competitor-watch/SKILL.md) | Track competitor movement and interpret what changed. |
 | [`eeat-review`](skills/eeat-review/SKILL.md) | E-E-A-T pillar scores and recommendations → a concrete improvement checklist. |
 | [`score-report`](skills/score-report/SKILL.md) | Assemble a shareable, claim-safe weekly report from your score history and evidence. |
-| [`content-desk`](skills/content-desk/SKILL.md) | 🔜 **Coming soon.** Operate the content pipeline: calendar, briefs, drafts, publication records. |
+| [`content-desk`](skills/content-desk/SKILL.md) | 🔜 **Coming soon.** Operate the content pipeline: calendar, briefs, drafts, publication records. Ships with the Growth plan — [join the waitlist](https://trustgrowth.ai/pricing). Pipeline reads work today. |
 
 ## Install
 

@@ -14,7 +14,7 @@ Requires the `trustgrowth` core skill, plus read/write access to the repository 
 ### 1. Pull the work queue
 
 - `GET /api/v1/sites/{slug}/next_actions` — the team's prioritized top 5.
-- `GET /api/v1/sites/{slug}/issues?severity=critical` then `high` — the full backlog behind them.
+- `GET /api/v1/sites/{slug}/issues?severity=critical` then `severity=warning` — the full queue behind them. Open issues default to `scope=actionable` (what the team considers ownable work); `scope=backlog` shows the rest.
 
 For `evidence_source.type == "audit_issue"` actions: `evidence_source.pages[]` lists up to 10 affected URLs and `affected_count` the true total. The full page list lives in `/issues`.
 

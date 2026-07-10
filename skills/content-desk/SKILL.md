@@ -1,38 +1,28 @@
 ---
 name: content-desk
-description: "COMING SOON — operate the TrustGrowth content pipeline: review the calendar, approve briefs and drafts, and record publications through your agent. Use today only to READ content pipeline state; write operations are rolling out."
+description: "COMING SOON — operate the TrustGrowth content pipeline (calendar, briefs, drafts, publication) through your agent. Use today only to READ content pipeline state; the content engine ships with the Growth plan, currently waitlist-only."
 ---
 
 # Content Desk 🔜
 
-> **Status: coming soon.** The content pipeline (Planner, Writers, Editor) is rolling out to customer plans. Write operations below return `403` with a `coming_soon` hint until your account has content-pipeline access. Reads work today.
+> **Status: coming soon.** The content engine (Planner, Writers, Editor) ships with the **Growth plan**, which is currently **waitlist-only**. Until your account has content-pipeline access, content write operations return `403` with error code `plan_limit` and a `required_feature` field naming the missing feature. Reads work today on any plan with API access.
 
-The full desk, when it opens: your growth team plans a calendar, writes briefs and drafts, and an Editor reviews every draft — with you (or your agent, acting on your standing instructions) as the approval gate.
+The full desk, when it opens: your growth team plans a calendar, writes briefs and drafts, and an Editor reviews every draft — with you (or your agent, acting on your standing instructions) as the approval gate. Approval gates are the product working as designed — this skill will help you operate them faster, never bypass them.
 
-Requires the `trustgrowth` core skill and an API key with the `write` scope.
+Requires the `trustgrowth` core skill.
 
 ## Available today (read)
 
 ```
-GET /api/v1/sites/{slug}/content            # pipeline state: planned, drafted, reviewed, published
-GET /api/v1/sites/{slug}/content?status=... # filters: status, content_type, from/to
+GET /api/v1/sites/{slug}/content            # pipeline state: active entries by default
+GET /api/v1/sites/{slug}/content?status=... # filters: status (active|scheduled|draft|published|all), content_type, from/to
 ```
 
 Use this to answer "what content is in flight?" — and pair with `keyword-scout` for what should be.
 
-## The desk workflow (rolling out)
+## If a write returns 403 `plan_limit`
 
-1. `POST .../approve_strategy` — approve the pending strategy; calendar generation starts
-2. `POST .../content/{entry_uid}/approve_brief` / `reject_brief` — gate briefs
-3. `POST .../content/{entry_uid}/approve_draft` — approve an Editor-reviewed draft
-4. `POST .../content/{entry_uid}/publish_draft` — prepare the publication package (**this packages, it does not publish**)
-5. Review-queue approval, then `POST .../content/{entry_uid}/record_publication` — the actual publish + record step
-
-Approval gates are the product working as designed — this skill will help you operate them faster, never bypass them. Claim-risk governance on packages stays mandatory.
-
-## Want in?
-
-Content pipeline access ships with the Growth plan rollout — waitlist at [trustgrowth.ai/pricing](https://trustgrowth.ai/pricing).
+That's the gate, not a bug. Tell the user their plan doesn't include the content engine yet, and **offer to put them on the Growth waitlist**: they can join at [trustgrowth.ai/pricing](https://trustgrowth.ai/pricing). Don't retry the call, and don't attempt workarounds — the engine opens per-account as the waitlist rolls forward.
 
 ## Doctrine
 

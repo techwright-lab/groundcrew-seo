@@ -12,7 +12,7 @@ Requires the `trustgrowth` core skill first.
 ## Read the competitive picture
 
 1. `GET /api/v1/sites/{slug}/competitors` — the tracked set + comparison data.
-2. `GET /api/v1/sites/{slug}/keywords?source=competitor_gap` — where they rank and you don't.
+2. `GET /api/v1/sites/{slug}/keywords?type=content_gap` — where they rank and you don't (the filter param is `type`, not `source`).
 3. `GET /api/v1/sites/{slug}/changes?since=7d` — includes shifts the team observed.
 
 ## Report format

@@ -40,19 +40,20 @@ All site endpoints take the site `slug` from `GET /api/v1/sites`:
 |---|---|
 | `/api/v1/sites/{slug}/summary` | Composite snapshot — best second call |
 | `/api/v1/sites/{slug}/score` | Score breakdown; `?date=YYYY-MM-DD` for history |
-| `/api/v1/sites/{slug}/issues` | Audit issues; `?status=`, `?severity=` filters |
+| `/api/v1/sites/{slug}/issues` | Audit issues; `?status=open\|fixed\|all`, `?scope=actionable\|backlog`, `?severity=critical\|warning\|info` |
 | `/api/v1/sites/{slug}/next_actions` | Prioritized queue (max 5, evidence-backed) |
 | `/api/v1/sites/{slug}/changes?since=7d` | Deltas: `1d`, `7d`, `14d`, `30d` |
-| `/api/v1/sites/{slug}/keywords` | Keyword opportunities (`?source=first_party\|competitor_gap`) |
+| `/api/v1/sites/{slug}/keywords` | Keyword opportunities (`?type=quick_win\|striking_distance\|content_gap\|eeat_gap`, `?sort=volume\|opportunity`) |
 | `/api/v1/sites/{slug}/competitors` | Competitor domains + comparison |
 | `/api/v1/sites/{slug}/eeat` | E-E-A-T pillar scores + recommendations |
 | `/api/v1/sites/{slug}/snapshots` | Time-series (`?from=`, `?to=`, `?granularity=`) |
-| `/api/v1/sites/{slug}/content` | Content pipeline state (read) |
+| `/api/v1/sites/{slug}/content` | Content pipeline state (read); active entries by default, `?status=all` for full inventory |
+| `/api/v1/sites/{slug}/jobs/{job_id}` | Status of a queued agent run (e.g. a manual audit) |
 
 ## Contract rules
 
 1. Only use endpoints in the live OpenAPI. Never invent endpoints or fields.
-2. GET requests are rate-limited per day — check `X-RateLimit-*` response headers; on `429`, wait, don't hammer.
+2. Rate-limit state comes back in the response body at `meta.rate_limit` (`limit`/`remaining`/`reset`), not in HTTP headers; on `429`, wait, don't hammer.
 3. `404` on a slug usually means a typo or a site the key can't access — re-list sites.
 4. Report numbers as they are. Missing data comes back as `null`, never zero — don't convert nulls to zeros in summaries.
 

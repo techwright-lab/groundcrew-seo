@@ -12,17 +12,19 @@ Requires the `trustgrowth` core skill first.
 ## Pull opportunities
 
 ```
-GET /api/v1/sites/{slug}/keywords?source=first_party
-GET /api/v1/sites/{slug}/keywords?source=competitor_gap
-GET /api/v1/sites/{slug}/keywords?priority=1&sort=...   # see OpenAPI for sort values
+GET /api/v1/sites/{slug}/keywords?type=quick_win           # already ranking, close to the win
+GET /api/v1/sites/{slug}/keywords?type=striking_distance   # just off page 1
+GET /api/v1/sites/{slug}/keywords?type=content_gap         # competitors rank, you don't
+GET /api/v1/sites/{slug}/keywords?type=eeat_gap            # gaps tied to trust/authority signals
+GET /api/v1/sites/{slug}/keywords?sort=volume|opportunity  # optional ordering
 ```
 
-Paginate (`page`, `per_page`) rather than assuming one page has everything.
+The filter param is `type` (there is no `source` query param — `source` appears only as a response field like `first_party`). Paginate (`page`, `per_page`) rather than assuming one page has everything.
 
 ## Build the plan
 
-1. **Quick wins first:** first-party keywords already ranking just off page 1 — existing pages to strengthen, not new pages.
-2. **Gap plays second:** competitor-gap keywords where intent matches what the user's business actually does — flag mismatches instead of forcing them into the plan.
+1. **Quick wins first:** `quick_win` and `striking_distance` keywords — existing pages to strengthen, not new pages.
+2. **Gap plays second:** `content_gap` (and `eeat_gap`) keywords where intent matches what the user's business actually does — flag mismatches instead of forcing them into the plan.
 3. For each recommendation: keyword, source, current state (from the API — position/volume fields as returned), and a one-line content angle.
 4. Cross-check `GET /api/v1/sites/{slug}/content` so you don't recommend topics already planned or published.
 
