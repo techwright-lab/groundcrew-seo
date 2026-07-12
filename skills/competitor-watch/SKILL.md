@@ -8,7 +8,7 @@ Read `references/provider-selection.md` before choosing a source. Detect what is
 
 ## Sources
 
-- Connected: TrustGrowth tracked competitors, gaps, and changes.
+- Connected: TrustGrowth tracked competitors (`GET .../competitors`), gap keywords (`GET .../keywords?type=content_gap` — the filter param is `type`, not `source`), and `changes?since=7d`.
 - DataForSEO: read `references/dataforseo.md` and obtain bounded cost approval before requests.
 - Import/open: inspect user-named public competitors or supplied evidence as a point-in-time observation.
 

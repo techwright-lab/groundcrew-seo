@@ -60,7 +60,10 @@ def validate_value(value, rule, path, errors):
         try:
             if not rfc3339:
                 raise ValueError
-            parsed = dt.datetime.fromisoformat(value.replace("Z", "+00:00"))
+            normalized = value.replace("Z", "+00:00")
+            # fromisoformat on Python < 3.11 accepts only 0/3/6 fractional digits; pad/truncate to 6 so any RFC 3339 fraction parses on every supported Python.
+            normalized = re.sub(r"\.(\d+)", lambda m: "." + m.group(1)[:6].ljust(6, "0"), normalized)
+            parsed = dt.datetime.fromisoformat(normalized)
             if parsed.utcoffset() is None:
                 raise ValueError
         except ValueError:

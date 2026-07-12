@@ -18,7 +18,9 @@ if [ -z "$SKILLS_DIR" ]; then
 fi
 [ -n "$SKILLS_DIR" ] || { echo "Could not detect a skills directory; use --skills-dir PATH" >&2; exit 1; }
 workdir="$(mktemp -d)"; trap 'rm -rf "$workdir"' EXIT
-if [ -d "$(pwd)/skills" ] && [ -d "$(pwd)/shared" ]; then src="$(pwd)"; else git clone --depth 1 --quiet "$REPO_URL" "$workdir/groundcrew"; src="$workdir/groundcrew"; fi
+# BASH_SOURCE is unset when piped (curl | bash); $0 then points at the shell, and the checkout test below fails into the clone path.
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
+if [ -d "$script_dir/skills" ] && [ -d "$script_dir/shared" ]; then src="$script_dir"; else git clone --depth 1 --quiet "$REPO_URL" "$workdir/groundcrew"; src="$workdir/groundcrew"; fi
 collisions=()
 for skill in "$src"/skills/*/; do
   name="$(basename "$skill")"; dest="$SKILLS_DIR/$name"
@@ -32,16 +34,21 @@ if [ "${#collisions[@]}" -gt 0 ]; then
   echo "Use --update for Groundcrew-managed installs or --force after reviewing paths." >&2; exit 1
 fi
 echo "Groundcrew install into $SKILLS_DIR"
+if ! $dry_run && { $update || $force; }; then
+  echo "  note: existing managed skill directories are replaced entirely; files you added inside them will be removed."
+fi
 for skill in "$src"/skills/*/; do
   name="$(basename "$skill")"; dest="$SKILLS_DIR/$name"; echo "  $dest"
   if ! $dry_run; then
-    rm -rf "$dest"; mkdir -p "$dest"; cp -RL "$skill"/. "$dest"/
+    rm -rf "$dest"; mkdir -p "$dest"
+    # Marker first: if a copy below fails mid-install, the leftover dir stays recognizable as managed, so a plain re-run with --update recovers instead of tripping collision refusal.
+    printf 'managed-by=groundcrew\n' > "$dest/.groundcrew-managed"
+    cp -RL "$skill"/. "$dest"/
     mkdir -p "$dest/references"
     cp "$src/shared/provider-selection.md" "$dest/references/provider-selection.md"
     if [ "$name" = "keyword-scout" ] || [ "$name" = "competitor-watch" ]; then
       cp "$src/shared/dataforseo.md" "$dest/references/dataforseo.md"
     fi
-    printf 'managed-by=groundcrew\n' > "$dest/.groundcrew-managed"
   fi
 done
 echo "  $SKILLS_DIR/.groundcrew"

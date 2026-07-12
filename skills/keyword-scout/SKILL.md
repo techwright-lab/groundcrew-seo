@@ -8,7 +8,7 @@ Read `references/provider-selection.md` before choosing a source. Detect what is
 
 ## Sources
 
-- Connected: TrustGrowth keyword opportunities and read-only content inventory.
+- Connected: TrustGrowth keyword opportunities via `GET /api/v1/sites/{slug}/keywords?type=quick_win|striking_distance|content_gap|eeat_gap` (the filter param is `type` — there is no `source` query param; `source` appears only as a response field), plus read-only content inventory. Paginate (`page`, `per_page`) rather than assuming one page has everything.
 - DataForSEO: read `references/dataforseo.md`; pass its explicit cost-disclosure gate before every billable batch.
 - Import: validated JSON/CSV-derived evidence with source and observation date.
 

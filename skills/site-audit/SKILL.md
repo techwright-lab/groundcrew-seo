@@ -8,7 +8,7 @@ Read `references/provider-selection.md` before choosing a source. Detect what is
 
 ## Sources
 
-- Connected: TrustGrowth `issues`, `summary`, and `changes`; manual audit only when explicitly requested and plan/scope allow it.
+- Connected: TrustGrowth `issues` (open actionable by default; `?severity=critical|warning|info`, `?scope=backlog` for non-actionable open issues, `?status=fixed|all` for history), `summary`, and `changes`; manual audit only when explicitly requested and plan/scope allow it.
 - Import: validated crawl/audit evidence supplied by the user.
 - Open: inspect publicly observable pages and local artifacts. Report observations, not a proprietary score or historical trend.
 
@@ -16,11 +16,15 @@ Direct GSC and PageSpeed Insights API connectors are deferred for launch. Do not
 
 ## Interpret
 
-Group pages by root cause. Separate directly observed facts from interpretation. Report critical findings first, externally owned/informational findings as context, and missing data as unknown. Do not estimate score impact. Treat one-off lab performance results as low confidence unless corroborated; distinguish lab from field evidence.
+Group pages by root cause. Separate directly observed facts from interpretation. Report `critical` findings first, `warning` next, `info` and externally owned/informational findings as context, and missing data as unknown. Do not estimate score impact. Treat one-off lab performance results as low confidence unless corroborated; distinguish lab from field evidence.
 
 ## Manual TrustGrowth audit
 
-`POST /api/v1/sites/{slug}/trigger_audit` requires write scope and explicit user intent. Poll the returned job through the documented job endpoint. Respect `403` and `429`; do not retry blindly.
+`POST /api/v1/sites/{slug}/trigger_audit` requires write scope and explicit user intent. Responses to handle:
+
+- `202` — queued; poll `GET /api/v1/sites/{slug}/jobs/{job_id}` for status (`agent_runs/{job_id}` is a legacy alias).
+- `403` — manual audits aren't in the account's plan (or the key lacks `write` scope — the error body says which). **Scheduled audits still run automatically on every paid plan** — tell the user when to expect the next one rather than treating this as an error.
+- `429` — the same site was triggered within the last hour, or a run is already in flight; wait, don't stack retries.
 
 Hand safe code-fixable findings to `fix-my-site`.
 

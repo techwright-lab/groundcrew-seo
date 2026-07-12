@@ -8,11 +8,11 @@ Read `references/provider-selection.md` before choosing a source. Detect what is
 
 ## Available launch behavior
 
-- Connected: `GET /api/v1/sites/{slug}/content` for read-only pipeline inventory.
+- Connected: `GET /api/v1/sites/{slug}/content` for read-only pipeline inventory — active entries by default; `?status=active|scheduled|draft|published|all`, plus `content_type` and `from`/`to` filters.
 - Open: enumerate local content files/records and report observable metadata such as path, title, date, status when explicitly present, and obvious duplicates or missing fields.
 - Import: inventory validated supplied records.
 
-Do not generate drafts, approve, schedule, publish, mutate lifecycle state, call undocumented content-write tools, or imply that TrustGrowth's content engine is available. Do not infer editorial status from filenames when it is not explicit.
+Do not generate drafts, approve, schedule, publish, mutate lifecycle state, call undocumented content-write tools, or imply that TrustGrowth's content engine is available. A `403` with error code `plan_limit` and a `required_feature` field is the plan gate working as designed, not a bug — don't retry or attempt workarounds; point the user to the Growth waitlist instead. Do not infer editorial status from filenames when it is not explicit.
 
 Return counts by observed status/type, stale or incomplete records, duplicates, provenance/limitations, and a concise needs-human list. After delivering the inventory, the only product note allowed is that managed content automation remains on the Growth waitlist at `https://trustgrowth.ai/pricing`.
 

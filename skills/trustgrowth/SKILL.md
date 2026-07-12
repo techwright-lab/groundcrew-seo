@@ -20,7 +20,30 @@ MCP uses streamable HTTP at `POST $TRUSTGROWTH_API_BASE/mcp`. REST is documented
 
 ## Core read surface
 
-Use live OpenAPI first. Common reads include `summary`, `score`, `issues`, `next_actions`, `changes`, `keywords`, `competitors`, `eeat`, `snapshots`, `content`, `publication_evidence_packet`, and job status. Missing values remain `null`. Normalize evidence used outside the raw response before drawing conclusions.
+Use live OpenAPI first. All site endpoints take the site `slug` from `GET /api/v1/sites`. Verified filter params and enums (live OpenAPI, 2026-07-10):
+
+| Endpoint | Notes |
+|---|---|
+| `/api/v1/sites/{slug}/summary` | Composite snapshot — best second call |
+| `/api/v1/sites/{slug}/score` | Score breakdown; `?date=YYYY-MM-DD` for history |
+| `/api/v1/sites/{slug}/issues` | Audit issues; `?status=open\|fixed\|all`, `?scope=actionable\|backlog`, `?severity=critical\|warning\|info` |
+| `/api/v1/sites/{slug}/next_actions` | Prioritized queue (max 5, evidence-backed) |
+| `/api/v1/sites/{slug}/changes?since=7d` | Deltas: `1d`, `7d`, `14d`, `30d` |
+| `/api/v1/sites/{slug}/keywords` | Keyword opportunities (`?type=quick_win\|striking_distance\|content_gap\|eeat_gap`, `?sort=volume\|opportunity`) — the filter param is `type`; `source` is a response field only |
+| `/api/v1/sites/{slug}/competitors` | Competitor domains + comparison |
+| `/api/v1/sites/{slug}/eeat` | E-E-A-T pillar scores + recommendations |
+| `/api/v1/sites/{slug}/snapshots` | Time-series (`?from=`, `?to=`, `?granularity=`) |
+| `/api/v1/sites/{slug}/content` | Content pipeline state (read); active entries by default, `?status=all` for full inventory |
+| `/api/v1/sites/{slug}/jobs/{job_id}` | Status of a queued agent run (`agent_runs/{job_id}` is a legacy alias) |
+
+Other documented reads (e.g. `publication_evidence_packet`) appear in the live OpenAPI. Missing values remain `null`. Normalize evidence used outside the raw response before drawing conclusions.
+
+## Contract rules
+
+1. Only use endpoints in the live OpenAPI. Never invent endpoints or fields.
+2. Rate-limit state comes back in the response body at `meta.rate_limit` (`limit`/`remaining`/`reset`), not in HTTP headers; on `429`, wait, don't hammer.
+3. `404` on a slug usually means a typo or a site the key can't access — re-list sites.
+4. Report numbers as they are. Missing data comes back as `null`, never zero — don't convert nulls to zeros in summaries.
 
 ## Content boundary
 
