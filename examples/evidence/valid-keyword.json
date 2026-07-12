@@ -1,0 +1,12 @@
+{
+  "contract_version": "1.0",
+  "source": "dataforseo",
+  "observed_at": "2026-07-12T12:00:00Z",
+  "subject": "example.com",
+  "evidence_type": "keyword",
+  "metrics": {"query": "example query", "position": 12, "volume": 100},
+  "provenance": {"retrieved_by": "dataforseo-api", "reference": "task:example"},
+  "confidence": "medium",
+  "limitations": ["Example fixture; not a real measurement"],
+  "raw_reference": null
+}

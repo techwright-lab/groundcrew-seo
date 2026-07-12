@@ -1,53 +1,59 @@
 #!/usr/bin/env bash
-# Groundcrew installer — copies TrustGrowth skills into your agent's skills directory.
-# Usage: curl -fsSL https://raw.githubusercontent.com/techwright-lab/groundcrew/main/install.sh | bash
-#        SKILLS_DIR=~/.config/myagent/skills ./install.sh
 set -euo pipefail
-
 REPO_URL="https://github.com/techwright-lab/groundcrew"
 SKILLS_DIR="${SKILLS_DIR:-}"
-
-# Detect a skills directory if not given.
+dry_run=false; force=false; update=false
+usage() { echo "Usage: $0 [--dry-run] [--update|--force] [--skills-dir PATH]"; }
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    --dry-run) dry_run=true;; --force) force=true;; --update) update=true;;
+    --skills-dir) shift; SKILLS_DIR="${1:?--skills-dir requires a path}";;
+    -h|--help) usage; exit 0;; *) echo "Unknown option: $1" >&2; usage >&2; exit 2;;
+  esac; shift
+done
 if [ -z "$SKILLS_DIR" ]; then
   for candidate in "$HOME/.claude/skills" "$HOME/.hermes/skills" "$HOME/.openclaw/skills"; do
-    if [ -d "$(dirname "$candidate")" ]; then
-      SKILLS_DIR="$candidate"
-      break
-    fi
+    if [ -d "$(dirname "$candidate")" ]; then SKILLS_DIR="$candidate"; break; fi
   done
 fi
-
-if [ -z "$SKILLS_DIR" ]; then
-  echo "Could not detect a skills directory. Re-run with SKILLS_DIR=/path/to/skills" >&2
-  exit 1
-fi
-
-echo "Installing Groundcrew skills into $SKILLS_DIR"
-mkdir -p "$SKILLS_DIR"
-
-workdir="$(mktemp -d)"
-trap 'rm -rf "$workdir"' EXIT
-
-if [ -d "$(pwd)/skills" ] && [ -f "$(pwd)/README.md" ]; then
-  src="$(pwd)/skills"
-else
-  git clone --depth 1 --quiet "$REPO_URL" "$workdir/groundcrew"
-  src="$workdir/groundcrew/skills"
-fi
-
-for skill in "$src"/*/; do
-  name="$(basename "$skill")"
-  rm -rf "${SKILLS_DIR:?}/$name"
-  cp -r "$skill" "$SKILLS_DIR/$name"
-  echo "  ✓ $name"
+[ -n "$SKILLS_DIR" ] || { echo "Could not detect a skills directory; use --skills-dir PATH" >&2; exit 1; }
+workdir="$(mktemp -d)"; trap 'rm -rf "$workdir"' EXIT
+if [ -d "$(pwd)/skills" ] && [ -d "$(pwd)/shared" ]; then src="$(pwd)"; else git clone --depth 1 --quiet "$REPO_URL" "$workdir/groundcrew"; src="$workdir/groundcrew"; fi
+collisions=()
+for skill in "$src"/skills/*/; do
+  name="$(basename "$skill")"; dest="$SKILLS_DIR/$name"
+  if [ -e "$dest" ] && ! $force; then
+    if ! $update || [ ! -f "$dest/.groundcrew-managed" ]; then collisions+=("$dest"); fi
+  fi
 done
-
-cat <<'EOF'
-
-Groundcrew installed. Next steps:
-  1. Get an API key: https://trustgrowth.ai/account/api_keys (Hobby plan or higher)
-  2. export TRUSTGROWTH_API_KEY="tg_live_..."
-  3. Ask your agent: "run my growth standup"
-
+if [ "${#collisions[@]}" -gt 0 ]; then
+  echo "Refusing to overwrite existing skills:" >&2; printf '  %s
+' "${collisions[@]}" >&2
+  echo "Use --update for Groundcrew-managed installs or --force after reviewing paths." >&2; exit 1
+fi
+echo "Groundcrew install into $SKILLS_DIR"
+for skill in "$src"/skills/*/; do
+  name="$(basename "$skill")"; dest="$SKILLS_DIR/$name"; echo "  $dest"
+  if ! $dry_run; then
+    rm -rf "$dest"; mkdir -p "$dest"; cp -RL "$skill"/. "$dest"/
+    mkdir -p "$dest/references"
+    cp "$src/shared/provider-selection.md" "$dest/references/provider-selection.md"
+    if [ "$name" = "keyword-scout" ] || [ "$name" = "competitor-watch" ]; then
+      cp "$src/shared/dataforseo.md" "$dest/references/dataforseo.md"
+    fi
+    printf 'managed-by=groundcrew\n' > "$dest/.groundcrew-managed"
+  fi
+done
+echo "  $SKILLS_DIR/.groundcrew"
+if ! $dry_run; then
+  mkdir -p "$SKILLS_DIR/.groundcrew/shared"
+  cp "$src/shared/provider-selection.md" "$src/shared/evidence.schema.yaml" "$src/shared/dataforseo.md" "$SKILLS_DIR/.groundcrew/shared/"
+  cp "$src/scripts/groundcrew-doctor.py" "$SKILLS_DIR/.groundcrew/groundcrew-doctor.py"
+  chmod +x "$SKILLS_DIR/.groundcrew/groundcrew-doctor.py"
+fi
+if $dry_run; then echo "Dry run only; no files changed."; else "$SKILLS_DIR/.groundcrew/groundcrew-doctor.py"; fi
+cat <<EOF
+Next: run a local workflow now, for example: "inspect this repo and fix one verifiable site defect."
+TrustGrowth is optional; connect it later for persisted evidence, prioritization, scheduled work, and re-audit verification.
 Docs: https://trustgrowth.ai/developers
 EOF

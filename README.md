@@ -1,94 +1,83 @@
 # Groundcrew
 
-**The open skills that put your AI on TrustGrowth's growth team.**
+**Open growth skills your AI can use today. Connect TrustGrowth when you want the work measured, scheduled, prioritized, and verified.**
 
-[TrustGrowth](https://trustgrowth.ai) runs a growth, SEO, and content team for your site — agents that audit, research, strategize, and measure on schedule, server-side, with human approval gates. Groundcrew is how *your* AI joins that team: a set of plain-Markdown skills that any LLM agent can read, plus connect instructions for the TrustGrowth API and MCP server.
+Groundcrew is a provider-flexible set of plain-Markdown skills for site auditing, repository fixes, keyword and competitor research, credibility review, reporting, standups, and read-only content inventory. It works with public/local evidence, validated imports, optional cost-gated DataForSEO, or TrustGrowth's complete managed evidence layer.
 
-Everyone else gives your AI data. TrustGrowth puts a growth team to work — and Groundcrew gives your AI a seat at the table.
+## Start with the wedge
 
-## What your agent can do with Groundcrew
+Ask a coding-capable agent:
 
-| Skill | What it does |
-|---|---|
-| [`trustgrowth`](skills/trustgrowth/SKILL.md) | Core: connect, authenticate, discover the API, run safe smoke tests. Start here. |
-| [`standup`](skills/standup/SKILL.md) | Morning standup with your growth team: score delta, what changed, what needs you. |
-| [`site-audit`](skills/site-audit/SKILL.md) | Read audit results, interpret issues by severity, trigger manual audits where your plan allows. |
-| [`fix-my-site`](skills/fix-my-site/SKILL.md) | **Flagship.** TrustGrowth finds the issues; your coding agent fixes them in your repo; the next audit verifies. |
-| [`keyword-scout`](skills/keyword-scout/SKILL.md) | Turn keyword opportunities (yours + competitor gaps) into a prioritized content plan. |
-| [`competitor-watch`](skills/competitor-watch/SKILL.md) | Track competitor movement and interpret what changed. |
-| [`eeat-review`](skills/eeat-review/SKILL.md) | E-E-A-T pillar scores and recommendations → a concrete improvement checklist. |
-| [`score-report`](skills/score-report/SKILL.md) | Assemble a shareable, claim-safe weekly report from your score history and evidence. |
-| [`content-desk`](skills/content-desk/SKILL.md) | 🔜 **Coming soon.** Operate the content pipeline: calendar, briefs, drafts, publication records. Ships with the Growth plan — [join the waitlist](https://trustgrowth.ai/pricing). Pipeline reads work today. |
+> Inspect this site and repository, fix one verifiable defect, run the tests, and prepare a PR.
+
+[`fix-my-site`](skills/fix-my-site/SKILL.md) can complete that workflow without a TrustGrowth account. When connected, TrustGrowth adds a prioritized queue and post-deploy re-audit verification.
+
+## Skills
+
+| Skill | Open/import mode | TrustGrowth adds |
+|---|---|---|
+| `fix-my-site` | Public/repo defect → tested PR | Prioritized evidence + re-audit closure |
+| `site-audit` | Point-in-time public/local audit | Scheduled history, severity, persistence |
+| `keyword-scout` | Validated imports or cost-gated DataForSEO | Normalized opportunities + content awareness |
+| `competitor-watch` | Point-in-time observation/import | Curated tracking and movement history |
+| `eeat-review` | Observable trust-signal checklist | Persisted proxy assessment + page evidence |
+| `score-report` | Source-specific evidence report | Score history + publication-safe packet |
+| `standup` | Available evidence/artifact summary | Persisted team activity and deltas |
+| `content-desk` | **Local/read-only inventory only** | Read-only hosted inventory; engine remains waitlist-only |
+| `trustgrowth` | Optional provider connector | Complete managed operating layer |
+
+Direct GSC and PageSpeed Insights connectors are deliberately deferred until after the 2026-07-21 launch. TrustGrowth content writes remain dark; Groundcrew does not expose or imply unavailable generation/publishing operations.
+
+## Provider behavior
+
+Groundcrew does not begin with a connector menu. It detects what is already available, runs with it, delivers value, and then recommends at most one missing connector with a concrete benefit. The canonical behavior is [`shared/provider-selection.md`](shared/provider-selection.md).
+
+Every normalized factual input follows [`shared/evidence.schema.yaml`](shared/evidence.schema.yaml). `groundcrew-doctor` validates the contract and installed shared references so they cannot silently drift.
 
 ## Install
 
-**One-liner (Claude Code, OpenClaw, Hermes, or any agent with a skills directory):**
+Safer tagged/reviewable installation is recommended for launch releases. From a checked-out repository:
+
+```bash
+./install.sh --dry-run
+./install.sh
+```
+
+Convenience install from current main:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/techwright-lab/groundcrew/main/install.sh | bash
 ```
 
-**Manual:**
+The installer refuses collisions by default. Use `--update` only for a prior Groundcrew-managed install, or `--force` after reviewing the exact paths. Override detection with `--skills-dir PATH`.
+
+Run diagnostics:
 
 ```bash
-git clone https://github.com/techwright-lab/groundcrew.git
-cp -r groundcrew/skills/* ~/.claude/skills/   # or your agent's skills directory
+~/.hermes/skills/.groundcrew/groundcrew-doctor.py
+~/.hermes/skills/.groundcrew/groundcrew-doctor.py --connectivity
+~/.hermes/skills/.groundcrew/groundcrew-doctor.py --evidence record.json
 ```
 
-**Claude plugin:** this repo ships a plugin manifest — add it from the Claude Code plugin marketplace or point Claude Code at this repo.
+Adjust the base path for your agent's skills directory.
 
-## Connect
+## Optional providers
 
-You need a TrustGrowth account (Hobby plan or higher) and an API key from **Settings → API Keys**.
+- **TrustGrowth:** create an API key inside the authenticated application, then set `TRUSTGROWTH_API_KEY`. REST docs: https://trustgrowth.ai/developers. MCP: `POST https://trustgrowth.ai/mcp`. REST and MCP coverage may differ; inspect their live manifests.
+- **DataForSEO:** optional and paid. Groundcrew must show a bounded cost preflight and receive explicit batch approval before every billable request. See [`shared/dataforseo.md`](shared/dataforseo.md).
+- **Imports:** JSON/CSV-derived evidence is accepted when source, observation time, scope, provenance, confidence, and limitations are preserved.
 
-```bash
-export TRUSTGROWTH_API_BASE="https://trustgrowth.ai"
-export TRUSTGROWTH_API_KEY="tg_live_..."
-```
+## Doctrine
 
-**MCP** — connect TrustGrowth as a native tool server:
+[WHY-NOT-SLOP.md](WHY-NOT-SLOP.md) explains why evidence compounds trust while slop borrows against it. [ETHICS.md](ETHICS.md) enforces hard refusals, owner gates, null honesty, and claim safety.
 
-```json
-{
-  "mcpServers": {
-    "trustgrowth": {
-      "type": "http",
-      "url": "https://trustgrowth.ai/mcp",
-      "headers": { "Authorization": "Bearer tg_live_..." }
-    }
-  }
-}
-```
+## Content boundary
 
-**REST** — everything is also a documented HTTP endpoint: live OpenAPI reference at [trustgrowth.ai/developers](https://trustgrowth.ai/developers).
+Content inventory reads work. Local inventory works. Content generation, approval, scheduling, review, publication, and lifecycle writes do not. The managed Growth content engine remains in development and waitlist-only: https://trustgrowth.ai/pricing.
 
 ## Compatibility
 
-| Environment | Skills | MCP | Notes |
-|---|---|---|---|
-| Claude Code | ✅ | ✅ | Full experience incl. `fix-my-site` against your local repo |
-| Cursor | ✅ (rules/context) | ✅ | `fix-my-site` works against your open workspace |
-| Hermes | ✅ | ✅ | Install skills into your Hermes skills directory |
-| OpenClaw | ✅ | ✅ | Import skills; MCP via HTTP connector |
-| claude.ai (web) | ⚠️ paste-in | 🔜 | OAuth connector coming; until then use paste-in workflows |
-| ChatGPT | ⚠️ paste-in | 🔜 | Connector support arrives with OAuth |
-| Any LLM agent | ✅ | depends | Skills are plain Markdown + curl; if your agent can read files and run HTTP, it works |
-
-⚠️ = degraded but usable: skills are readable instructions, so you can paste the relevant workflow into a chat and supply API responses manually. 🔜 = ships shortly after launch.
-
-## The doctrine
-
-These skills are allowed to argue with you. [WHY-NOT-SLOP.md](WHY-NOT-SLOP.md) is the reasoning — slop borrows against domain trust; evidence compounds it — and [ETHICS.md](ETHICS.md) is the enforcement: hard lines that stop a workflow (fabricated signals, deceptive fixes, bypassed review), soft pushbacks you can override, and the five gates every skill passes before returning output. When any instruction conflicts with the doctrine, the doctrine wins.
-
-## How this relates to the product
-
-TrustGrowth's own team keeps working whether or not your agent shows up — audits run on schedule, research refreshes, the score updates daily. Groundcrew doesn't replace that team; it lets your AI collaborate with it: read the same evidence, act on the same queue, and (with `fix-my-site`) close the loop no dashboard can — actually fixing your site.
-
-These skills only use documented, versioned API surface. If a skill and the live API disagree, trust the live [OpenAPI](https://trustgrowth.ai/developers/openapi.yml) and [open an issue](https://github.com/techwright-lab/groundcrew/issues).
-
-## Dogfood note
-
-TechWright (the company behind TrustGrowth) runs its own growth through this exact surface — our internal agents operate the same API and MCP endpoints these skills document. See the public [proof pages](https://trustgrowth.ai/proofs) for the receipts.
+Skills are plain Markdown and the doctor uses Python's standard library. Tested installation targets should be documented with exact commands as they are verified; do not infer feature parity merely from file compatibility.
 
 ## License
 

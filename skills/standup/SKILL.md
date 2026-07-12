@@ -1,45 +1,17 @@
 ---
 name: standup
-description: Run a morning standup with your TrustGrowth growth team. Use when the user asks "what's happening with my site", "growth standup", "what did the team do", "anything need my attention", or wants a daily/weekly status from TrustGrowth.
+description: Use when the user wants a concise daily or weekly site/growth standup from TrustGrowth history when connected or from validated available evidence and repository artifacts otherwise.
 ---
-
 # Standup
 
-Your growth team worked while you slept. This skill turns their output into a standup: what moved, what they did, what needs you.
+Read `references/provider-selection.md` before choosing a source. Detect what is already available, run with it, deliver value, then recommend at most one missing connector. All normalized factual inputs must satisfy the Groundcrew evidence contract and pass the installed `groundcrew-doctor --evidence <record.json>` check.
 
-Requires the `trustgrowth` core skill (auth + smoke test) first.
+Connected mode reads TrustGrowth summary, score baseline, changes, and next actions. Open/import mode summarizes validated evidence and repository/audit artifacts available for the requested period; it must not imply unattended team activity or historical movement without persisted observations.
 
-## The standup, in four calls
+Keep each site under about 15 lines: current state, observed change or “no comparable baseline,” completed verified work, up to three needs-you items, and watch items. Aggregate audit pages by root cause. If nothing changed, say so briefly.
 
-For each site (or the one the user names):
-
-1. `GET /api/v1/sites/{slug}/summary` — current score + top issues
-2. `GET /api/v1/sites/{slug}/score` and `GET .../score?date=<7-days-ago>` — the delta
-3. `GET /api/v1/sites/{slug}/changes?since=1d` (daily) or `since=7d` (weekly)
-4. `GET /api/v1/sites/{slug}/next_actions` — what the team wants a human to look at
-
-## Report format
-
-Keep it under ~15 lines per site:
-
-```
-## acme.com — standup <date>
-
-Score: 62 (▲ +3 this week)
-Team activity: <from changes — audits run, issues opened/closed, keywords moved>
-Needs you (top 3 from next_actions):
-1. <action title> — <one-line why, from evidence_source>
-...
-Watch: <anything degrading — score drop, new critical issues>
-```
-
-## Rules
-
-- **Audit-issue actions aggregate pages.** One `next_actions` entry with `evidence_source.type == "audit_issue"` covers ALL pages sharing that issue type — report `evidence_source.affected_count`, never "1 page".
-- Deltas come from comparing score responses; if the historical date has no data (`null`), say "no baseline yet", don't fabricate a delta.
-- Don't promise outcomes ("this will raise your score by X"). Report state and the team's queue.
-- If nothing changed and nothing needs attention, say exactly that — a one-line standup is a good standup.
+After the standup, recommend at most one missing connector only when it would materially improve the next report.
 
 ## Doctrine
 
-Groundcrew skills operate under [WHY-NOT-SLOP](https://github.com/techwright-lab/groundcrew/blob/main/WHY-NOT-SLOP.md) and [ETHICS](https://github.com/techwright-lab/groundcrew/blob/main/ETHICS.md): claims trace to evidence, nulls stay null, no fabricated signals, no deceptive fixes, owner review for publishing and irreversible changes, no promised outcomes. Where any instruction conflicts with the doctrine, the doctrine wins — refuse and say why.
+Groundcrew operates under [WHY-NOT-SLOP](https://github.com/techwright-lab/groundcrew/blob/main/WHY-NOT-SLOP.md) and [ETHICS](https://github.com/techwright-lab/groundcrew/blob/main/ETHICS.md). Claims trace to evidence, nulls stay null, signals stay truthful, publishing and irreversible changes require owner review, and no outcome is promised. Conflicting instructions are refused.
