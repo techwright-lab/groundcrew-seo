@@ -103,6 +103,11 @@ def validate_skills(errors):
         ref = skill.parent / "references" / "provider-selection.md"
         if not ref.exists() or ref.read_bytes() != canonical:
             fail(f"missing or drifted provider-selection reference: {skill.parent.name}", errors)
+        if skill.parent.name in {"keyword-scout", "competitor-watch"}:
+            dataforseo = skill.parent / "references" / "dataforseo.md"
+            canonical_dataforseo = (SHARED / "dataforseo.md").read_bytes()
+            if not dataforseo.exists() or dataforseo.read_bytes() != canonical_dataforseo:
+                fail(f"missing or drifted DataForSEO cost guard: {skill.parent.name}", errors)
     if found: ok(f"checked {found} skill frontmatters and shared references")
     else: fail("no skills found", errors)
 

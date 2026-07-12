@@ -4,7 +4,7 @@ description: Use when the user wants competitor comparison or movement. Supports
 ---
 # Competitor Watch
 
-Read `references/provider-selection.md` before choosing a source. Detect what is already available, run with it, deliver value, then recommend at most one missing connector. All normalized factual inputs must satisfy the Groundcrew evidence contract and pass the installed `groundcrew-doctor --evidence <record.json>` check.
+Read `references/provider-selection.md` before choosing a source. Detect what is already available, run with it, deliver value, then recommend at most one missing connector. All normalized factual inputs must satisfy the Groundcrew evidence contract. Locate the active skills root and run `<skills-root>/.groundcrew/groundcrew-doctor.py --evidence <record.json>` before using them in a conclusion.
 
 ## Sources
 

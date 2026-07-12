@@ -20,9 +20,11 @@ printf '%s\n' '---' 'name: third-party' 'description: unrelated' '---' '# Third 
 SKILLS_DIR="$tmp/skills" "$ROOT/install.sh" --update >/dev/null
 SKILLS_DIR="$tmp/dry" "$ROOT/install.sh" --dry-run >/dev/null
 test ! -e "$tmp/dry"
-# Drift must fail.
-printf '
-drift
-' >> "$tmp/skills/fix-my-site/references/provider-selection.md"
+# DataForSEO cost-guard drift must fail.
+printf '\ndrift\n' >> "$tmp/skills/keyword-scout/references/dataforseo.md"
+if "$tmp/skills/.groundcrew/groundcrew-doctor.py" >/dev/null 2>&1; then echo "DataForSEO guard drift unexpectedly passed" >&2; exit 1; fi
+SKILLS_DIR="$tmp/skills" "$ROOT/install.sh" --update >/dev/null
+# Provider-selection drift must fail.
+printf '\ndrift\n' >> "$tmp/skills/fix-my-site/references/provider-selection.md"
 if "$tmp/skills/.groundcrew/groundcrew-doctor.py" >/dev/null 2>&1; then echo "drift unexpectedly passed" >&2; exit 1; fi
 echo "groundcrew tests passed"

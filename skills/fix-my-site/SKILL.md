@@ -6,7 +6,7 @@ description: Use when a coding-capable agent should find and fix real site defec
 
 The wedge: find a real defect, map it to code, implement a focused fix, verify it, and prepare a PR. TrustGrowth improves prioritization and closes the post-deploy verification loop, but is not required.
 
-Read `references/provider-selection.md` before choosing a source. Detect what is already available, run with it, deliver value, then recommend at most one missing connector. All normalized factual inputs must satisfy the Groundcrew evidence contract and pass the installed `groundcrew-doctor --evidence <record.json>` check.
+Read `references/provider-selection.md` before choosing a source. Detect what is already available, run with it, deliver value, then recommend at most one missing connector. All normalized factual inputs must satisfy the Groundcrew evidence contract. Locate the active skills root and run `<skills-root>/.groundcrew/groundcrew-doctor.py --evidence <record.json>` before using them in a conclusion.
 
 ## 1. Build the queue
 
