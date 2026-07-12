@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/techwright-lab/groundcrew/shared/evidence.schema.yaml",
+  "title": "Groundcrew Evidence Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract_version", "source", "observed_at", "subject", "evidence_type", "metrics", "provenance", "confidence", "limitations"],
+  "properties": {
+    "contract_version": {"const": "1.0"},
+    "source": {"type": "string", "minLength": 1},
+    "observed_at": {"type": "string", "format": "date-time"},
+    "subject": {"type": "string", "minLength": 1},
+    "evidence_type": {"type": "string", "enum": ["audit", "analytics", "keyword", "competitor", "content_inventory", "repository", "report"]},
+    "metrics": {"type": "object"},
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["retrieved_by", "reference"],
+      "properties": {
+        "retrieved_by": {"type": "string", "minLength": 1},
+        "reference": {"type": "string", "minLength": 1}
+      }
+    },
+    "confidence": {"type": "string", "enum": ["high", "medium", "low"]},
+    "limitations": {"type": "array", "items": {"type": "string"}},
+    "dimensions": {"type": "object"},
+    "raw_reference": {"type": ["string", "null"]}
+  }
+}

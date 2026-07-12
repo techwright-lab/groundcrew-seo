@@ -1,0 +1,12 @@
+{
+  "contract_version": "1.0",
+  "source": "",
+  "observed_at": "not-a-date",
+  "subject": "example.com",
+  "evidence_type": "invented",
+  "metrics": {},
+  "provenance": {"retrieved_by": "test", "reference": "fixture"},
+  "confidence": "certain",
+  "limitations": [],
+  "unexpected": true
+}

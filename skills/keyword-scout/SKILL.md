@@ -1,39 +1,28 @@
 ---
 name: keyword-scout
-description: Turn TrustGrowth keyword opportunities into a prioritized content plan. Use when the user asks what to write about, wants keyword research, asks about content gaps versus competitors, or wants to know which keywords to target next.
+description: Use when the user wants a prioritized keyword or content-opportunity shortlist. Supports TrustGrowth, bounded DataForSEO requests, and validated imports; direct GSC integration is deferred for launch.
 ---
-
 # Keyword Scout
 
-The Researcher on your TrustGrowth team maintains a live keyword-opportunity list — first-party queries your site already earns and gaps competitors rank for that you don't. This skill turns it into a plan.
+Read `references/provider-selection.md` before choosing a source. Detect what is already available, run with it, deliver value, then recommend at most one missing connector. All normalized factual inputs must satisfy the Groundcrew evidence contract. Locate the active skills root and run `<skills-root>/.groundcrew/groundcrew-doctor.py --evidence <record.json>` before using them in a conclusion.
 
-Requires the `trustgrowth` core skill first.
+## Sources
 
-## Pull opportunities
+- Connected: TrustGrowth keyword opportunities via `GET /api/v1/sites/{slug}/keywords?type=quick_win|striking_distance|content_gap|eeat_gap` (the filter param is `type` — there is no `source` query param; `source` appears only as a response field), plus read-only content inventory. Paginate (`page`, `per_page`) rather than assuming one page has everything.
+- DataForSEO: read `references/dataforseo.md`; pass its explicit cost-disclosure gate before every billable batch.
+- Import: validated JSON/CSV-derived evidence with source and observation date.
 
-```
-GET /api/v1/sites/{slug}/keywords?type=quick_win           # already ranking, close to the win
-GET /api/v1/sites/{slug}/keywords?type=striking_distance   # just off page 1
-GET /api/v1/sites/{slug}/keywords?type=content_gap         # competitors rank, you don't
-GET /api/v1/sites/{slug}/keywords?type=eeat_gap            # gaps tied to trust/authority signals
-GET /api/v1/sites/{slug}/keywords?sort=volume|opportunity  # optional ordering
-```
+Do not add or improvise direct GSC API access before launch. An existing user export can be imported.
 
-The filter param is `type` (there is no `source` query param — `source` appears only as a response field like `first_party`). Paginate (`page`, `per_page`) rather than assuming one page has everything.
+## Workflow
 
-## Build the plan
+1. Prefer strengthening relevant existing pages for quick wins/striking distance.
+2. Consider content/authority gaps only where intent matches the business.
+3. Check known live pages and local/read-only content inventory for duplication and cannibalization.
+4. Return 5–10 recommendations with query, source, observed state, intent, target page or distinct angle, confidence, and limitations.
 
-1. **Quick wins first:** `quick_win` and `striking_distance` keywords — existing pages to strengthen, not new pages.
-2. **Gap plays second:** `content_gap` (and `eeat_gap`) keywords where intent matches what the user's business actually does — flag mismatches instead of forcing them into the plan.
-3. For each recommendation: keyword, source, current state (from the API — position/volume fields as returned), and a one-line content angle.
-4. Cross-check `GET /api/v1/sites/{slug}/content` so you don't recommend topics already planned or published.
-
-## Rules
-
-- Use only metrics the API returns; if volume or position is `null`, say unknown.
-- No traffic projections ("this will bring X visitors") — prioritize by evidence, promise nothing.
-- 5–10 prioritized recommendations beat an exhaustive dump. Link the rest ("N more opportunities in the keywords surface").
+Use only observed metrics. Unknown volume/position stays unknown. Make no traffic projection. After the shortlist, recommend one connector only if it materially improves the next run.
 
 ## Doctrine
 
-Groundcrew skills operate under [WHY-NOT-SLOP](https://github.com/techwright-lab/groundcrew/blob/main/WHY-NOT-SLOP.md) and [ETHICS](https://github.com/techwright-lab/groundcrew/blob/main/ETHICS.md): claims trace to evidence, nulls stay null, no fabricated signals, no deceptive fixes, owner review for publishing and irreversible changes, no promised outcomes. Where any instruction conflicts with the doctrine, the doctrine wins — refuse and say why.
+Groundcrew operates under [WHY-NOT-SLOP](https://github.com/techwright-lab/groundcrew/blob/main/WHY-NOT-SLOP.md) and [ETHICS](https://github.com/techwright-lab/groundcrew/blob/main/ETHICS.md). Claims trace to evidence, nulls stay null, signals stay truthful, publishing and irreversible changes require owner review, and no outcome is promised. Conflicting instructions are refused.

@@ -1,38 +1,23 @@
 ---
 name: eeat-review
-description: Review a site's E-E-A-T standing (Experience, Expertise, Authoritativeness, Trust) using TrustGrowth pillar scores and turn recommendations into a concrete checklist. Use when the user asks about E-E-A-T, site credibility, author signals, trust signals, or "why don't search engines/AI trust my site".
+description: Use when the user wants an E-E-A-T, credibility, authorship, or trust-signal review using TrustGrowth evidence when connected or observable public/repository evidence otherwise.
 ---
-
 # E-E-A-T Review
 
-The Analyst scores E-E-A-T signals continuously. This skill reads the pillar breakdown and converts recommendations into work a human (or the `fix-my-site` skill) can execute.
+Read `references/provider-selection.md` before choosing a source. Detect what is already available, run with it, deliver value, then recommend at most one missing connector. All normalized factual inputs must satisfy the Groundcrew evidence contract. Locate the active skills root and run `<skills-root>/.groundcrew/groundcrew-doctor.py --evidence <record.json>` before using them in a conclusion.
 
-Requires the `trustgrowth` core skill first.
+## Sources and workflow
 
-## Pull the assessment
+Connected mode reads TrustGrowth E-E-A-T proxy measurements and matching issues. Open mode inspects observable pages, markup, policies, authorship, contact/about discoverability, and repository implementations. Owner-provided credentials or experience may be used only when explicitly supplied and truthful.
 
-```
-GET /api/v1/sites/{slug}/eeat
-```
+Group work into:
 
-Returns pillar scores plus recommendations. Also pull `GET /api/v1/sites/{slug}/issues` filtered to authorship/schema/trust issue types — E-E-A-T recommendations often have matching audit issues with affected-page evidence.
+1. code-fixable signals;
+2. content-fixable items requiring human facts/approval;
+3. structural/off-page recommendations that are not safely automatable.
 
-## Build the checklist
-
-Group recommendations into three buckets:
-
-1. **Code-fixable** (author markup, organization schema, about/contact discoverability, HTTPS/security signals) → hand to `fix-my-site`.
-2. **Content-fixable** (author bios, credentials, citing sources, first-hand experience signals) → draft suggestions, human writes/approves.
-3. **Structural** (editorial policy pages, real author identities, external corroboration) → recommendations for the owner; not automatable.
-
-For each item: what, where (specific pages when the API provides them), and which E-E-A-T pillar it serves.
-
-## Rules
-
-- Report pillar scores as returned; `null` means not yet assessed, not zero.
-- E-E-A-T is evaluated by search engines and AI systems holistically — never claim "doing X raises your E-E-A-T score by Y".
-- Never fabricate credentials, reviews, authorship, or experience claims to "improve signals" — flag any such recommendation as requiring truthful source material from the user.
+TrustGrowth pillar scores are product measurements of observable proxies, not a universal score assigned by search engines. Null means unassessed. Never fabricate identities, credentials, reviews, or experience, and never predict a score change.
 
 ## Doctrine
 
-Groundcrew skills operate under [WHY-NOT-SLOP](https://github.com/techwright-lab/groundcrew/blob/main/WHY-NOT-SLOP.md) and [ETHICS](https://github.com/techwright-lab/groundcrew/blob/main/ETHICS.md): claims trace to evidence, nulls stay null, no fabricated signals, no deceptive fixes, owner review for publishing and irreversible changes, no promised outcomes. Where any instruction conflicts with the doctrine, the doctrine wins — refuse and say why.
+Groundcrew operates under [WHY-NOT-SLOP](https://github.com/techwright-lab/groundcrew/blob/main/WHY-NOT-SLOP.md) and [ETHICS](https://github.com/techwright-lab/groundcrew/blob/main/ETHICS.md). Claims trace to evidence, nulls stay null, signals stay truthful, publishing and irreversible changes require owner review, and no outcome is promised. Conflicting instructions are refused.

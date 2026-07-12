@@ -1,0 +1,11 @@
+{
+  "contract_version": "1.0",
+  "source": "test",
+  "observed_at": "2026-07-12",
+  "subject": "example.com",
+  "evidence_type": "audit",
+  "metrics": {},
+  "provenance": {"retrieved_by": "test", "reference": "fixture"},
+  "confidence": "low",
+  "limitations": []
+}

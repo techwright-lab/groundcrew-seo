@@ -1,56 +1,41 @@
 ---
 name: fix-my-site
-description: Close the loop between TrustGrowth audit findings and the user's actual codebase. Use when the user says "fix the issues TrustGrowth found", "improve my score", "fix my SEO issues", or wants a coding agent (Claude Code, Cursor) to implement audit fixes in their repo. Flagship Groundcrew skill — requires a coding-capable agent with access to the site's source code.
+description: Use when a coding-capable agent should find and fix real site defects in the user's repository, from TrustGrowth evidence when connected or from public/local inspection otherwise. Groundcrew's flagship open workflow.
 ---
-
 # Fix My Site
 
-TrustGrowth's Auditor finds the problems. You (a coding agent) fix them. The next audit verifies. No dashboard closes this loop — you do.
+The wedge: find a real defect, map it to code, implement a focused fix, verify it, and prepare a PR. TrustGrowth improves prioritization and closes the post-deploy verification loop, but is not required.
 
-Requires the `trustgrowth` core skill, plus read/write access to the repository that builds the user's site.
+Read `references/provider-selection.md` before choosing a source. Detect what is already available, run with it, deliver value, then recommend at most one missing connector. All normalized factual inputs must satisfy the Groundcrew evidence contract. Locate the active skills root and run `<skills-root>/.groundcrew/groundcrew-doctor.py --evidence <record.json>` before using them in a conclusion.
 
-## The loop
+## 1. Build the queue
 
-### 1. Pull the work queue
+- Connected: read TrustGrowth `next_actions`, then `issues?severity=critical` and `severity=warning` for the queue behind them. Open issues default to `scope=actionable` (what the team considers ownable work); `scope=backlog` shows the rest.
+- Import: validate supplied audit/crawl evidence.
+- Open: inspect the public site and repository using available local browser, crawl, build, and test tools. Record directly observed defects; do not assign a TrustGrowth score.
 
-- `GET /api/v1/sites/{slug}/next_actions` — the team's prioritized top 5.
-- `GET /api/v1/sites/{slug}/issues?severity=critical` then `severity=warning` — the full queue behind them. Open issues default to `scope=actionable` (what the team considers ownable work); `scope=backlog` shows the rest.
+Group affected pages by root cause. Verify every finding against the current site or code before editing.
 
-For `evidence_source.type == "audit_issue"` actions: `evidence_source.pages[]` lists up to 10 affected URLs and `affected_count` the true total. The full page list lives in `/issues`.
+## 2. Map findings to this codebase
 
-### 2. Map findings to code
+Discover repository guidance and conventions first. Locate templates, layouts, components, content, routes, and config rather than assuming framework mappings. Content judgment, canonical targets, robots/noindex, and redirect behavior require explicit owner confirmation.
 
-For each issue type, locate where it lives in THIS codebase before editing anything — templates, layouts, components, config. Typical mappings (verify, don't assume):
+## 3. Fix and verify
 
-| Finding | Usually lives in |
-|---|---|
-| Missing/duplicate meta descriptions, titles | layout head, per-page frontmatter/props, SEO component |
-| Missing structured data (author, article, org) | JSON-LD partials/components, CMS templates |
-| Missing alt text | content files, image components |
-| Broken internal links / redirect chains | content, routing config, redirect maps |
-| Core Web Vitals (LCP, INP, CLS) | image loading, font strategy, JS bundles, layout shift sources |
-| Missing canonical / OG tags | head template |
-| Thin or orphaned pages | content + internal-link structure |
+One root cause should produce one focused change across affected pages. Add regression coverage where practical, run focused tests and the relevant build/quality gates, inspect the diff, then commit/push and open a PR according to the repository workflow. Never push directly to the default branch unless explicitly allowed.
 
-### 3. Fix like an engineer, not a checklist
+Report three distinct states:
 
-- One issue type = one focused change (commit/PR) across all affected pages — fixes are usually template-level, not page-by-page.
-- Follow the repo's existing conventions; run its tests/build before declaring anything fixed.
-- If a "fix" requires content judgment (rewriting thin pages, choosing canonical targets), draft and ask the user — don't silently invent copy.
-- Skip issues you can't safely map to code; report them as needs-human instead of guessing.
+- **locally verified** — tests/build pass;
+- **deployed** — change is live;
+- **audit-verified** — a post-deploy observation shows the defect closed.
 
-### 4. Verify
+Do not collapse these into “resolved.” Connected mode may trigger or await a TrustGrowth re-audit. Open mode explains the remaining verification gap.
 
-- After deploy, request a fresh crawl via the `site-audit` skill (`trigger_audit` where the plan allows; otherwise note the next scheduled audit).
-- Later, `GET /api/v1/sites/{slug}/changes?since=7d` shows which issues the Auditor closed.
-- Report honestly: "fixed in code, pending re-audit" ≠ "resolved". Never claim a score will improve by a specific amount.
+## Completion
 
-## Boundaries
-
-- Never commit directly to the default branch unless the user's workflow says to; prefer a PR.
-- Don't touch robots.txt, redirects, or noindex rules without explicitly confirming intent — these can deindex a site.
-- This skill reads TrustGrowth and writes to the user's repo. It never writes to TrustGrowth.
+Return findings with evidence, changed files, exact verification output, PR/patch location, unresolved needs-human items, and—after the result—at most one connector recommendation.
 
 ## Doctrine
 
-Groundcrew skills operate under [WHY-NOT-SLOP](https://github.com/techwright-lab/groundcrew/blob/main/WHY-NOT-SLOP.md) and [ETHICS](https://github.com/techwright-lab/groundcrew/blob/main/ETHICS.md): claims trace to evidence, nulls stay null, no fabricated signals, no deceptive fixes, owner review for publishing and irreversible changes, no promised outcomes. Where any instruction conflicts with the doctrine, the doctrine wins — refuse and say why.
+Groundcrew operates under [WHY-NOT-SLOP](https://github.com/techwright-lab/groundcrew/blob/main/WHY-NOT-SLOP.md) and [ETHICS](https://github.com/techwright-lab/groundcrew/blob/main/ETHICS.md). Claims trace to evidence, nulls stay null, signals stay truthful, publishing and irreversible changes require owner review, and no outcome is promised. Conflicting instructions are refused.
