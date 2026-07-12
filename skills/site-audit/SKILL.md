@@ -22,9 +22,9 @@ Group pages by root cause. Separate directly observed facts from interpretation.
 
 `POST /api/v1/sites/{slug}/trigger_audit` requires write scope and explicit user intent. Responses to handle:
 
-- `202` — queued; poll `GET /api/v1/sites/{slug}/jobs/{job_id}` for status (`agent_runs/{job_id}` is a legacy alias).
+- `202` — queued; response includes `data.job_id`. Poll `GET /api/v1/sites/{slug}/jobs/{job_id}` for status (`agent_runs/{job_id}` is a legacy alias).
 - `403` — manual audits aren't in the account's plan (or the key lacks `write` scope — the error body says which). **Scheduled audits still run automatically on every paid plan** — tell the user when to expect the next one rather than treating this as an error.
-- `429` — the same site was triggered within the last hour, or a run is already in flight; wait, don't stack retries.
+- `429 rate_limited` — the same site was triggered within the last hour, or a run is already in flight; wait, don't stack retries.
 
 Hand safe code-fixable findings to `fix-my-site`.
 

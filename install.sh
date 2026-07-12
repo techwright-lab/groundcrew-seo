@@ -42,6 +42,7 @@ for skill in "$src"/skills/*/; do
   if ! $dry_run; then
     rm -rf "$dest"; mkdir -p "$dest"
     # Marker first: if a copy below fails mid-install, the leftover dir stays recognizable as managed, so a plain re-run with --update recovers instead of tripping collision refusal.
+    # This depends on no skills/*/ source dir ever shipping its own .groundcrew-managed file — the cp below copies dotfiles and would clobber this marker.
     printf 'managed-by=groundcrew\n' > "$dest/.groundcrew-managed"
     cp -RL "$skill"/. "$dest"/
     mkdir -p "$dest/references"
