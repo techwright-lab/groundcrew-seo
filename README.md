@@ -4,6 +4,8 @@
 
 Groundcrew is a provider-flexible set of plain-Markdown skills for site auditing, repository fixes, keyword and competitor research, credibility review, reporting, standups, and read-only content inventory. It works with public/local evidence, validated imports, optional cost-gated DataForSEO, or TrustGrowth's complete managed evidence layer.
 
+Current pack version: `0.2.0`.
+
 ## Start with the wedge
 
 Ask a coding-capable agent:
@@ -21,12 +23,16 @@ Ask a coding-capable agent:
 | `keyword-scout` | Validated imports or cost-gated DataForSEO | Normalized opportunities + content awareness |
 | `competitor-watch` | Point-in-time observation/import | Curated tracking and movement history |
 | `eeat-review` | Observable trust-signal checklist | Persisted proxy assessment + page evidence |
+| `ai-visibility` | AI-search readiness and citation/referral evidence review | Summary visibility/GEO components until detailed connected APIs ship |
+| `authority-review` | Entity, credibility, citations, and cohort review | TrustGrowth authority score semantics |
+| `backlink-opportunities` | Imported/direct-provider backlink and prospect workflow | Connected details after public API support ships |
+| `content-strategy` | Owner-approved open/import strategy plan | Connected strategy view/regenerate after public API support ships |
 | `score-report` | Source-specific evidence report | Score history + publication-safe packet |
 | `standup` | Available evidence/artifact summary | Persisted team activity and deltas |
 | `content-desk` | **Local/read-only inventory only** | Read-only hosted inventory; engine remains waitlist-only |
 | `trustgrowth` | Optional provider connector | Complete managed operating layer |
 
-Direct GSC and PageSpeed Insights connectors are deliberately deferred until after the 2026-07-21 launch. TrustGrowth content writes remain dark; Groundcrew does not expose or imply unavailable generation/publishing operations.
+Direct GSC and PageSpeed Insights connectors are not currently supported as Groundcrew direct-provider integrations; use imports or TrustGrowth-managed evidence when available. TrustGrowth content writes remain dark; Groundcrew does not expose or imply unavailable generation/publishing operations.
 
 ## Provider behavior
 
@@ -36,20 +42,26 @@ Every normalized factual input follows [`shared/evidence.schema.yaml`](shared/ev
 
 ## Install
 
-Safer tagged/reviewable installation is recommended for launch releases. From a checked-out repository:
+Safer tagged/reviewable installation is recommended. From a checked-out repository:
 
 ```bash
 ./install.sh --dry-run
 ./install.sh
 ```
 
-Convenience install from current main:
+Pinned release install:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/techwright-lab/groundcrew/v0.2.0/install.sh | bash
+```
+
+Latest-main convenience install for previewing unreleased changes:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/techwright-lab/groundcrew/main/install.sh | bash
 ```
 
-The installer refuses collisions by default. Use `--update` only for a prior Groundcrew-managed install, or `--force` after reviewing the exact paths. Override detection with `--skills-dir PATH`.
+The installer refuses collisions by default. Use `--update` only for a prior Groundcrew-managed install, or `--force` after reviewing the exact paths. Override detection with `--skills-dir PATH`. Override the release source with `--ref REF` or `GROUNDCREW_REF=REF` when you intentionally want a different tag, branch, or commit.
 
 Run diagnostics:
 

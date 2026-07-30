@@ -10,7 +10,25 @@
     "source": {"type": "string", "minLength": 1},
     "observed_at": {"type": "string", "format": "date-time"},
     "subject": {"type": "string", "minLength": 1},
-    "evidence_type": {"type": "string", "enum": ["audit", "analytics", "keyword", "competitor", "content_inventory", "repository", "report"]},
+    "evidence_type": {
+      "type": "string",
+      "enum": [
+        "audit",
+        "analytics",
+        "keyword",
+        "competitor",
+        "content_inventory",
+        "repository",
+        "report",
+        "ai_visibility",
+        "authority",
+        "backlink",
+        "content_strategy",
+        "link_graph",
+        "structured_data",
+        "ai_referral"
+      ]
+    },
     "metrics": {"type": "object"},
     "provenance": {
       "type": "object",

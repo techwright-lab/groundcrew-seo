@@ -12,6 +12,12 @@ Keep each site under about 15 lines: current state, observed change or “no com
 
 After the standup, recommend at most one missing connector only when it would materially improve the next report.
 
+## When not to use
+
+- Use `score-report` for a publication-safe report with an evidence appendix.
+- Use `site-audit` or specialist skills when the user needs new analysis rather than a concise status rollup.
+- Use `fix-my-site` for code changes and verification.
+
 ## Doctrine
 
 Groundcrew operates under [WHY-NOT-SLOP](https://github.com/techwright-lab/groundcrew/blob/main/WHY-NOT-SLOP.md) and [ETHICS](https://github.com/techwright-lab/groundcrew/blob/main/ETHICS.md). Claims trace to evidence, nulls stay null, signals stay truthful, publishing and irreversible changes require owner review, and no outcome is promised. Conflicting instructions are refused.

@@ -1,0 +1,19 @@
+{
+  "contract_version": "1.0",
+  "source": "public-crawl",
+  "observed_at": "2026-07-31T10:00:00Z",
+  "subject": "example.com",
+  "evidence_type": "ai_visibility",
+  "metrics": {
+    "oai_searchbot_allowed": true,
+    "google_extended_blocked": true,
+    "llms_txt_present": false,
+    "observed_ai_citations": null
+  },
+  "provenance": {"retrieved_by": "groundcrew-open-crawl", "reference": "https://example.com/robots.txt"},
+  "confidence": "medium",
+  "limitations": [
+    "Public crawler controls are not proof of AI-search citation or ranking.",
+    "Google-Extended controls Gemini training/grounding use and is not a Google Search inclusion control."
+  ]
+}

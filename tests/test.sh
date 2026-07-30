@@ -3,7 +3,9 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 python3 -m py_compile "$ROOT/scripts/groundcrew-doctor.py" "$ROOT/tests/test_timestamp.py"
 python3 "$ROOT/tests/test_timestamp.py"
+[[ "$(<"$ROOT/VERSION")" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "VERSION is not semver" >&2; exit 1; }
 "$ROOT/scripts/groundcrew-doctor.py" --evidence "$ROOT/examples/evidence/valid-keyword.json"
+"$ROOT/scripts/groundcrew-doctor.py" --evidence "$ROOT/examples/evidence/valid-ai-visibility.json"
 if "$ROOT/scripts/groundcrew-doctor.py" --evidence "$ROOT/tests/fixtures/invalid-evidence.json" >/dev/null 2>&1; then echo "invalid evidence unexpectedly passed" >&2; exit 1; fi
 if "$ROOT/scripts/groundcrew-doctor.py" --evidence "$ROOT/tests/fixtures/invalid-date-only.json" >/dev/null 2>&1; then echo "date-only timestamp unexpectedly passed" >&2; exit 1; fi
 tmp="$(mktemp -d)"; trap 'rm -rf "$tmp"' EXIT
@@ -24,6 +26,8 @@ test ! -e "$tmp/dry"
 printf '\ndrift\n' >> "$tmp/skills/keyword-scout/references/dataforseo.md"
 if "$tmp/skills/.groundcrew/groundcrew-doctor.py" >/dev/null 2>&1; then echo "DataForSEO guard drift unexpectedly passed" >&2; exit 1; fi
 SKILLS_DIR="$tmp/skills" "$ROOT/install.sh" --update >/dev/null
+SKILLS_DIR="$tmp/dry-ref" "$ROOT/install.sh" --dry-run --ref main >/dev/null
+test ! -e "$tmp/dry-ref"
 # Provider-selection drift must fail.
 printf '\ndrift\n' >> "$tmp/skills/fix-my-site/references/provider-selection.md"
 if "$tmp/skills/.groundcrew/groundcrew-doctor.py" >/dev/null 2>&1; then echo "drift unexpectedly passed" >&2; exit 1; fi

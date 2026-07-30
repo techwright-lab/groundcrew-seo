@@ -32,7 +32,7 @@ Use live OpenAPI first. All site endpoints take the site `slug` from `GET /api/v
 | `/api/v1/sites/{slug}/keywords` | Keyword opportunities (`?type=quick_win\|striking_distance\|content_gap\|eeat_gap`, `?sort=volume\|opportunity`) — the filter param is `type`; `source` is a response field only |
 | `/api/v1/sites/{slug}/competitors` | Competitor domains + comparison |
 | `/api/v1/sites/{slug}/eeat` | E-E-A-T pillar scores + recommendations |
-| `/api/v1/sites/{slug}/snapshots` | Time-series (`?from=`, `?to=`, `?granularity=`) |
+| `/api/v1/sites/{slug}/snapshots` | Use only when the live OpenAPI reports this surface as implemented; otherwise use date-addressed score/history and label trend depth Unknown |
 | `/api/v1/sites/{slug}/content` | Content pipeline state (read); active entries by default, `?status=all` for full inventory |
 | `/api/v1/sites/{slug}/jobs/{job_id}` | Status of a queued agent run (`agent_runs/{job_id}` is a legacy alias) |
 
@@ -41,13 +41,18 @@ Other documented reads (e.g. `publication_evidence_packet`) appear in the live O
 ## Contract rules
 
 1. Only use endpoints in the live OpenAPI. Never invent endpoints or fields.
-2. Rate-limit state comes back in the response body at `meta.rate_limit` (`limit`/`remaining`/`reset`), not in HTTP headers; on `429`, wait, don't hammer.
+2. Rate-limit state may appear in response body metadata and/or HTTP headers such as `X-RateLimit-Limit`, `X-RateLimit-Remaining`, `X-RateLimit-Reset`, and `Retry-After`; consume the documented response deterministically. On `429`, wait, don't hammer.
 3. `404` on a slug usually means a typo or a site the key can't access — re-list sites.
 4. Report numbers as they are. Missing data comes back as `null`, never zero — don't convert nulls to zeros in summaries.
 
 ## Content boundary
 
-TrustGrowth content-engine writes are not available for the launch. Do not attempt, document, or imply content generation, approval, scheduling, publishing, review-queue, or lifecycle writes. `GET .../content` is read-only inventory.
+TrustGrowth content-engine writes are not available through Groundcrew unless the live public contract and owner approval explicitly allow them. Do not attempt, document, or imply content generation, approval, scheduling, publishing, review-queue, or lifecycle writes. `GET .../content` is read-only inventory.
+
+## When not to use
+
+- Use the specialist workflow skill (`fix-my-site`, `site-audit`, `keyword-scout`, `content-strategy`, `ai-visibility`, `authority-review`, `backlink-opportunities`, `competitor-watch`, `eeat-review`, `score-report`, `content-desk`, or `standup`) after provider setup/discovery is complete.
+- Do not route open/import work here merely because TrustGrowth is absent; the other skills can run without it.
 
 ## Doctrine
 

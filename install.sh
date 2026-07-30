@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 REPO_URL="https://github.com/techwright-lab/groundcrew"
+REPO_REF="${GROUNDCREW_REF:-v0.2.0}"
 SKILLS_DIR="${SKILLS_DIR:-}"
 dry_run=false; force=false; update=false
-usage() { echo "Usage: $0 [--dry-run] [--update|--force] [--skills-dir PATH]"; }
+usage() { echo "Usage: $0 [--dry-run] [--update|--force] [--skills-dir PATH] [--ref REF]"; }
 while [ "$#" -gt 0 ]; do
   case "$1" in
     --dry-run) dry_run=true;; --force) force=true;; --update) update=true;;
     --skills-dir) shift; SKILLS_DIR="${1:?--skills-dir requires a path}";;
+    --ref) shift; REPO_REF="${1:?--ref requires a tag, branch, or commit}";;
     -h|--help) usage; exit 0;; *) echo "Unknown option: $1" >&2; usage >&2; exit 2;;
   esac; shift
 done
@@ -20,7 +22,15 @@ fi
 workdir="$(mktemp -d)"; trap 'rm -rf "$workdir"' EXIT
 # BASH_SOURCE is unset when piped (curl | bash); $0 then points at the shell, and the checkout test below fails into the clone path.
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
-if [ -d "$script_dir/skills" ] && [ -d "$script_dir/shared" ]; then src="$script_dir"; else git clone --depth 1 --quiet "$REPO_URL" "$workdir/groundcrew"; src="$workdir/groundcrew"; fi
+if [ -d "$script_dir/skills" ] && [ -d "$script_dir/shared" ]; then
+  src="$script_dir"
+else
+  if ! git clone --depth 1 --branch "$REPO_REF" --quiet "$REPO_URL" "$workdir/groundcrew" 2>/dev/null; then
+    git clone --quiet "$REPO_URL" "$workdir/groundcrew"
+    git -C "$workdir/groundcrew" checkout --quiet "$REPO_REF"
+  fi
+  src="$workdir/groundcrew"
+fi
 collisions=()
 for skill in "$src"/skills/*/; do
   name="$(basename "$skill")"; dest="$SKILLS_DIR/$name"
@@ -34,6 +44,7 @@ if [ "${#collisions[@]}" -gt 0 ]; then
   echo "Use --update for Groundcrew-managed installs or --force after reviewing paths." >&2; exit 1
 fi
 echo "Groundcrew install into $SKILLS_DIR"
+echo "  source: ${REPO_REF}"
 if ! $dry_run && { $update || $force; }; then
   echo "  note: existing managed skill directories are replaced entirely; files you added inside them will be removed."
 fi

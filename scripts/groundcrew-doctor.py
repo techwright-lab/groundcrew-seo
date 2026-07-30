@@ -3,6 +3,10 @@
 import argparse, datetime as dt, json, os, pathlib, re, subprocess, sys, urllib.error, urllib.request
 
 SCRIPT = pathlib.Path(__file__).resolve()
+REQUIRED_EVIDENCE_TYPES = {
+    "audit", "analytics", "keyword", "competitor", "content_inventory", "repository", "report",
+    "ai_visibility", "authority", "backlink", "content_strategy", "link_graph", "structured_data", "ai_referral",
+}
 if SCRIPT.parent.name == ".groundcrew":
     ROOT = SCRIPT.parent
     SKILLS = SCRIPT.parent.parent
@@ -32,6 +36,11 @@ def load_schema(errors):
     required = {"$schema", "type", "required", "properties"}
     if not required.issubset(schema):
         fail("evidence schema is missing structural keys", errors)
+        return None
+    actual_types = set(schema.get("properties", {}).get("evidence_type", {}).get("enum", []))
+    missing_types = REQUIRED_EVIDENCE_TYPES - actual_types
+    if missing_types:
+        fail(f"evidence schema is missing evidence_type values: {', '.join(sorted(missing_types))}", errors)
         return None
     ok("evidence schema parses")
     return schema
