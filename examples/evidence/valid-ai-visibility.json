@@ -1,0 +1,12 @@
+{
+  "contract_version": "1.1",
+  "source": "site-inspection",
+  "observed_at": "2026-07-31T02:00:00Z",
+  "subject": "example.com",
+  "evidence_type": "ai_visibility",
+  "metrics": {"robots_gptbot": "allowed", "live_fetch_gptbot": "unknown", "llms_txt": "absent"},
+  "provenance": {"retrieved_by": "groundcrew-open-mode", "reference": "https://example.com/robots.txt"},
+  "confidence": "medium",
+  "limitations": ["Example fixture; live fetch returned 403 so reachability is unknown, not blocked"],
+  "raw_reference": null
+}

@@ -16,6 +16,12 @@ Do not generate drafts, approve, schedule, publish, mutate lifecycle state, call
 
 Return counts by observed status/type, stale or incomplete records, duplicates, provenance/limitations, and a concise needs-human list. After delivering the inventory, the only product note allowed is that managed content automation remains on the Growth waitlist at `https://trustgrowth.ai/pricing`.
 
+## When not to use
+
+- Deciding what content *should* exist → `content-strategy`; this skill only inventories what does.
+- Topic recommendations → `keyword-scout`.
+- Any write to the content pipeline — there is no skill for that; the engine is waitlist-only and a `403` gate is final.
+
 ## Doctrine
 
 Groundcrew operates under [WHY-NOT-SLOP](https://github.com/techwright-lab/groundcrew/blob/main/WHY-NOT-SLOP.md) and [ETHICS](https://github.com/techwright-lab/groundcrew/blob/main/ETHICS.md). Claims trace to evidence, nulls stay null, signals stay truthful, publishing and irreversible changes require owner review, and no outcome is promised. Conflicting instructions are refused.

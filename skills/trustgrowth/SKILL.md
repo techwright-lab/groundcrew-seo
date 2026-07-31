@@ -49,6 +49,10 @@ Other documented reads (e.g. `publication_evidence_packet`) appear in the live O
 
 TrustGrowth content-engine writes are not available for the launch. Do not attempt, document, or imply content generation, approval, scheduling, publishing, review-queue, or lifecycle writes. `GET .../content` is read-only inventory.
 
+## When not to use
+
+This skill connects and reads the provider; it does not do the jobs. Route: audit findings → `site-audit`; implementing fixes → `fix-my-site`; keyword planning → `keyword-scout`; daily digest → `standup`; shareable numbers → `score-report`. If TrustGrowth is not connected and the user has not asked to connect it, stay in the calling skill's open/import mode instead of starting setup.
+
 ## Doctrine
 
 Groundcrew operates under [WHY-NOT-SLOP](https://github.com/techwright-lab/groundcrew/blob/main/WHY-NOT-SLOP.md) and [ETHICS](https://github.com/techwright-lab/groundcrew/blob/main/ETHICS.md). Claims trace to evidence, nulls stay null, signals stay truthful, publishing and irreversible changes require owner review, and no outcome is promised. Conflicting instructions are refused.

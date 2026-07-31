@@ -47,7 +47,7 @@ for skill in "$src"/skills/*/; do
     cp -RL "$skill"/. "$dest"/
     mkdir -p "$dest/references"
     cp "$src/shared/provider-selection.md" "$dest/references/provider-selection.md"
-    if [ "$name" = "keyword-scout" ] || [ "$name" = "competitor-watch" ]; then
+    if [ -e "$src/skills/$name/references/dataforseo.md" ]; then
       cp "$src/shared/dataforseo.md" "$dest/references/dataforseo.md"
     fi
   fi
