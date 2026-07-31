@@ -2,7 +2,7 @@
 
 **Open growth skills your AI can use today. Connect TrustGrowth when you want the work measured, scheduled, prioritized, and verified.**
 
-Groundcrew is a provider-flexible set of plain-Markdown skills for site auditing, repository fixes, keyword and competitor research, credibility review, reporting, standups, and read-only content inventory. It works with public/local evidence, validated imports, optional cost-gated DataForSEO, or TrustGrowth's complete managed evidence layer.
+Groundcrew is a provider-flexible set of plain-Markdown skills for site auditing, repository fixes, keyword and competitor research, AI visibility, authority and backlink review, content strategy, credibility review, reporting, standups, and read-only content inventory. It works with public/local evidence, validated imports, optional cost-gated DataForSEO, or TrustGrowth's complete managed evidence layer.
 
 ## Start with the wedge
 
@@ -23,6 +23,10 @@ Ask a coding-capable agent:
 | `eeat-review` | Observable trust-signal checklist | Persisted proxy assessment + page evidence |
 | `score-report` | Source-specific evidence report | Score history + publication-safe packet |
 | `standup` | Available evidence/artifact summary | Persisted team activity and deltas |
+| `ai-visibility` | AI-crawler/readability/citation readiness + imported observations (census vs sample, labeled) | Score-level components today; the measured funnel (citations census, recall with confidence intervals) when the live API documents it |
+| `content-strategy` | Evidence-grounded strategy: pillars, sequence, distribution, measurement; owner-approved | Measured gap inputs; strategy read/regenerate when the live API documents them (approval stays in-app) |
+| `authority-review` | Entity/reference/credibility standing; no invented scores | TrustGrowth's own authority pillar, named as such |
+| `backlink-opportunities` | Import/cost-gated profile → human-reviewed opportunity plan; never disavow, never automated outreach | Authority pillar context; detailed backlink reads when the live API documents them |
 | `content-desk` | **Local/read-only inventory only** | Read-only hosted inventory; engine remains waitlist-only |
 | `trustgrowth` | Optional provider connector | Complete managed operating layer |
 
