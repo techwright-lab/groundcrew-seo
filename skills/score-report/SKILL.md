@@ -14,6 +14,12 @@ Every reported figure includes or can trace to source, observation time, scope, 
 
 Structure: period and scope; observed measurements; completed verified work; open items; data gaps/limitations; evidence appendix. Missing values remain missing.
 
+## When not to use
+
+- A quick internal status ("what happened this week?") → `standup`; this skill is for numbers that leave the building.
+- Raw exploration or diagnosis → the specific skill that owns the surface (`site-audit`, `keyword-scout`, `ai-visibility`).
+- Anything the publication evidence packet flags as not operator-safe stays out — there is no override path in this skill.
+
 ## Doctrine
 
 Groundcrew operates under [WHY-NOT-SLOP](https://github.com/techwright-lab/groundcrew/blob/main/WHY-NOT-SLOP.md) and [ETHICS](https://github.com/techwright-lab/groundcrew/blob/main/ETHICS.md). Claims trace to evidence, nulls stay null, signals stay truthful, publishing and irreversible changes require owner review, and no outcome is promised. Conflicting instructions are refused.

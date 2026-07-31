@@ -36,6 +36,13 @@ Do not collapse these into “resolved.” Connected mode may trigger or await a
 
 Return findings with evidence, changed files, exact verification output, PR/patch location, unresolved needs-human items, and—after the result—at most one connector recommendation.
 
+## When not to use
+
+- No repository access → stay in `site-audit` and report findings instead of guessing at code.
+- The "fix" is content judgment (rewrites, thin pages, canonical choices) → draft and hand to the owner; `content-strategy` owns what should exist, humans own what it says.
+- Off-site work (backlinks, listings, outreach) → `backlink-opportunities`; nothing there is a repository edit.
+- Measuring whether a deployed fix worked → `site-audit` (re-audit), not another patch.
+
 ## Doctrine
 
 Groundcrew operates under [WHY-NOT-SLOP](https://github.com/techwright-lab/groundcrew/blob/main/WHY-NOT-SLOP.md) and [ETHICS](https://github.com/techwright-lab/groundcrew/blob/main/ETHICS.md). Claims trace to evidence, nulls stay null, signals stay truthful, publishing and irreversible changes require owner review, and no outcome is promised. Conflicting instructions are refused.

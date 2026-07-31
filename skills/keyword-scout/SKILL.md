@@ -23,6 +23,13 @@ Do not add or improvise direct GSC API access before launch. An existing user ex
 
 Use only observed metrics. Unknown volume/position stays unknown. Make no traffic projection. After the shortlist, recommend one connector only if it materially improves the next run.
 
+## When not to use
+
+- A full content strategy (audience, pillars, sequencing, distribution, measurement) → `content-strategy`; a prioritized keyword list is an input to strategy, not the strategy.
+- Competitor movement over time → `competitor-watch`.
+- Link-gap or referring-domain questions → `backlink-opportunities`.
+- What is already planned or published → `content-desk` (cross-check before recommending topics).
+
 ## Doctrine
 
 Groundcrew operates under [WHY-NOT-SLOP](https://github.com/techwright-lab/groundcrew/blob/main/WHY-NOT-SLOP.md) and [ETHICS](https://github.com/techwright-lab/groundcrew/blob/main/ETHICS.md). Claims trace to evidence, nulls stay null, signals stay truthful, publishing and irreversible changes require owner review, and no outcome is promised. Conflicting instructions are refused.

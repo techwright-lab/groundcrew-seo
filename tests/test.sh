@@ -4,6 +4,7 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 python3 -m py_compile "$ROOT/scripts/groundcrew-doctor.py" "$ROOT/tests/test_timestamp.py"
 python3 "$ROOT/tests/test_timestamp.py"
 "$ROOT/scripts/groundcrew-doctor.py" --evidence "$ROOT/examples/evidence/valid-keyword.json"
+"$ROOT/scripts/groundcrew-doctor.py" --evidence "$ROOT/examples/evidence/valid-ai-visibility.json"
 if "$ROOT/scripts/groundcrew-doctor.py" --evidence "$ROOT/tests/fixtures/invalid-evidence.json" >/dev/null 2>&1; then echo "invalid evidence unexpectedly passed" >&2; exit 1; fi
 if "$ROOT/scripts/groundcrew-doctor.py" --evidence "$ROOT/tests/fixtures/invalid-date-only.json" >/dev/null 2>&1; then echo "date-only timestamp unexpectedly passed" >&2; exit 1; fi
 tmp="$(mktemp -d)"; trap 'rm -rf "$tmp"' EXIT

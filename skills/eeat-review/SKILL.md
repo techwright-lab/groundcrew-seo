@@ -18,6 +18,12 @@ Group work into:
 
 TrustGrowth pillar scores are product measurements of observable proxies, not a universal score assigned by search engines. Null means unassessed. Never fabricate identities, credentials, reviews, or experience, and never predict a score change.
 
+## When not to use
+
+- Backlink profile, referring domains, or off-site authority beyond observable trust signals → `authority-review` / `backlink-opportunities`.
+- Implementing code-fixable items (schema, author markup) → `fix-my-site`.
+- AI answer-engine presence and citations → `ai-visibility` (E-E-A-T proxies are inputs to it, not the measurement).
+
 ## Doctrine
 
 Groundcrew operates under [WHY-NOT-SLOP](https://github.com/techwright-lab/groundcrew/blob/main/WHY-NOT-SLOP.md) and [ETHICS](https://github.com/techwright-lab/groundcrew/blob/main/ETHICS.md). Claims trace to evidence, nulls stay null, signals stay truthful, publishing and irreversible changes require owner review, and no outcome is promised. Conflicting instructions are refused.

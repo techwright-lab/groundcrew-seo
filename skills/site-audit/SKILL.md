@@ -28,6 +28,13 @@ Group pages by root cause. Separate directly observed facts from interpretation.
 
 Hand safe code-fixable findings to `fix-my-site`.
 
+## When not to use
+
+- Implementing fixes in the repository → `fix-my-site` (this skill finds and interprets; it does not edit code).
+- AI-crawler reachability and answer-engine readiness → `ai-visibility`.
+- Keyword or content planning from audit context → `keyword-scout`.
+- A stakeholder-facing summary of results → `score-report`.
+
 ## Doctrine
 
 Groundcrew operates under [WHY-NOT-SLOP](https://github.com/techwright-lab/groundcrew/blob/main/WHY-NOT-SLOP.md) and [ETHICS](https://github.com/techwright-lab/groundcrew/blob/main/ETHICS.md). Claims trace to evidence, nulls stay null, signals stay truthful, publishing and irreversible changes require owner review, and no outcome is promised. Conflicting instructions are refused.

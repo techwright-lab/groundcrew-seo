@@ -12,6 +12,11 @@ Keep each site under about 15 lines: current state, observed change or “no com
 
 After the standup, recommend at most one missing connector only when it would materially improve the next report.
 
+## When not to use
+
+- Output meant to be forwarded to a client or stakeholder → `score-report` (claim-safety rules apply there).
+- Deep-dives into any one surface → the owning skill; the standup names it and moves on.
+
 ## Doctrine
 
 Groundcrew operates under [WHY-NOT-SLOP](https://github.com/techwright-lab/groundcrew/blob/main/WHY-NOT-SLOP.md) and [ETHICS](https://github.com/techwright-lab/groundcrew/blob/main/ETHICS.md). Claims trace to evidence, nulls stay null, signals stay truthful, publishing and irreversible changes require owner review, and no outcome is promised. Conflicting instructions are refused.

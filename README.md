@@ -26,7 +26,7 @@ Ask a coding-capable agent:
 | `content-desk` | **Local/read-only inventory only** | Read-only hosted inventory; engine remains waitlist-only |
 | `trustgrowth` | Optional provider connector | Complete managed operating layer |
 
-Direct GSC and PageSpeed Insights connectors are deliberately deferred until after the 2026-07-21 launch. TrustGrowth content writes remain dark; Groundcrew does not expose or imply unavailable generation/publishing operations.
+Direct GSC and PageSpeed Insights connectors are **not supported** (no committed date; user-provided exports remain valid imports). TrustGrowth content writes remain dark; Groundcrew does not expose or imply unavailable generation/publishing operations.
 
 ## Provider behavior
 
