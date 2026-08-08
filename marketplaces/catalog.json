@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "release": "0.2.0",
+  "canonicalRoot": "skills",
+  "repository": "https://github.com/techwright-lab/groundcrew",
+  "skills": [
+    {
+      "slug": "ai-visibility",
+      "description": "Assess whether AI answer engines can reach, use, and cite a site. Use when the user asks about AI visibility, GEO/AEO, AI Overview citations, LLM brand mentions, llms.txt, or AI crawler access. Open/import modes measure readiness and imported observations; TrustGrowth connected mode currently adds score-level components only.",
+      "path": "skills/ai-visibility"
+    },
+    {
+      "slug": "authority-review",
+      "description": "Review a site's authority standing — entity clarity, independent references, author credibility, reputation signals — from observable and imported evidence. Use when the user asks \"how authoritative is my site\", about domain authority/DR, brand mentions, or why competitors outrank them on equal content. Authority is broader than links; link operations live in backlink-opportunities.",
+      "path": "skills/authority-review"
+    },
+    {
+      "slug": "backlink-opportunities",
+      "description": "Analyze a backlink profile and produce a human-reviewed link-opportunity plan — reclamation, competitor intersection, linkable assets, unlinked mentions. Use when the user asks about backlinks, referring domains, link building, broken links pointing at them, or link gaps versus competitors. Import/direct-provider modes; never automates outreach or disavow.",
+      "path": "skills/backlink-opportunities"
+    },
+    {
+      "slug": "competitor-watch",
+      "description": "Use when the user wants competitor comparison or movement. Supports TrustGrowth history, cost-gated DataForSEO observations, and validated imports while separating snapshots from persisted tracking.",
+      "path": "skills/competitor-watch"
+    },
+    {
+      "slug": "content-desk",
+      "description": "Use for a read-only local or TrustGrowth content inventory. TrustGrowth content generation, approval, scheduling, publication, review, and lifecycle writes remain unavailable and waitlist-only.",
+      "path": "skills/content-desk"
+    },
+    {
+      "slug": "content-strategy",
+      "description": "Build an evidence-grounded content strategy — audience, pillars, sequencing, distribution, measurement — with explicit owner approval. Use when the user asks for a content strategy, content plan, editorial direction, or \"what should we publish and why\". A prioritized keyword list is an input to this skill, not its output.",
+      "path": "skills/content-strategy"
+    },
+    {
+      "slug": "eeat-review",
+      "description": "Use when the user wants an E-E-A-T, credibility, authorship, or trust-signal review using TrustGrowth evidence when connected or observable public/repository evidence otherwise.",
+      "path": "skills/eeat-review"
+    },
+    {
+      "slug": "fix-my-site",
+      "description": "Use when a coding-capable agent should find and fix real site defects in the user's repository, from TrustGrowth evidence when connected or from public/local inspection otherwise. Groundcrew's flagship open workflow.",
+      "path": "skills/fix-my-site"
+    },
+    {
+      "slug": "keyword-scout",
+      "description": "Use when the user wants a prioritized keyword or content-opportunity shortlist. Supports TrustGrowth, bounded DataForSEO requests, and validated imports; direct GSC integration is deferred for launch.",
+      "path": "skills/keyword-scout"
+    },
+    {
+      "slug": "score-report",
+      "description": "Use when the user wants a claim-safe growth report from validated current evidence, with TrustGrowth score/history when connected and source-specific reporting otherwise.",
+      "path": "skills/score-report"
+    },
+    {
+      "slug": "site-audit",
+      "description": "Use when the user wants a current site audit, technical SEO findings, Core Web Vitals interpretation, or a fresh TrustGrowth audit when connected. Supports connected, imported, and public/local evidence.",
+      "path": "skills/site-audit"
+    },
+    {
+      "slug": "standup",
+      "description": "Use when the user wants a concise daily or weekly site/growth standup from TrustGrowth history when connected or from validated available evidence and repository artifacts otherwise.",
+      "path": "skills/standup"
+    },
+    {
+      "slug": "trustgrowth",
+      "description": "Use when TrustGrowth is already connected or the user asks to connect it, authenticate, discover its API/MCP capabilities, or use persisted growth evidence. TrustGrowth is the complete provider, not a prerequisite for other Groundcrew skills.",
+      "path": "skills/trustgrowth"
+    }
+  ],
+  "surfaces": {
+    "repositoryDiscovery": [
+      "skills.sh",
+      "Smithery Skills",
+      "SkillsMP",
+      "AgentSkillsHub"
+    ],
+    "multiSkillPreview": [
+      "ClawHub",
+      "SkillX",
+      "Skilo"
+    ],
+    "plugins": [
+      "Claude Code",
+      "OpenAI Codex"
+    ]
+  }
+}
