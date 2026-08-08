@@ -9,12 +9,5 @@
   "homepage": "https://github.com/techwright-lab/groundcrew",
   "repository": "https://github.com/techwright-lab/groundcrew",
   "license": "MIT",
-  "displayName": "Groundcrew — TrustGrowth",
-  "keywords": [
-    "seo",
-    "growth",
-    "content",
-    "trustgrowth",
-    "skills"
-  ]
+  "skills": "./skills/"
 }

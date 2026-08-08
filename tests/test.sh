@@ -3,6 +3,14 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 python3 -m py_compile "$ROOT/scripts/groundcrew-doctor.py" "$ROOT/tests/test_timestamp.py"
 python3 "$ROOT/tests/test_timestamp.py"
+"$ROOT/scripts/generate-adapters.py" --check
+"$ROOT/scripts/validate-distribution.py"
+preview="$($ROOT/scripts/preview-publishers.sh)"
+test "$(printf '%s\n' "$preview" | grep -c '^ClawHub preview:')" -eq 13
+test "$(printf '%s\n' "$preview" | grep -c '^SkillX scan:')" -eq 13
+test "$(printf '%s\n' "$preview" | grep -c '^Skilo pack:')" -eq 13
+test "$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["version"])' "$ROOT/.claude-plugin/plugin.json")" = 0.2.0
+test "$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["skills"])' "$ROOT/.codex-plugin/plugin.json")" = ./skills/
 "$ROOT/scripts/groundcrew-doctor.py" --evidence "$ROOT/examples/evidence/valid-keyword.json"
 "$ROOT/scripts/groundcrew-doctor.py" --evidence "$ROOT/examples/evidence/valid-ai-visibility.json"
 if "$ROOT/scripts/groundcrew-doctor.py" --evidence "$ROOT/tests/fixtures/invalid-evidence.json" >/dev/null 2>&1; then echo "invalid evidence unexpectedly passed" >&2; exit 1; fi

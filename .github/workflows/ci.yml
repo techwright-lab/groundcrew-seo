@@ -14,8 +14,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Shell syntax
-        run: bash -n install.sh scripts/smoke.sh tests/test.sh
+        run: bash -n install.sh scripts/smoke.sh scripts/preview-publishers.sh tests/test.sh
       - name: Python syntax
-        run: python3 -m py_compile scripts/groundcrew-doctor.py
+        run: python3 -m py_compile scripts/groundcrew-doctor.py scripts/generate-adapters.py scripts/validate-distribution.py
       - name: Contracts, installer safety, and drift tests
         run: ./tests/test.sh

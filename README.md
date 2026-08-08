@@ -40,6 +40,16 @@ Every normalized factual input follows [`shared/evidence.schema.yaml`](shared/ev
 
 ## Install
 
+All 13 release skills live only under `skills/`; marketplace and plugin metadata is generated from that canonical source. Verify adapters, the exact public-file allowlist, and all multi-skill publisher previews without publishing:
+
+```bash
+./scripts/generate-adapters.py --check
+GROUNDCREW_PRINT_PAYLOAD=1 ./scripts/validate-distribution.py
+./scripts/preview-publishers.sh
+```
+
+CI fails when generated adapters drift. Directory imports and every printed publisher command remain preview-only until a human approves publication.
+
 Safer tagged/reviewable installation is recommended for launch releases. From a checked-out repository:
 
 ```bash
