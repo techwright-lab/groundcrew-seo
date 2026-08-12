@@ -50,11 +50,12 @@ GROUNDCREW_PRINT_PAYLOAD=1 ./scripts/validate-distribution.py
 
 CI fails when generated adapters drift. Directory imports and every printed publisher command remain preview-only until a human approves publication.
 
-Run the complete local quality gate with `bin/ci`. For a final pushed PR head, record its SHA,
-inspect the complete gate result, and let the agent decide whether it is trustworthy enough for
-`gh signoff --commit "$tested_sha" tests`. A zero exit is not sufficient when a required test was
-skipped, the environment was degraded, the result was flaky, the worktree changed, or the tested
-SHA differs from the PR head. Never use `-f`; a new commit needs fresh evidence. GitHub Actions
+Run the complete local quality gate with `bin/ci`. For a final pushed PR head, the producer records
+the clean matching SHA, runs the complete gate once, and records the full result. The producer does
+not sign. PR Coordinator routes that evidence to WrightBot, which independently validates it and
+alone publishes `signoff/tests` with its reviewer credential. Missing, stale, incomplete,
+ambiguous, degraded, or suspicious evidence means no signoff and may require a rerun. Never use
+`gh signoff -f`; a new commit needs fresh producer evidence and a WrightBot decision. GitHub Actions
 continues to run and require syntax validation on pull requests; the signoff replaces only the
 contract and drift test lane.
 
