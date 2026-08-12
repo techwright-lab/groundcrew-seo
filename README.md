@@ -52,10 +52,11 @@ CI fails when generated adapters drift. Directory imports and every printed publ
 
 Run the complete local quality gate with `bin/ci`. For a final pushed PR head, record its SHA,
 inspect the complete gate result, and let the agent decide whether it is trustworthy enough for
-`gh signoff --commit "$tested_sha" ci`. A zero exit is not sufficient when a required check was
+`gh signoff --commit "$tested_sha" tests`. A zero exit is not sufficient when a required test was
 skipped, the environment was degraded, the result was flaky, the worktree changed, or the tested
 SHA differs from the PR head. Never use `-f`; a new commit needs fresh evidence. GitHub Actions
-repeats the gate after merges to `main` rather than on pull requests.
+continues to run and require syntax validation on pull requests; the signoff replaces only the
+contract and drift test lane.
 
 Safer tagged/reviewable installation is recommended for launch releases. From a checked-out repository:
 
