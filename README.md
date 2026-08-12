@@ -50,6 +50,13 @@ GROUNDCREW_PRINT_PAYLOAD=1 ./scripts/validate-distribution.py
 
 CI fails when generated adapters drift. Directory imports and every printed publisher command remain preview-only until a human approves publication.
 
+Run the complete local quality gate with `bin/ci`. For a final pushed PR head, record its SHA,
+inspect the complete gate result, and let the agent decide whether it is trustworthy enough for
+`gh signoff --commit "$tested_sha" ci`. A zero exit is not sufficient when a required check was
+skipped, the environment was degraded, the result was flaky, the worktree changed, or the tested
+SHA differs from the PR head. Never use `-f`; a new commit needs fresh evidence. GitHub Actions
+repeats the gate after merges to `main` rather than on pull requests.
+
 Safer tagged/reviewable installation is recommended for launch releases. From a checked-out repository:
 
 ```bash

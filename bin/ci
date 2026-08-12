@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Canonical local CI gate for Groundcrew.
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+command -v python3 >/dev/null 2>&1 || {
+  echo "python3 is required" >&2
+  exit 1
+}
+
+bash -n install.sh scripts/smoke.sh scripts/preview-publishers.sh tests/test.sh
+python3 -m py_compile \
+  scripts/groundcrew-doctor.py \
+  scripts/generate-adapters.py \
+  scripts/validate-distribution.py
+./tests/test.sh

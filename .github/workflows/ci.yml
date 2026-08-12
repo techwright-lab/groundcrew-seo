@@ -1,9 +1,9 @@
 name: Groundcrew CI
 
 on:
-  pull_request:
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -13,9 +13,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Shell syntax
-        run: bash -n install.sh scripts/smoke.sh scripts/preview-publishers.sh tests/test.sh
-      - name: Python syntax
-        run: python3 -m py_compile scripts/groundcrew-doctor.py scripts/generate-adapters.py scripts/validate-distribution.py
-      - name: Contracts, installer safety, and drift tests
-        run: ./tests/test.sh
+      - name: Run canonical CI
+        run: bin/ci
