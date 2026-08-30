@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = "0.4.0"
+VERSION = "0.5.0"
 
 
 def skill_metadata(path: Path) -> dict[str, str]:
@@ -31,21 +31,21 @@ def outputs() -> dict[Path, object]:
     if len(skills) != 13:
         raise ValueError(f"release {VERSION} requires exactly 13 skills, found {len(skills)}")
     common = {
-        "name": "groundcrew",
+        "name": "groundcrew-seo",
         "version": VERSION,
-        "description": "Thirteen evidence-grounded growth skills from TrustGrowth.",
+        "description": "Thirteen open SEO and growth skills for AI agents — audit, fix, keywords, competitors, E-E-A-T, AI visibility, reports — from TrustGrowth.",
         "author": {"name": "TechWright", "url": "https://trustgrowth.ai"},
-        "homepage": "https://github.com/techwright-lab/groundcrew",
-        "repository": "https://github.com/techwright-lab/groundcrew",
+        "homepage": "https://github.com/techwright-lab/groundcrew-seo",
+        "repository": "https://github.com/techwright-lab/groundcrew-seo",
         "license": "MIT",
     }
-    claude = {**common, "displayName": "Groundcrew — TrustGrowth", "keywords": ["seo", "growth", "content", "trustgrowth", "skills"]}
+    claude = {**common, "displayName": "Groundcrew SEO — TrustGrowth", "keywords": ["seo", "seo agent skills", "technical seo", "search console", "e-e-a-t", "geo", "ai visibility", "growth", "trustgrowth", "skills"]}
     codex = {**common, "skills": "./skills/"}
     catalog = {
         "schemaVersion": 1,
         "release": VERSION,
         "canonicalRoot": "skills",
-        "repository": "https://github.com/techwright-lab/groundcrew",
+        "repository": "https://github.com/techwright-lab/groundcrew-seo",
         "skills": skills,
         "surfaces": {
             "repositoryDiscovery": ["skills.sh", "Smithery Skills", "SkillsMP", "AgentSkillsHub"],

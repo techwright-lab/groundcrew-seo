@@ -1,13 +1,13 @@
 {
-  "name": "groundcrew",
-  "version": "0.4.0",
-  "description": "Thirteen evidence-grounded growth skills from TrustGrowth.",
+  "name": "groundcrew-seo",
+  "version": "0.5.0",
+  "description": "Thirteen open SEO and growth skills for AI agents — audit, fix, keywords, competitors, E-E-A-T, AI visibility, reports — from TrustGrowth.",
   "author": {
     "name": "TechWright",
     "url": "https://trustgrowth.ai"
   },
-  "homepage": "https://github.com/techwright-lab/groundcrew",
-  "repository": "https://github.com/techwright-lab/groundcrew",
+  "homepage": "https://github.com/techwright-lab/groundcrew-seo",
+  "repository": "https://github.com/techwright-lab/groundcrew-seo",
   "license": "MIT",
   "skills": "./skills/"
 }

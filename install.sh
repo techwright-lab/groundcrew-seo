@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-REPO_URL="https://github.com/techwright-lab/groundcrew"
+REPO_URL="https://github.com/techwright-lab/groundcrew-seo"
 SKILLS_DIR="${SKILLS_DIR:-}"
 dry_run=false; force=false; update=false
 usage() { echo "Usage: $0 [--dry-run] [--update|--force] [--skills-dir PATH]"; }
