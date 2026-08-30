@@ -5,7 +5,25 @@ All notable changes to the Groundcrew skill pack. Versions are pack-level
 names the live-contract snapshot the pack's connected-mode text was checked
 against.
 
-## [Unreleased] — 0.2.0-dev
+## [Unreleased] — 0.3.0-dev
+
+### Added
+- Generated TrustGrowth contract: `skills/trustgrowth/references/contract.md`
+  is rendered by `scripts/gen-contract.py` from the vendored capability
+  manifest (`shared/contract/capabilities.json`, refresh with `--from-live`).
+  Skills may only reference paths that appear there; `scripts/validate-skills.py`
+  enforces it, together with frontmatter and required sections.
+- Contract pin (`shared/contract-pin.json`). `groundcrew-doctor.py --connectivity`
+  now fetches `GET /api/v1/capabilities/v1` and fails when the server's
+  `contract_version` is a different major or older than the pin.
+
+### Changed
+- `trustgrowth` skill: the hand-written endpoint table is replaced by the
+  generated contract; rate-limit rule corrected — `X-RateLimit-*` /
+  `Retry-After` headers are authoritative, `meta.rate_limit` mirrors them.
+- Five skill descriptions now open with their `Use when` trigger.
+
+## [0.2.0] — 2026-08-09
 
 ### Added
 - Four new skills (open/import mode; connected modes follow the TrustGrowth

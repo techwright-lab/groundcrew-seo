@@ -1,6 +1,6 @@
 ---
 name: authority-review
-description: Review a site's authority standing — entity clarity, independent references, author credibility, reputation signals — from observable and imported evidence. Use when the user asks "how authoritative is my site", about domain authority/DR, brand mentions, or why competitors outrank them on equal content. Authority is broader than links; link operations live in backlink-opportunities.
+description: Use when the user asks "how authoritative is my site", about domain authority/DR, brand mentions, or why competitors outrank them on equal content. Reviews entity clarity, independent references, author credibility, and reputation signals from observable and imported evidence. Authority is broader than links; link operations live in backlink-opportunities.
 ---
 # Authority Review
 

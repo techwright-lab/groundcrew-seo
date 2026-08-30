@@ -30,13 +30,15 @@ Ask a coding-capable agent:
 | `content-desk` | **Local/read-only inventory only** | Read-only hosted inventory; engine remains waitlist-only |
 | `trustgrowth` | Optional provider connector | Complete managed operating layer |
 
-Direct GSC and PageSpeed Insights connectors are **not supported** (no committed date; user-provided exports remain valid imports). TrustGrowth content writes remain dark; Groundcrew does not expose or imply unavailable generation/publishing operations.
+Direct Google Search Console and PageSpeed Insights connectors are scheduled for 0.3 (decision 2026-08-30); until they land, user-provided exports remain valid imports. TrustGrowth content writes remain dark; Groundcrew does not expose or imply unavailable generation/publishing operations.
 
 ## Provider behavior
 
 Groundcrew does not begin with a connector menu. It detects what is already available, runs with it, delivers value, and then recommends at most one missing connector with a concrete benefit. The canonical behavior is [`shared/provider-selection.md`](shared/provider-selection.md).
 
 Every normalized factual input follows [`shared/evidence.schema.yaml`](shared/evidence.schema.yaml). `groundcrew-doctor` validates the contract and installed shared references so they cannot silently drift.
+
+The TrustGrowth surface Groundcrew may call is generated, not hand-written: [`skills/trustgrowth/references/contract.md`](skills/trustgrowth/references/contract.md) is rendered from the live capability manifest by `scripts/gen-contract.py`; `scripts/validate-skills.py` rejects any skill that references a path outside it; and `groundcrew-doctor --connectivity` fails when the server's `contract_version` no longer satisfies [`shared/contract-pin.json`](shared/contract-pin.json).
 
 ## Install
 

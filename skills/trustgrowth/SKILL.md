@@ -18,32 +18,19 @@ MCP uses streamable HTTP at `POST $TRUSTGROWTH_API_BASE/mcp`. REST is documented
 
 `GET /api/v1/sites` with bearer authentication. `401` means missing/invalid key. On `403`, report the exact error body; do not guess plan or scope. Never invent data.
 
-## Core read surface
+## Surface
 
-Use live OpenAPI first. All site endpoints take the site `slug` from `GET /api/v1/sites`. Verified filter params and enums (live OpenAPI, 2026-07-10):
+The callable surface is `references/contract.md`, generated from the live capability manifest (`GET /api/v1/capabilities/v1`) by `scripts/gen-contract.py`. It lists every read and write path, its query params, the MCP tool with the same name, scopes, and error codes. Never hand-write an endpoint; if it is not in that file, do not call it. Site paths take the `slug` from `GET /api/v1/sites`.
 
-| Endpoint | Notes |
-|---|---|
-| `/api/v1/sites/{slug}/summary` | Composite snapshot — best second call |
-| `/api/v1/sites/{slug}/score` | Score breakdown; `?date=YYYY-MM-DD` for history |
-| `/api/v1/sites/{slug}/issues` | Audit issues; `?status=open\|fixed\|all`, `?scope=actionable\|backlog`, `?severity=critical\|warning\|info` |
-| `/api/v1/sites/{slug}/next_actions` | Prioritized queue (max 5, evidence-backed) |
-| `/api/v1/sites/{slug}/changes?since=7d` | Deltas: `1d`, `7d`, `14d`, `30d` |
-| `/api/v1/sites/{slug}/keywords` | Keyword opportunities (`?type=quick_win\|striking_distance\|content_gap\|eeat_gap`, `?sort=volume\|opportunity`) — the filter param is `type`; `source` is a response field only |
-| `/api/v1/sites/{slug}/competitors` | Competitor domains + comparison |
-| `/api/v1/sites/{slug}/eeat` | E-E-A-T pillar scores + recommendations |
-| `/api/v1/sites/{slug}/snapshots` | Time-series (`?from=`, `?to=`, `?granularity=`) |
-| `/api/v1/sites/{slug}/content` | Content pipeline state (read); active entries by default, `?status=all` for full inventory |
-| `/api/v1/sites/{slug}/jobs/{job_id}` | Status of a queued agent run (`agent_runs/{job_id}` is a legacy alias) |
-
-Other documented reads (e.g. `publication_evidence_packet`) appear in the live OpenAPI. Missing values remain `null`. Normalize evidence used outside the raw response before drawing conclusions.
+Prefer the MCP tool name (for example `get_site_score`, `list_site_issues`, `trigger_audit`) when an MCP client is available; use the REST path in the same row otherwise. Both run the same code.
 
 ## Contract rules
 
 1. Only use endpoints in the live OpenAPI. Never invent endpoints or fields.
-2. Rate-limit state comes back in the response body at `meta.rate_limit` (`limit`/`remaining`/`reset`), not in HTTP headers; on `429`, wait, don't hammer.
+2. `X-RateLimit-*` and `Retry-After` headers are authoritative; `meta.rate_limit` in the body mirrors them for convenience. On `429`, wait for `Retry-After`, then retry once.
 3. `404` on a slug usually means a typo or a site the key can't access — re-list sites.
 4. Report numbers as they are. Missing data comes back as `null`, never zero — don't convert nulls to zeros in summaries.
+5. Every response carries `meta.contract_version`. `groundcrew-doctor.py --connectivity` fails when the server's version does not satisfy `shared/contract-pin.json` (same major, at least the pinned minor.patch). Do not work around a failed pin check.
 
 ## Content boundary
 

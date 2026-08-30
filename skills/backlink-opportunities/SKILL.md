@@ -1,6 +1,6 @@
 ---
 name: backlink-opportunities
-description: Analyze a backlink profile and produce a human-reviewed link-opportunity plan — reclamation, competitor intersection, linkable assets, unlinked mentions. Use when the user asks about backlinks, referring domains, link building, broken links pointing at them, or link gaps versus competitors. Import/direct-provider modes; never automates outreach or disavow.
+description: Use when the user asks about backlinks, referring domains, link building, broken links pointing at them, or link gaps versus competitors. Analyzes a backlink profile and produces a human-reviewed link-opportunity plan — reclamation, competitor intersection, linkable assets, unlinked mentions. Import/direct-provider modes; never automates outreach or disavow.
 ---
 # Backlink Opportunities
 

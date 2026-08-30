@@ -1,6 +1,6 @@
 ---
 name: ai-visibility
-description: Assess whether AI answer engines can reach, use, and cite a site. Use when the user asks about AI visibility, GEO/AEO, AI Overview citations, LLM brand mentions, llms.txt, or AI crawler access. Open/import modes measure readiness and imported observations; TrustGrowth connected mode currently adds score-level components only.
+description: Use when the user asks about AI visibility, GEO/AEO, AI Overview citations, LLM brand mentions, llms.txt, or AI crawler access. Assesses whether AI answer engines can reach, use, and cite a site. Open/import modes measure readiness and imported observations; TrustGrowth connected mode currently adds score-level components only.
 ---
 # AI Visibility
 
