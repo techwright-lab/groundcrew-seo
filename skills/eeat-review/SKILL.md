@@ -18,6 +18,10 @@ Group work into:
 
 TrustGrowth pillar scores are product measurements of observable proxies, not a universal score assigned by search engines. Null means unassessed. Never fabricate identities, credentials, reviews, or experience, and never predict a score change.
 
+## Sources by tier
+
+Categories: `~~web crawler` for observable trust signals (`references/connectors.md`); Tier 3 is TrustGrowth `eeat` pillar proxies. Nulls stay null.
+
 ## When not to use
 
 - Backlink profile, referring domains, or off-site authority beyond observable trust signals → `authority-review` / `backlink-opportunities`.
