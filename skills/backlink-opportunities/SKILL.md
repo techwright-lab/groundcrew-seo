@@ -10,7 +10,7 @@ Read `references/provider-selection.md` before choosing a source; DataForSEO cal
 
 ## Evidence in (import / direct provider)
 
-Backlink data is always a third-party index observation — no index sees every link. Every profile fact carries its provider name, retrieval date, and this limitation. Accept: provider exports (Ahrefs/Semrush/Moz/GSC links report), or cost-gated DataForSEO backlinks calls. Open mode without any link data does asset review only (step 3) and says the profile was not measured.
+Category: `~~link database` (`references/connectors.md`) — GSC Links export at Tier 1, Open PageRank at Tier 2, Ahrefs MCP or TrustGrowth backlink snapshots at Tier 3. Backlink data is always a third-party index observation — no index sees every link. Every profile fact carries its provider name, retrieval date, and this limitation. Accept: provider exports (Ahrefs/Semrush/Moz/GSC links report), or cost-gated DataForSEO backlinks calls. Open mode without any link data does asset review only (step 3) and says the profile was not measured.
 
 ## The opportunity lanes
 

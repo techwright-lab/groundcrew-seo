@@ -30,7 +30,7 @@ Ask a coding-capable agent:
 | `content-desk` | **Local/read-only inventory only** | Read-only hosted inventory; engine remains waitlist-only |
 | `trustgrowth` | Optional provider connector | Complete managed operating layer |
 
-Direct Google Search Console and PageSpeed Insights connectors are scheduled for 0.3 (decision 2026-08-30); until they land, user-provided exports remain valid imports. TrustGrowth content writes remain dark; Groundcrew does not expose or imply unavailable generation/publishing operations.
+Skills name evidence categories (`~~search console`, `~~page speed`, `~~SEO tool`, `~~link database`, `~~analytics`, `~~AI monitor`), never vendors. [`shared/connectors.md`](shared/connectors.md) maps each category to a Tier 1 default that needs nothing (a pasted export, a public fetch, a keyless free tool), a Tier 2 direct provider the user already has (PSI key, a local GSC or GA4 MCP), and Tier 3 (TrustGrowth for own-site history and verification; Ahrefs / Semrush MCP or DataForSEO for any-domain breadth). Groundcrew never sets a connector up on the user's behalf. TrustGrowth content writes remain dark; Groundcrew does not expose or imply unavailable generation/publishing operations.
 
 ## Provider behavior
 
@@ -78,6 +78,9 @@ Run diagnostics:
 Adjust the base path for your agent's skills directory.
 
 ## Optional providers
+
+- **Own-data sources (Tier 2):** Google Search Console and GA4 through a read-only MCP the user already runs, PageSpeed Insights with a free key. Recipes and normalization rules in [`shared/connectors.md`](shared/connectors.md).
+- **Paid indexes (Tier 3):** Ahrefs MCP and Semrush MCP when the user already pays for them; DataForSEO with the cost gate below.
 
 - **TrustGrowth:** create an API key inside the authenticated application, then set `TRUSTGROWTH_API_KEY`. REST docs: https://trustgrowth.ai/developers. MCP: `POST https://trustgrowth.ai/mcp`. REST and MCP coverage may differ; inspect their live manifests.
 - **DataForSEO:** optional and paid. Groundcrew must show a bounded cost preflight and receive explicit batch approval before every billable request. See [`shared/dataforseo.md`](shared/dataforseo.md).

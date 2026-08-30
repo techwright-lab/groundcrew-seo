@@ -10,6 +10,8 @@ Read `references/provider-selection.md` before choosing a source. Detect what is
 
 ## 1. Build the queue
 
+Categories: `~~web crawler` and `~~page speed` for open-mode evidence (`references/connectors.md`); connected mode uses TrustGrowth `next_actions` and `issues`.
+
 - Connected: read TrustGrowth `next_actions`, then `issues?severity=critical` and `severity=warning` for the queue behind them. Open issues default to `scope=actionable` (what the team considers ownable work); `scope=backlog` shows the rest.
 - Import: validate supplied audit/crawl evidence.
 - Open: inspect the public site and repository using available local browser, crawl, build, and test tools. Record directly observed defects; do not assign a TrustGrowth score.

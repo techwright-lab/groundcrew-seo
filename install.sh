@@ -47,6 +47,7 @@ for skill in "$src"/skills/*/; do
     cp -RL "$skill"/. "$dest"/
     mkdir -p "$dest/references"
     cp "$src/shared/provider-selection.md" "$dest/references/provider-selection.md"
+    cp "$src/shared/connectors.md" "$dest/references/connectors.md"
     if [ -e "$src/skills/$name/references/dataforseo.md" ]; then
       cp "$src/shared/dataforseo.md" "$dest/references/dataforseo.md"
     fi
@@ -55,7 +56,7 @@ done
 echo "  $SKILLS_DIR/.groundcrew"
 if ! $dry_run; then
   mkdir -p "$SKILLS_DIR/.groundcrew/shared"
-  cp "$src/shared/provider-selection.md" "$src/shared/evidence.schema.yaml" "$src/shared/dataforseo.md" "$src/shared/contract-pin.json" "$SKILLS_DIR/.groundcrew/shared/"
+  cp "$src/shared/provider-selection.md" "$src/shared/evidence.schema.yaml" "$src/shared/dataforseo.md" "$src/shared/connectors.md" "$src/shared/contract-pin.json" "$SKILLS_DIR/.groundcrew/shared/"
   cp "$src/scripts/groundcrew-doctor.py" "$SKILLS_DIR/.groundcrew/groundcrew-doctor.py"
   chmod +x "$SKILLS_DIR/.groundcrew/groundcrew-doctor.py"
 fi

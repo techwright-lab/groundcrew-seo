@@ -21,7 +21,7 @@ Read `references/provider-selection.md` before choosing a source. Detect what is
 
 ## Import mode — observations (the only non-readiness evidence available here)
 
-Accept user-supplied exports of actual AI-surface observations — AI Overview citation lists, LLM mention samples, AI-referral analytics — with source, observation time, engine, and sample size preserved. Rules:
+Category: `~~AI monitor` (`references/connectors.md`) — TrustGrowth free tools give keyless single-probe observations at Tier 1; the connected visibility funnel gives census and sampled rates at Tier 3. Accept user-supplied exports of actual AI-surface observations — AI Overview citation lists, LLM mention samples, AI-referral analytics — with source, observation time, engine, and sample size preserved. Rules:
 
 - **Distinguish census from sample.** A complete citation inventory is a census; N manual prompt checks are a sample. Label which one the evidence is, and never present a handful of chat probes as a rate — report "mentioned in 2 of 5 checks on <date>, engine X", not "40% visibility".
 - One observation is a snapshot. No trend claims from fewer than two dated captures of the same design.

@@ -5,7 +5,25 @@ All notable changes to the Groundcrew skill pack. Versions are pack-level
 names the live-contract snapshot the pack's connected-mode text was checked
 against.
 
-## [Unreleased] — 0.3.0-dev
+## [0.4.0] — 2026-08-30
+
+### Added
+- `shared/connectors.md`: evidence categories (`~~search console`, `~~page speed`,
+  `~~SEO tool`, `~~link database`, `~~analytics`, `~~AI monitor`, `~~web crawler`)
+  with a Tier 1 / 2 / 3 map and recipes for GSC exports and local MCP, PageSpeed
+  Insights, GA4 MCP, Open PageRank, Ahrefs and Semrush MCP, DataForSEO, and
+  TrustGrowth. Installed into every skill's `references/`; the doctor fails on
+  drift.
+
+### Changed
+- The GSC / PageSpeed Insights connector deferral is lifted (decision 2026-08-30):
+  `provider-selection.md` now describes categories and tiers instead of a ban.
+- Skills name evidence categories (`~~search console`, `~~SEO tool`, ...) instead
+  of vendors.
+
+## [0.3.0] — 2026-08-30
+
+Merged as #6; superseded by 0.4.0 before a marketplace release was cut.
 
 ### Added
 - Generated TrustGrowth contract: `skills/trustgrowth/references/contract.md`

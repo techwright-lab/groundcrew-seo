@@ -12,7 +12,7 @@ preview="$($ROOT/scripts/preview-publishers.sh)"
 test "$(printf '%s\n' "$preview" | grep -c '^ClawHub preview:')" -eq 13
 test "$(printf '%s\n' "$preview" | grep -c '^SkillX scan:')" -eq 13
 test "$(printf '%s\n' "$preview" | grep -c '^Skilo pack:')" -eq 13
-test "$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["version"])' "$ROOT/.claude-plugin/plugin.json")" = 0.2.0
+test "$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["version"])' "$ROOT/.claude-plugin/plugin.json")" = 0.4.0
 test "$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["skills"])' "$ROOT/.codex-plugin/plugin.json")" = ./skills/
 "$ROOT/scripts/groundcrew-doctor.py" --evidence "$ROOT/examples/evidence/valid-keyword.json"
 "$ROOT/scripts/groundcrew-doctor.py" --evidence "$ROOT/examples/evidence/valid-ai-visibility.json"
@@ -25,6 +25,8 @@ test -f "$tmp/skills/fix-my-site/custom.txt"
 SKILLS_DIR="$tmp/skills" "$ROOT/install.sh" --force >/dev/null
 test -x "$tmp/skills/.groundcrew/groundcrew-doctor.py"
 test -f "$tmp/skills/fix-my-site/references/provider-selection.md"
+test -f "$tmp/skills/fix-my-site/references/connectors.md"
+test -f "$tmp/skills/.groundcrew/shared/connectors.md"
 test -f "$tmp/skills/.groundcrew/shared/contract-pin.json"
 # Unmanaged third-party skills must not be subjected to Groundcrew's shared-reference contract.
 mkdir -p "$tmp/skills/third-party"
@@ -36,6 +38,10 @@ test ! -e "$tmp/dry"
 # DataForSEO cost-guard drift must fail.
 printf '\ndrift\n' >> "$tmp/skills/keyword-scout/references/dataforseo.md"
 if "$tmp/skills/.groundcrew/groundcrew-doctor.py" >/dev/null 2>&1; then echo "DataForSEO guard drift unexpectedly passed" >&2; exit 1; fi
+SKILLS_DIR="$tmp/skills" "$ROOT/install.sh" --update >/dev/null
+# Connectors drift must fail.
+printf '\ndrift\n' >> "$tmp/skills/site-audit/references/connectors.md"
+if "$tmp/skills/.groundcrew/groundcrew-doctor.py" >/dev/null 2>&1; then echo "connectors drift unexpectedly passed" >&2; exit 1; fi
 SKILLS_DIR="$tmp/skills" "$ROOT/install.sh" --update >/dev/null
 # Provider-selection drift must fail.
 printf '\ndrift\n' >> "$tmp/skills/fix-my-site/references/provider-selection.md"

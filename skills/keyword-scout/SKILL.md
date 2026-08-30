@@ -12,7 +12,7 @@ Read `references/provider-selection.md` before choosing a source. Detect what is
 - DataForSEO: read `references/dataforseo.md`; pass its explicit cost-disclosure gate before every billable batch.
 - Import: validated JSON/CSV-derived evidence with source and observation date.
 
-Do not add or improvise direct GSC API access before launch. An existing user export can be imported.
+Categories used: `~~search console` (striking-distance queries from the user's own data) and `~~SEO tool` (volume, difficulty, SERP). `references/connectors.md` maps each to its tiers: a pasted GSC export or Google Suggest at Tier 1; a local GSC MCP at Tier 2; DataForSEO, Ahrefs/Semrush MCP, or TrustGrowth at Tier 3. Third-party volumes are estimates — label them.
 
 ## Workflow
 

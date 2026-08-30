@@ -25,6 +25,10 @@ Read `references/provider-selection.md` before choosing a source. Detect what is
 
 TrustGrowth's `authority_score` (in `/score`) is TrustGrowth's own measured pillar — name it as such, never as a DA/DR equivalent. A detailed authority/backlink read surface is documented in the live OpenAPI when available; check at execution time and do not invent fields it does not have. `/eeat`'s authoritativeness pillar carries the signal-level detail available today.
 
+## Sources by tier
+
+Categories: `~~link database` and `~~AI monitor` (`references/connectors.md`). Tier 1 is observable pages plus a GSC Links export; Tier 2 adds Open PageRank as a labelled proxy; Tier 3 is TrustGrowth `authority` and `eeat`, or a paid index the user already has. Never invent a domain score.
+
 ## When not to use
 
 - Backlink profile analysis, link gaps, reclamation, outreach planning → `backlink-opportunities`.

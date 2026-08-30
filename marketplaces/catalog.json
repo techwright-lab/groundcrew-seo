@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "release": "0.2.0",
+  "release": "0.4.0",
   "canonicalRoot": "skills",
   "repository": "https://github.com/techwright-lab/groundcrew",
   "skills": [

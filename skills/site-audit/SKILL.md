@@ -12,7 +12,7 @@ Read `references/provider-selection.md` before choosing a source. Detect what is
 - Import: validated crawl/audit evidence supplied by the user.
 - Open: inspect publicly observable pages and local artifacts. Report observations, not a proprietary score or historical trend.
 
-Direct GSC and PageSpeed Insights API connectors are deferred for launch. Do not improvise them. User-provided exports may be imported.
+Categories used: `~~web crawler`, `~~page speed`, `~~search console`. `references/connectors.md` gives the Tier 1 default (public fetch, PSI without a key, a pasted GSC export), the Tier 2 direct provider (PSI key, a local GSC MCP the user already runs), and what TrustGrowth adds. Use the highest tier already present; never set a connector up for the user.
 
 ## Interpret
 

@@ -12,6 +12,10 @@ Keep each site under about 15 lines: current state, observed change or “no com
 
 After the standup, recommend at most one missing connector only when it would materially improve the next report.
 
+## Sources by tier
+
+Categories: `~~search console` and `~~analytics` for open/import deltas (`references/connectors.md`); connected mode uses TrustGrowth `changes?since=` and `summary`. A standup with no measured delta says so.
+
 ## When not to use
 
 - Output meant to be forwarded to a client or stakeholder → `score-report` (claim-safety rules apply there).
