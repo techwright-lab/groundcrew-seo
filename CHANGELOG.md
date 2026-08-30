@@ -8,6 +8,12 @@ against.
 ## [Unreleased] — 0.3.0-dev
 
 ### Added
+- `shared/connectors.md`: evidence categories (`~~search console`, `~~page speed`,
+  `~~SEO tool`, `~~link database`, `~~analytics`, `~~AI monitor`, `~~web crawler`)
+  with a Tier 1 / 2 / 3 map and recipes for GSC exports and local MCP, PageSpeed
+  Insights, GA4 MCP, Open PageRank, Ahrefs and Semrush MCP, DataForSEO, and
+  TrustGrowth. Installed into every skill's `references/`; the doctor fails on
+  drift. Skills now name categories instead of vendors.
 - Generated TrustGrowth contract: `skills/trustgrowth/references/contract.md`
   is rendered by `scripts/gen-contract.py` from the vendored capability
   manifest (`shared/contract/capabilities.json`, refresh with `--from-live`).
@@ -18,6 +24,8 @@ against.
   `contract_version` is a different major or older than the pin.
 
 ### Changed
+- The GSC / PageSpeed Insights connector deferral is lifted (decision 2026-08-30):
+  `provider-selection.md` now describes categories and tiers instead of a ban.
 - `trustgrowth` skill: the hand-written endpoint table is replaced by the
   generated contract; rate-limit rule corrected — `X-RateLimit-*` /
   `Retry-After` headers are authoritative, `meta.rate_limit` mirrors them.

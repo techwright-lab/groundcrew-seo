@@ -10,7 +10,7 @@ Read `references/provider-selection.md` before choosing a source. Detect what is
 
 Connected mode uses TrustGrowth score, snapshots, changes, next actions, and publication evidence packet; the packet wins for externally shared claims. Open/import mode reports validated source-specific evidence only and never invents a universal Groundcrew score.
 
-Every reported figure includes or can trace to source, observation time, scope, and limitations. Current-state framing only: observed movement is allowed; projections, guarantees, and unsupported business attribution are not.
+Categories: `~~search console` and `~~analytics` for open/import numbers (`references/connectors.md`); label third-party estimates as such. Every reported figure includes or can trace to source, observation time, scope, and limitations. Current-state framing only: observed movement is allowed; projections, guarantees, and unsupported business attribution are not.
 
 Structure: period and scope; observed measurements; completed verified work; open items; data gaps/limitations; evidence appendix. Missing values remain missing.
 

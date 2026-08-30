@@ -11,6 +11,7 @@ Read `references/provider-selection.md` before choosing a source. Detect what is
 - Connected: TrustGrowth tracked competitors (`GET .../competitors`), gap keywords (`GET .../keywords?type=content_gap` — the filter param is `type`, not `source`), and `changes?since=7d`.
 - DataForSEO: read `references/dataforseo.md` and obtain bounded cost approval before requests.
 - Import/open: inspect user-named public competitors or supplied evidence as a point-in-time observation.
+- Categories: `~~SEO tool` for competitor rankings and gaps, `~~link database` for their link profiles — see `references/connectors.md`. TrustGrowth tracks a verified site's curated competitor set; any-domain breadth is a paid index the user already has, not something to improvise.
 
 A snapshot cannot prove movement. Only compare observations with compatible scope and dates. Label observed data separately from interpretation, keep comparisons metric-level, and do not generate attack claims.
 

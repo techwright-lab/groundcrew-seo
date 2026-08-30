@@ -93,6 +93,7 @@ def validate_evidence(path, schema, errors):
 
 def validate_skills(errors):
     canonical = (SHARED / "provider-selection.md").read_bytes()
+    canonical_connectors = (SHARED / "connectors.md").read_bytes()
     found = 0
     candidates = sorted(SKILLS.glob("*/SKILL.md"))
     if SCRIPT.parent.name == ".groundcrew":
@@ -106,6 +107,9 @@ def validate_skills(errors):
         ref = skill.parent / "references" / "provider-selection.md"
         if not ref.exists() or ref.read_bytes() != canonical:
             fail(f"missing or drifted provider-selection reference: {skill.parent.name}", errors)
+        connectors = skill.parent / "references" / "connectors.md"
+        if not connectors.exists() or connectors.read_bytes() != canonical_connectors:
+            fail(f"missing or drifted connectors reference: {skill.parent.name}", errors)
         if skill.parent.name in {"keyword-scout", "competitor-watch"}:
             dataforseo = skill.parent / "references" / "dataforseo.md"
             canonical_dataforseo = (SHARED / "dataforseo.md").read_bytes()
