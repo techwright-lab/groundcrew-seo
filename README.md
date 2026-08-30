@@ -1,8 +1,8 @@
-# Groundcrew
+# Groundcrew SEO
 
-**Open growth skills your AI can use today. Connect TrustGrowth when you want the work measured, scheduled, prioritized, and verified.**
+**Open SEO and growth skills your AI agent can use today. Connect TrustGrowth when you want the work measured, scheduled, prioritized, and verified.**
 
-Groundcrew is a provider-flexible set of plain-Markdown skills for site auditing, repository fixes, keyword and competitor research, AI visibility, authority and backlink review, content strategy, credibility review, reporting, standups, and read-only content inventory. It works with public/local evidence, validated imports, optional cost-gated DataForSEO, or TrustGrowth's complete managed evidence layer.
+Groundcrew SEO (the pack formerly published as `groundcrew`) is a provider-flexible set of plain-Markdown skills for site auditing, repository fixes, keyword and competitor research, AI visibility, authority and backlink review, content strategy, credibility review, reporting, standups, and read-only content inventory. It works with public/local evidence, validated imports, optional cost-gated DataForSEO, or TrustGrowth's complete managed evidence layer.
 
 ## Start with the wedge
 
@@ -62,7 +62,7 @@ Safer tagged/reviewable installation is recommended for launch releases. From a 
 Convenience install from current main:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/techwright-lab/groundcrew/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/techwright-lab/groundcrew-seo/main/install.sh | bash
 ```
 
 The installer refuses collisions by default. Use `--update` only for a prior Groundcrew-managed install, or `--force` after reviewing the exact paths. Override detection with `--skills-dir PATH`.

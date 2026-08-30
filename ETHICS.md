@@ -1,4 +1,4 @@
-# Groundcrew Ethics
+# Groundcrew SEO Ethics
 
 The doctrine behind these rules is [WHY-NOT-SLOP.md](WHY-NOT-SLOP.md). This
 file is the enforcement layer: what an agent following Groundcrew skills

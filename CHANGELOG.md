@@ -5,6 +5,19 @@ All notable changes to the Groundcrew skill pack. Versions are pack-level
 names the live-contract snapshot the pack's connected-mode text was checked
 against.
 
+## [0.5.0] — 2026-08-30
+
+### Changed
+- Renamed to **Groundcrew SEO**: repository `techwright-lab/groundcrew-seo`
+  (GitHub redirects the old name), plugin id `groundcrew-seo`, display name
+  "Groundcrew SEO — TrustGrowth", README/ETHICS headings, marketplace catalog
+  and preview commands, doctor/contract user agents. Skill names, the
+  `.groundcrew/` doctor directory, and the `.groundcrew-managed` marker are
+  unchanged, so existing installs still `--update`. Claude Code / Codex plugin
+  users reinstall once under the new id.
+- Marketplace preview commands now derive the release tag from the catalog
+  instead of a hard-coded `0.2.0`.
+
 ## [0.4.0] — 2026-08-30
 
 ### Added

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/techwright-lab/groundcrew/shared/evidence.schema.yaml",
+  "$id": "https://github.com/techwright-lab/groundcrew-seo/shared/evidence.schema.yaml",
   "title": "Groundcrew Evidence Record",
   "type": "object",
   "additionalProperties": false,
