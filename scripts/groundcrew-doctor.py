@@ -136,7 +136,7 @@ def api_get(base, key, path):
     req = urllib.request.Request(base + path, headers={
         "Authorization": f"Bearer {key}",
         "Accept": "application/json",
-        "User-Agent": "Groundcrew-Doctor/0.3 (+https://github.com/techwright-lab/groundcrew)",
+        "User-Agent": "Groundcrew-Doctor/0.4 (+https://github.com/techwright-lab/groundcrew)",
     })
     with urllib.request.urlopen(req, timeout=15) as response:
         return response.status, json.load(response)

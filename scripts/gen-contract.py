@@ -34,7 +34,7 @@ def load_manifest(source):
         base = os.getenv("TRUSTGROWTH_API_BASE", "https://trustgrowth.ai").rstrip("/")
         req = urllib.request.Request(base + "/api/v1/capabilities/v1", headers={
             "Authorization": f"Bearer {key}", "Accept": "application/json",
-            "User-Agent": "Groundcrew-Contract/0.3 (+https://github.com/techwright-lab/groundcrew)",
+            "User-Agent": "Groundcrew-Contract/0.4 (+https://github.com/techwright-lab/groundcrew)",
         })
         with urllib.request.urlopen(req, timeout=20) as response:
             return json.load(response)
