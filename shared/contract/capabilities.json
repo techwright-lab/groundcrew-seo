@@ -1,0 +1,2135 @@
+{
+  "dark_surfaces": [
+    {
+      "availability": "dark",
+      "name": "create_content_entry"
+    },
+    {
+      "availability": "dark",
+      "name": "import_content_calendar"
+    },
+    {
+      "availability": "dark",
+      "name": "approve_strategy"
+    },
+    {
+      "availability": "dark",
+      "name": "generate_content_brief"
+    },
+    {
+      "availability": "dark",
+      "name": "regenerate_content_brief"
+    },
+    {
+      "availability": "dark",
+      "name": "approve_content_brief"
+    },
+    {
+      "availability": "dark",
+      "name": "reject_content_brief"
+    },
+    {
+      "availability": "dark",
+      "name": "triage_content_entry"
+    },
+    {
+      "availability": "dark",
+      "name": "reschedule_content_entry"
+    },
+    {
+      "availability": "dark",
+      "name": "update_content_draft"
+    },
+    {
+      "availability": "dark",
+      "name": "submit_content_draft"
+    },
+    {
+      "availability": "dark",
+      "name": "approve_content_draft"
+    },
+    {
+      "availability": "dark",
+      "name": "regenerate_content_draft"
+    },
+    {
+      "availability": "dark",
+      "name": "publish_content_draft"
+    },
+    {
+      "availability": "dark",
+      "name": "set_content_channel_approval"
+    },
+    {
+      "availability": "dark",
+      "name": "rearm_queued_social_package"
+    },
+    {
+      "availability": "dark",
+      "name": "approve_review_queue_item"
+    },
+    {
+      "availability": "dark",
+      "name": "request_changes_review_queue_item"
+    },
+    {
+      "availability": "dark",
+      "name": "reject_review_queue_item"
+    },
+    {
+      "availability": "dark",
+      "name": "supersede_review_queue_item"
+    },
+    {
+      "availability": "dark",
+      "name": "record_external_publication"
+    },
+    {
+      "availability": "dark",
+      "name": "record_social_publication"
+    },
+    {
+      "availability": "dark",
+      "name": "create_campaign"
+    },
+    {
+      "availability": "dark",
+      "name": "execute_campaign_command"
+    },
+    {
+      "availability": "dark",
+      "name": "submit_campaign_plan"
+    },
+    {
+      "availability": "dark",
+      "name": "record_campaign_metric_observation"
+    },
+    {
+      "availability": "dark",
+      "name": "start_campaign_planning_session"
+    },
+    {
+      "availability": "dark",
+      "name": "get_campaign_planning_session"
+    },
+    {
+      "availability": "dark",
+      "name": "end_campaign_planning_session"
+    },
+    {
+      "availability": "dark",
+      "name": "send_campaign_planning_session_message"
+    }
+  ],
+  "generated_from": [
+    "openapi",
+    "mcp_registry",
+    "dark_surface_allowlist"
+  ],
+  "operations": [
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/capabilities/v1",
+      "error_codes": [
+        "401",
+        "403"
+      ],
+      "method": "GET",
+      "name": "getCapabilityManifestV1",
+      "parameters": []
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/mcp/manifest",
+      "error_codes": [
+        "401",
+        "403"
+      ],
+      "method": "GET",
+      "name": "getMcpManifest",
+      "parameters": []
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/proofs/{slug}",
+      "error_codes": [
+        "404"
+      ],
+      "method": "GET",
+      "name": "getPublicProof",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites",
+      "error_codes": [
+        "401",
+        "403"
+      ],
+      "method": "GET",
+      "name": "listSites",
+      "parameters": [
+        {
+          "name": "page",
+          "required": false,
+          "schema": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        {
+          "name": "per_page",
+          "required": false,
+          "schema": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/agent_runs/{job_id}",
+      "error_codes": [
+        "401",
+        "403",
+        "404"
+      ],
+      "method": "GET",
+      "name": "getLegacyAgentRunStatus",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "job_id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/authority",
+      "error_codes": [
+        "401",
+        "403",
+        "404"
+      ],
+      "method": "GET",
+      "name": "getSiteAuthority",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/authority/domains/{domain}/review",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "422"
+      ],
+      "method": "DELETE",
+      "name": "clearLinkReview",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "domain",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/authority/domains/{domain}/review",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "422"
+      ],
+      "method": "PUT",
+      "name": "markLinkReview",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "domain",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/authority/prospects/{uid}",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "422"
+      ],
+      "method": "PATCH",
+      "name": "updateLinkProspect",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "uid",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/campaigns",
+      "error_codes": [
+        "401",
+        "403",
+        "404"
+      ],
+      "method": "GET",
+      "name": "listSiteCampaigns",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "page",
+          "required": false,
+          "schema": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        {
+          "name": "per_page",
+          "required": false,
+          "schema": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/campaigns/{campaign_uid}",
+      "error_codes": [
+        "401",
+        "403",
+        "404"
+      ],
+      "method": "GET",
+      "name": "getSiteCampaign",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "campaign_uid",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/campaigns/{campaign_uid}/mission_control",
+      "error_codes": [
+        "401",
+        "403",
+        "404"
+      ],
+      "method": "GET",
+      "name": "getSiteCampaignMissionControl",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "campaign_uid",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/changes",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "422"
+      ],
+      "method": "GET",
+      "name": "getSiteChanges",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "since",
+          "required": false,
+          "schema": {
+            "enum": [
+              "1d",
+              "7d",
+              "14d",
+              "30d"
+            ],
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/competitors",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "422"
+      ],
+      "method": "GET",
+      "name": "listSiteCompetitors",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "view",
+          "required": false,
+          "schema": {
+            "default": "signal",
+            "enum": [
+              "signal",
+              "tracked",
+              "all",
+              "platforms",
+              "below_floor"
+            ],
+            "type": "string"
+          }
+        },
+        {
+          "name": "page",
+          "required": false,
+          "schema": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        {
+          "name": "per_page",
+          "required": false,
+          "schema": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/content",
+      "error_codes": [
+        "401",
+        "403",
+        "404"
+      ],
+      "method": "GET",
+      "name": "listSiteContent",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "status",
+          "required": false,
+          "schema": {
+            "default": "active",
+            "enum": [
+              "active",
+              "scheduled",
+              "draft",
+              "published",
+              "archived",
+              "all"
+            ],
+            "type": "string"
+          }
+        },
+        {
+          "name": "content_type",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "triage_state",
+          "required": false,
+          "schema": {
+            "enum": [
+              "triage_needed",
+              "current_cycle",
+              "unreviewed",
+              "keep_publish",
+              "regenerate",
+              "repurpose",
+              "archive",
+              "delete_candidate"
+            ],
+            "type": "string"
+          }
+        },
+        {
+          "name": "from",
+          "required": false,
+          "schema": {
+            "format": "date",
+            "type": "string"
+          }
+        },
+        {
+          "name": "to",
+          "required": false,
+          "schema": {
+            "format": "date",
+            "type": "string"
+          }
+        },
+        {
+          "name": "page",
+          "required": false,
+          "schema": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        {
+          "name": "per_page",
+          "required": false,
+          "schema": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/content/social_queue",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "422"
+      ],
+      "method": "GET",
+      "name": "listProductSocialQueue",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "kind",
+          "required": true,
+          "schema": {
+            "enum": [
+              "publication",
+              "measurement"
+            ],
+            "type": "string"
+          }
+        },
+        {
+          "name": "as_of",
+          "required": false,
+          "schema": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        {
+          "name": "cursor",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "limit",
+          "required": false,
+          "schema": {
+            "default": 25,
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/content/{entry_uid}",
+      "error_codes": [
+        "401",
+        "403",
+        "404"
+      ],
+      "method": "GET",
+      "name": "getContentEntry",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "entry_uid",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/content/{entry_uid}",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "409",
+        "422"
+      ],
+      "method": "PATCH",
+      "name": "updateContentEntry",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "entry_uid",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "title",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "funnel_stage",
+          "required": false,
+          "schema": {
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        {
+          "name": "target_keyword",
+          "required": false,
+          "schema": {
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        {
+          "name": "owner_notes",
+          "required": false,
+          "schema": {
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        {
+          "name": "content_type",
+          "required": false,
+          "schema": {
+            "enum": [
+              "article",
+              "blog_post",
+              "comparison",
+              "listicle",
+              "pillar_page",
+              "faq_page",
+              "glossary_definition",
+              "data_study",
+              "tutorial",
+              "case_study",
+              "product_update",
+              "changelog",
+              "linkedin_post",
+              "twitter_thread",
+              "twitter_post"
+            ],
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/content/{entry_uid}/approve_brief",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "409"
+      ],
+      "method": "POST",
+      "name": "approveContentBrief",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "entry_uid",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "start_draft",
+          "required": false,
+          "schema": {
+            "default": true,
+            "type": "boolean"
+          }
+        },
+        {
+          "name": "content_intent",
+          "required": false,
+          "schema": {
+            "enum": [
+              "refresh",
+              "cluster_support"
+            ],
+            "type": "string"
+          }
+        },
+        {
+          "name": "editorial_contract",
+          "required": false,
+          "schema": {
+            "enum": [
+              "no_measurement_methodology"
+            ],
+            "type": "string"
+          }
+        },
+        {
+          "name": "series_key",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/content/{entry_uid}/approved_variant",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "409",
+        "422"
+      ],
+      "method": "GET",
+      "name": "getApprovedContentVariant",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "entry_uid",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "channel",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/content/{entry_uid}/brief",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "409",
+        "422"
+      ],
+      "method": "PATCH",
+      "name": "updateApprovedContentBrief",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "entry_uid",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "outline",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "target_keyword",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "evidence",
+          "required": false,
+          "schema": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "claim": {
+                  "type": "string"
+                },
+                "source": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "source",
+                "claim"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        {
+          "name": "claim_safety_notes",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "cta",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "editorial_contract",
+          "required": false,
+          "schema": {
+            "enum": [
+              "no_measurement_methodology"
+            ],
+            "type": "string"
+          }
+        },
+        {
+          "name": "series_key",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "feedback",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/content/{entry_uid}/certify_draft",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "409",
+        "422"
+      ],
+      "method": "POST",
+      "name": "certifyContentDraft",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "entry_uid",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "note",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/content/{entry_uid}/package",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "409",
+        "422"
+      ],
+      "method": "PATCH",
+      "name": "updateContentPackage",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "entry_uid",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/content/{entry_uid}/package",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "405"
+      ],
+      "method": "POST",
+      "name": "rejectContentPackageCreate",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "entry_uid",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/content/{entry_uid}/package_variant",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "409",
+        "422"
+      ],
+      "method": "GET",
+      "name": "getPackageContentVariant",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "entry_uid",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "channel",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/content/{entry_uid}/rearm_social_package",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "409",
+        "422"
+      ],
+      "method": "POST",
+      "name": "rearmQueuedSocialPackage",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "entry_uid",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "channel",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "channel_state",
+          "required": false,
+          "schema": {
+            "enum": [
+              "approved"
+            ],
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/content/{entry_uid}/regenerate_brief",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "409",
+        "422"
+      ],
+      "method": "POST",
+      "name": "regenerateContentBrief",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "entry_uid",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "feedback",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/content/{entry_uid}/reschedule",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "409",
+        "422"
+      ],
+      "method": "PATCH",
+      "name": "rescheduleContentEntry",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "entry_uid",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/content/{entry_uid}/restore",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "409"
+      ],
+      "method": "POST",
+      "name": "restoreContentEntry",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "entry_uid",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/content/{entry_uid}/triage",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "422"
+      ],
+      "method": "PATCH",
+      "name": "triageContentEntry",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "entry_uid",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/current_cycle",
+      "error_codes": [
+        "401",
+        "403",
+        "404"
+      ],
+      "method": "GET",
+      "name": "getSiteCurrentCycle",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/eeat",
+      "error_codes": [
+        "401",
+        "403",
+        "404"
+      ],
+      "method": "GET",
+      "name": "getSiteEeat",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/issues",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "422"
+      ],
+      "method": "GET",
+      "name": "listSiteIssues",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "status",
+          "required": false,
+          "schema": {
+            "enum": [
+              "open",
+              "fixed",
+              "all"
+            ],
+            "type": "string"
+          }
+        },
+        {
+          "name": "scope",
+          "required": false,
+          "schema": {
+            "enum": [
+              "actionable",
+              "backlog"
+            ],
+            "type": "string"
+          }
+        },
+        {
+          "name": "severity",
+          "required": false,
+          "schema": {
+            "enum": [
+              "critical",
+              "warning",
+              "info"
+            ],
+            "type": "string"
+          }
+        },
+        {
+          "name": "page",
+          "required": false,
+          "schema": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        {
+          "name": "per_page",
+          "required": false,
+          "schema": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/jobs/{job_id}",
+      "error_codes": [
+        "401",
+        "403",
+        "404"
+      ],
+      "method": "GET",
+      "name": "getAgentRunStatus",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "job_id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/keywords",
+      "error_codes": [
+        "401",
+        "403",
+        "404"
+      ],
+      "method": "GET",
+      "name": "listSiteKeywords",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "source",
+          "required": false,
+          "schema": {
+            "enum": [
+              "first_party",
+              "competitor_gap",
+              "user_seeded",
+              "seed_expansion",
+              "ai_overview_gap",
+              "backlink_gap",
+              "people_also_ask",
+              "modifier_expansion",
+              "unknown"
+            ],
+            "type": "string"
+          }
+        },
+        {
+          "name": "type",
+          "required": false,
+          "schema": {
+            "enum": [
+              "quick_win",
+              "striking_distance",
+              "content_gap",
+              "eeat_gap",
+              "link_magnet"
+            ],
+            "type": "string"
+          }
+        },
+        {
+          "name": "priority",
+          "required": false,
+          "schema": {
+            "maximum": 3,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        {
+          "name": "sort",
+          "required": false,
+          "schema": {
+            "enum": [
+              "volume",
+              "opportunity"
+            ],
+            "type": "string"
+          }
+        },
+        {
+          "name": "qualified",
+          "required": false,
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "name": "geo",
+          "required": false,
+          "schema": {
+            "enum": [
+              "comparison",
+              "how_to",
+              "definition",
+              "list"
+            ],
+            "type": "string"
+          }
+        },
+        {
+          "name": "page",
+          "required": false,
+          "schema": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        {
+          "name": "per_page",
+          "required": false,
+          "schema": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/next_actions",
+      "error_codes": [
+        "401",
+        "403",
+        "404"
+      ],
+      "method": "GET",
+      "name": "getSiteNextActions",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/previous_cycle",
+      "error_codes": [
+        "401",
+        "403",
+        "404"
+      ],
+      "method": "GET",
+      "name": "getSitePreviousCycle",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/publication_evidence_packet",
+      "error_codes": [
+        "401",
+        "403",
+        "404"
+      ],
+      "method": "GET",
+      "name": "getSitePublicationEvidencePacket",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/regenerate_strategy",
+      "error_codes": [
+        "402",
+        "401",
+        "403",
+        "404",
+        "409",
+        "429"
+      ],
+      "method": "POST",
+      "name": "regenerateStrategy",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "feedback",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/review_queue",
+      "error_codes": [
+        "401",
+        "403",
+        "404"
+      ],
+      "method": "GET",
+      "name": "listSiteReviewQueue",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/review_queue/{review_uid}",
+      "error_codes": [
+        "401",
+        "403",
+        "404"
+      ],
+      "method": "GET",
+      "name": "getSiteReviewQueueItem",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "review_uid",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/review_queue/{review_uid}/reopen",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "422"
+      ],
+      "method": "POST",
+      "name": "reopenSiteReviewQueueItem",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "review_uid",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "body",
+          "required": true,
+          "schema": {
+            "properties": {
+              "reason": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "reason"
+            ],
+            "type": "object"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/score",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "422"
+      ],
+      "method": "GET",
+      "name": "getSiteScore",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "date",
+          "required": false,
+          "schema": {
+            "format": "date",
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/settings",
+      "error_codes": [
+        "401",
+        "404"
+      ],
+      "method": "GET",
+      "name": "getSiteSettings",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/snapshots",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "422"
+      ],
+      "method": "GET",
+      "name": "listSiteSnapshots",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "from",
+          "required": false,
+          "schema": {
+            "format": "date",
+            "type": "string"
+          }
+        },
+        {
+          "name": "to",
+          "required": false,
+          "schema": {
+            "format": "date",
+            "type": "string"
+          }
+        },
+        {
+          "name": "granularity",
+          "required": false,
+          "schema": {
+            "enum": [
+              "daily",
+              "weekly",
+              "monthly"
+            ],
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/strategy",
+      "error_codes": [
+        "401",
+        "403",
+        "404"
+      ],
+      "method": "GET",
+      "name": "getSiteStrategy",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/summary",
+      "error_codes": [
+        "401",
+        "403",
+        "404"
+      ],
+      "method": "GET",
+      "name": "getSiteSummary",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/trigger_audit",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "409",
+        "429"
+      ],
+      "method": "POST",
+      "name": "triggerSiteAudit",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/visibility",
+      "error_codes": [
+        "401",
+        "403",
+        "404"
+      ],
+      "method": "GET",
+      "name": "getSiteVisibility",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  ],
+  "tools": [
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/agent_runs/{job_id}",
+      "name": "get_agent_run_status",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/content/{entry_uid}/approved_variant",
+      "name": "get_approved_content_variant",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/campaigns/{campaign_uid}",
+      "name": "get_campaign",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/campaigns/{campaign_uid}/mission_control",
+      "name": "get_campaign_mission_control",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/content/{entry_uid}",
+      "name": "get_content_entry",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/current_cycle",
+      "name": "get_current_cycle",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/content/{entry_uid}/package_variant",
+      "name": "get_package_content_variant",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/previous_cycle",
+      "name": "get_previous_cycle",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/authority",
+      "name": "get_site_authority",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/changes",
+      "name": "get_site_changes",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/eeat",
+      "name": "get_site_eeat",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/next_actions",
+      "name": "get_site_next_actions",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/publication_evidence_packet",
+      "name": "get_site_publication_evidence_packet",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/review_queue/{review_uid}",
+      "name": "get_site_review_queue_item",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/score",
+      "name": "get_site_score",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/settings",
+      "name": "get_site_settings",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/strategy",
+      "name": "get_site_strategy",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/summary",
+      "name": "get_site_summary",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/visibility",
+      "name": "get_site_visibility",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/content/social_queue",
+      "name": "list_product_social_queue",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/campaigns",
+      "name": "list_site_campaigns",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/competitors",
+      "name": "list_site_competitors",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/content",
+      "name": "list_site_content",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/issues",
+      "name": "list_site_issues",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/keywords",
+      "name": "list_site_keywords",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/review_queue",
+      "name": "list_site_review_queue",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/snapshots",
+      "name": "list_site_snapshots",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites",
+      "name": "list_sites",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/authority/domains/{domain}/review",
+      "name": "mark_link_review",
+      "scopes": [
+        "write"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/regenerate_strategy",
+      "name": "regenerate_strategy",
+      "scopes": [
+        "write"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/trigger_audit",
+      "name": "trigger_audit",
+      "scopes": []
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/authority/prospects/{uid}",
+      "name": "update_link_prospect",
+      "scopes": [
+        "write"
+      ]
+    }
+  ],
+  "version": "v1"
+}

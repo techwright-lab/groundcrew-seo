@@ -55,7 +55,7 @@ done
 echo "  $SKILLS_DIR/.groundcrew"
 if ! $dry_run; then
   mkdir -p "$SKILLS_DIR/.groundcrew/shared"
-  cp "$src/shared/provider-selection.md" "$src/shared/evidence.schema.yaml" "$src/shared/dataforseo.md" "$SKILLS_DIR/.groundcrew/shared/"
+  cp "$src/shared/provider-selection.md" "$src/shared/evidence.schema.yaml" "$src/shared/dataforseo.md" "$src/shared/contract-pin.json" "$SKILLS_DIR/.groundcrew/shared/"
   cp "$src/scripts/groundcrew-doctor.py" "$SKILLS_DIR/.groundcrew/groundcrew-doctor.py"
   chmod +x "$SKILLS_DIR/.groundcrew/groundcrew-doctor.py"
 fi

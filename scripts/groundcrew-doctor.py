@@ -115,21 +115,59 @@ def validate_skills(errors):
     else: fail("no skills found", errors)
 
 
+def parse_version(value):
+    parts = str(value).split(".")
+    if len(parts) != 3 or not all(part.isdigit() for part in parts):
+        return None
+    return tuple(int(part) for part in parts)
+
+
+def version_satisfies(live, pinned):
+    """Same major, and at least the pinned minor.patch — the contract is additive within a major."""
+    live_v, pin_v = parse_version(live), parse_version(pinned)
+    return bool(live_v and pin_v and live_v[0] == pin_v[0] and live_v >= pin_v)
+
+
+def api_get(base, key, path):
+    req = urllib.request.Request(base + path, headers={
+        "Authorization": f"Bearer {key}",
+        "Accept": "application/json",
+        "User-Agent": "Groundcrew-Doctor/0.3 (+https://github.com/techwright-lab/groundcrew)",
+    })
+    with urllib.request.urlopen(req, timeout=15) as response:
+        return response.status, json.load(response)
+
+
+def check_contract(base, key, errors):
+    pin_path = SHARED / "contract-pin.json"
+    if not pin_path.exists():
+        fail("contract pin missing (shared/contract-pin.json)", errors); return
+    pin = json.loads(pin_path.read_text())
+    try:
+        _, manifest = api_get(base, key, "/api/v1/capabilities/v1")
+    except Exception as exc:
+        fail(f"capability manifest fetch failed: {exc}", errors); return
+    live = manifest.get("contract_version")
+    if live is None:
+        fail(f"server manifest has no contract_version; Groundcrew pins {pin['contract_version']} — upgrade the server or the pin", errors)
+    elif version_satisfies(live, pin["contract_version"]):
+        ok(f"TrustGrowth contract {live} satisfies pinned {pin['contract_version']}")
+    else:
+        fail(f"TrustGrowth contract {live} does not satisfy pinned {pin['contract_version']} (same major, >= minor.patch)", errors)
+
+
 def connectivity(errors):
     key = os.getenv("TRUSTGROWTH_API_KEY")
     if not key:
         print("  - TrustGrowth connectivity skipped (TRUSTGROWTH_API_KEY not set)"); return
     base = os.getenv("TRUSTGROWTH_API_BASE", "https://trustgrowth.ai").rstrip("/")
-    req = urllib.request.Request(base + "/api/v1/sites", headers={
-        "Authorization": f"Bearer {key}",
-        "Accept": "application/json",
-        "User-Agent": "Groundcrew-Doctor/0.1 (+https://github.com/techwright-lab/groundcrew)",
-    })
     try:
-        with urllib.request.urlopen(req, timeout=15) as response:
-            if response.status == 200: ok("TrustGrowth API connection")
-            else: fail(f"TrustGrowth API returned {response.status}", errors)
-    except Exception as exc: fail(f"TrustGrowth API connection failed: {exc}", errors)
+        status, _ = api_get(base, key, "/api/v1/sites")
+        if status == 200: ok("TrustGrowth API connection")
+        else: fail(f"TrustGrowth API returned {status}", errors)
+    except Exception as exc:
+        fail(f"TrustGrowth API connection failed: {exc}", errors); return
+    check_contract(base, key, errors)
 
 
 def main():

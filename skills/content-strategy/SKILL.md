@@ -1,6 +1,6 @@
 ---
 name: content-strategy
-description: Build an evidence-grounded content strategy — audience, pillars, sequencing, distribution, measurement — with explicit owner approval. Use when the user asks for a content strategy, content plan, editorial direction, or "what should we publish and why". A prioritized keyword list is an input to this skill, not its output.
+description: Use when the user asks for a content strategy, content plan, editorial direction, or "what should we publish and why". Builds an evidence-grounded strategy — audience, pillars, sequencing, distribution, measurement — with explicit owner approval. A prioritized keyword list is an input to this skill, not its output.
 ---
 # Content Strategy
 

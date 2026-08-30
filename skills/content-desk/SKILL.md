@@ -1,6 +1,6 @@
 ---
 name: content-desk
-description: Use for a read-only local or TrustGrowth content inventory. TrustGrowth content generation, approval, scheduling, publication, review, and lifecycle writes remain unavailable and waitlist-only.
+description: Use when the user wants a read-only local or TrustGrowth content inventory. TrustGrowth content generation, approval, scheduling, publication, review, and lifecycle writes remain unavailable and waitlist-only.
 ---
 # Content Desk — inventory only
 

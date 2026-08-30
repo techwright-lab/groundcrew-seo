@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-python3 -m py_compile "$ROOT/scripts/groundcrew-doctor.py" "$ROOT/tests/test_timestamp.py"
+python3 -m py_compile "$ROOT/scripts/groundcrew-doctor.py" "$ROOT/scripts/gen-contract.py" "$ROOT/scripts/validate-skills.py" "$ROOT/tests/test_timestamp.py" "$ROOT/tests/test_contract.py"
 python3 "$ROOT/tests/test_timestamp.py"
+python3 "$ROOT/tests/test_contract.py"
+"$ROOT/scripts/gen-contract.py" --check
+"$ROOT/scripts/validate-skills.py"
 "$ROOT/scripts/generate-adapters.py" --check
 "$ROOT/scripts/validate-distribution.py"
 preview="$($ROOT/scripts/preview-publishers.sh)"
@@ -22,6 +25,7 @@ test -f "$tmp/skills/fix-my-site/custom.txt"
 SKILLS_DIR="$tmp/skills" "$ROOT/install.sh" --force >/dev/null
 test -x "$tmp/skills/.groundcrew/groundcrew-doctor.py"
 test -f "$tmp/skills/fix-my-site/references/provider-selection.md"
+test -f "$tmp/skills/.groundcrew/shared/contract-pin.json"
 # Unmanaged third-party skills must not be subjected to Groundcrew's shared-reference contract.
 mkdir -p "$tmp/skills/third-party"
 printf '%s\n' '---' 'name: third-party' 'description: unrelated' '---' '# Third party' > "$tmp/skills/third-party/SKILL.md"
