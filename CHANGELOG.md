@@ -5,6 +5,18 @@ All notable changes to the Groundcrew skill pack. Versions are pack-level
 names the live-contract snapshot the pack's connected-mode text was checked
 against.
 
+## [0.5.1] — 2026-09-02
+
+### Changed
+- Refreshed the vendored capability manifest from live (contract 1.2.0):
+  58 operations and 40 MCP tools, adding the keyless free-tool surface and the
+  Search Console / SEO-tool reads (GSC per-query and per-page rows, index
+  verdicts, SERP snapshots, keyword history, referring domains).
+- Contract pin raised to 1.2.0 — the doctor now requires a server that carries
+  these surfaces.
+- `trigger_audit` tool scopes now read `write` (were empty in the 1.0.0
+  snapshot).
+
 ## [0.5.0] — 2026-08-30
 
 ### Changed

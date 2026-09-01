@@ -1,48 +1,9 @@
 {
+  "contract_version": "1.2.0",
   "dark_surfaces": [
     {
       "availability": "dark",
-      "name": "create_content_entry"
-    },
-    {
-      "availability": "dark",
-      "name": "import_content_calendar"
-    },
-    {
-      "availability": "dark",
-      "name": "approve_strategy"
-    },
-    {
-      "availability": "dark",
-      "name": "generate_content_brief"
-    },
-    {
-      "availability": "dark",
-      "name": "regenerate_content_brief"
-    },
-    {
-      "availability": "dark",
       "name": "approve_content_brief"
-    },
-    {
-      "availability": "dark",
-      "name": "reject_content_brief"
-    },
-    {
-      "availability": "dark",
-      "name": "triage_content_entry"
-    },
-    {
-      "availability": "dark",
-      "name": "reschedule_content_entry"
-    },
-    {
-      "availability": "dark",
-      "name": "update_content_draft"
-    },
-    {
-      "availability": "dark",
-      "name": "submit_content_draft"
     },
     {
       "availability": "dark",
@@ -50,7 +11,39 @@
     },
     {
       "availability": "dark",
-      "name": "regenerate_content_draft"
+      "name": "approve_review_queue_item"
+    },
+    {
+      "availability": "dark",
+      "name": "approve_strategy"
+    },
+    {
+      "availability": "dark",
+      "name": "create_campaign"
+    },
+    {
+      "availability": "dark",
+      "name": "create_content_entry"
+    },
+    {
+      "availability": "dark",
+      "name": "end_campaign_planning_session"
+    },
+    {
+      "availability": "dark",
+      "name": "execute_campaign_command"
+    },
+    {
+      "availability": "dark",
+      "name": "generate_content_brief"
+    },
+    {
+      "availability": "dark",
+      "name": "get_campaign_planning_session"
+    },
+    {
+      "availability": "dark",
+      "name": "import_content_calendar"
     },
     {
       "availability": "dark",
@@ -58,27 +51,11 @@
     },
     {
       "availability": "dark",
-      "name": "set_content_channel_approval"
-    },
-    {
-      "availability": "dark",
       "name": "rearm_queued_social_package"
     },
     {
       "availability": "dark",
-      "name": "approve_review_queue_item"
-    },
-    {
-      "availability": "dark",
-      "name": "request_changes_review_queue_item"
-    },
-    {
-      "availability": "dark",
-      "name": "reject_review_queue_item"
-    },
-    {
-      "availability": "dark",
-      "name": "supersede_review_queue_item"
+      "name": "record_campaign_metric_observation"
     },
     {
       "availability": "dark",
@@ -90,19 +67,35 @@
     },
     {
       "availability": "dark",
-      "name": "create_campaign"
+      "name": "regenerate_content_brief"
     },
     {
       "availability": "dark",
-      "name": "execute_campaign_command"
+      "name": "regenerate_content_draft"
     },
     {
       "availability": "dark",
-      "name": "submit_campaign_plan"
+      "name": "reject_content_brief"
     },
     {
       "availability": "dark",
-      "name": "record_campaign_metric_observation"
+      "name": "reject_review_queue_item"
+    },
+    {
+      "availability": "dark",
+      "name": "request_changes_review_queue_item"
+    },
+    {
+      "availability": "dark",
+      "name": "reschedule_content_entry"
+    },
+    {
+      "availability": "dark",
+      "name": "send_campaign_planning_session_message"
+    },
+    {
+      "availability": "dark",
+      "name": "set_content_channel_approval"
     },
     {
       "availability": "dark",
@@ -110,15 +103,23 @@
     },
     {
       "availability": "dark",
-      "name": "get_campaign_planning_session"
+      "name": "submit_campaign_plan"
     },
     {
       "availability": "dark",
-      "name": "end_campaign_planning_session"
+      "name": "submit_content_draft"
     },
     {
       "availability": "dark",
-      "name": "send_campaign_planning_session_message"
+      "name": "supersede_review_queue_item"
+    },
+    {
+      "availability": "dark",
+      "name": "triage_content_entry"
+    },
+    {
+      "availability": "dark",
+      "name": "update_content_draft"
     }
   ],
   "generated_from": [
@@ -239,6 +240,23 @@
           "required": true,
           "schema": {
             "type": "string"
+          }
+        },
+        {
+          "name": "page",
+          "required": false,
+          "schema": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        {
+          "name": "per_page",
+          "required": false,
+          "schema": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
           }
         }
       ]
@@ -1517,6 +1535,103 @@
     },
     {
       "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/keywords/{keyword}/history",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "422"
+      ],
+      "method": "GET",
+      "name": "getSiteKeywordHistory",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "keyword",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "from",
+          "required": false,
+          "schema": {
+            "format": "date",
+            "type": "string"
+          }
+        },
+        {
+          "name": "to",
+          "required": false,
+          "schema": {
+            "format": "date",
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/links",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "422"
+      ],
+      "method": "GET",
+      "name": "listSiteLinks",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "page",
+          "required": false,
+          "schema": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        {
+          "name": "per_page",
+          "required": false,
+          "schema": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        {
+          "name": "orphans",
+          "required": false,
+          "schema": {
+            "default": null,
+            "type": "boolean"
+          }
+        },
+        {
+          "name": "depth_gt",
+          "required": false,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
       "endpoint": "/api/v1/sites/{slug}/next_actions",
       "error_codes": [
         "401",
@@ -1531,6 +1646,135 @@
           "required": true,
           "schema": {
             "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/pages",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "422"
+      ],
+      "method": "GET",
+      "name": "listSitePages",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "from",
+          "required": false,
+          "schema": {
+            "format": "date",
+            "type": "string"
+          }
+        },
+        {
+          "name": "to",
+          "required": false,
+          "schema": {
+            "format": "date",
+            "type": "string"
+          }
+        },
+        {
+          "name": "status",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "index_verdict",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "page",
+          "required": false,
+          "schema": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        {
+          "name": "per_page",
+          "required": false,
+          "schema": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/pages/{uid}/queries",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "422"
+      ],
+      "method": "GET",
+      "name": "getSitePageQueries",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "uid",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "from",
+          "required": false,
+          "schema": {
+            "format": "date",
+            "type": "string"
+          }
+        },
+        {
+          "name": "to",
+          "required": false,
+          "schema": {
+            "format": "date",
+            "type": "string"
+          }
+        },
+        {
+          "name": "page",
+          "required": false,
+          "schema": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        {
+          "name": "per_page",
+          "required": false,
+          "schema": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
           }
         }
       ]
@@ -1570,6 +1814,90 @@
           "name": "slug",
           "required": true,
           "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/queries",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "422"
+      ],
+      "method": "GET",
+      "name": "listSiteQueries",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "from",
+          "required": false,
+          "schema": {
+            "format": "date",
+            "type": "string"
+          }
+        },
+        {
+          "name": "to",
+          "required": false,
+          "schema": {
+            "format": "date",
+            "type": "string"
+          }
+        },
+        {
+          "name": "page",
+          "required": false,
+          "schema": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        {
+          "name": "per_page",
+          "required": false,
+          "schema": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        {
+          "name": "sort",
+          "required": false,
+          "schema": {
+            "enum": [
+              "clicks",
+              "impressions",
+              "position"
+            ],
+            "type": "string"
+          }
+        },
+        {
+          "name": "q",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "granularity",
+          "required": false,
+          "schema": {
+            "enum": [
+              "daily",
+              "total"
+            ],
             "type": "string"
           }
         }
@@ -1726,6 +2054,34 @@
     },
     {
       "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/serp",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "422"
+      ],
+      "method": "GET",
+      "name": "getSiteSerpSnapshot",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "keyword",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
       "endpoint": "/api/v1/sites/{slug}/settings",
       "error_codes": [
         "401",
@@ -1873,6 +2229,64 @@
           }
         }
       ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/tools",
+      "error_codes": [
+        "503"
+      ],
+      "method": "GET",
+      "name": "listFreeTools",
+      "parameters": []
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/tools/{slug}/result",
+      "error_codes": [
+        "404",
+        "422",
+        "503"
+      ],
+      "method": "GET",
+      "name": "getFreeToolResult",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "url",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/tools/{slug}/run",
+      "error_codes": [
+        "404",
+        "422",
+        "429",
+        "503"
+      ],
+      "method": "POST",
+      "name": "runFreeTool",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
     }
   ],
   "tools": [
@@ -1926,6 +2340,12 @@
     },
     {
       "availability": "public",
+      "endpoint": "/api/v1/tools/{slug}/result",
+      "name": "get_free_tool_result",
+      "scopes": []
+    },
+    {
+      "availability": "public",
       "endpoint": "/api/v1/sites/{slug}/content/{entry_uid}/package_variant",
       "name": "get_package_content_variant",
       "scopes": [
@@ -1966,8 +2386,24 @@
     },
     {
       "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/keywords/{keyword}/history",
+      "name": "get_site_keyword_history",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
       "endpoint": "/api/v1/sites/{slug}/next_actions",
       "name": "get_site_next_actions",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/pages/{uid}/queries",
+      "name": "get_site_page_queries",
       "scopes": [
         "read"
       ]
@@ -1992,6 +2428,14 @@
       "availability": "public",
       "endpoint": "/api/v1/sites/{slug}/score",
       "name": "get_site_score",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/serp",
+      "name": "get_site_serp_snapshot",
       "scopes": [
         "read"
       ]
@@ -2078,6 +2522,30 @@
     },
     {
       "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/links",
+      "name": "list_site_links",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/pages",
+      "name": "list_site_pages",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/queries",
+      "name": "list_site_queries",
+      "scopes": [
+        "read"
+      ]
+    },
+    {
+      "availability": "public",
       "endpoint": "/api/v1/sites/{slug}/review_queue",
       "name": "list_site_review_queue",
       "scopes": [
@@ -2118,9 +2586,17 @@
     },
     {
       "availability": "public",
+      "endpoint": "/api/v1/tools/{slug}/run",
+      "name": "run_free_tool",
+      "scopes": []
+    },
+    {
+      "availability": "public",
       "endpoint": "/api/v1/sites/{slug}/trigger_audit",
       "name": "trigger_audit",
-      "scopes": []
+      "scopes": [
+        "write"
+      ]
     },
     {
       "availability": "public",
