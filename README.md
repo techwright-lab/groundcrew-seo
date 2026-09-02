@@ -29,6 +29,14 @@ Ask a coding-capable agent:
 | `backlink-opportunities` | Import/cost-gated profile → human-reviewed opportunity plan; never disavow, never automated outreach | Authority pillar context; detailed backlink reads when the live API documents them |
 | `content-desk` | **Local/read-only inventory only** | Read-only hosted inventory; engine remains waitlist-only |
 | `trustgrowth` | Optional provider connector | Complete managed operating layer |
+| `weekly-report` | Crawl delta + pasted or `~~search console` numbers | Changes feed, score snapshots, verified fixes |
+| `audit-report` | Public crawl findings (+ `~~page speed` CWV) as `.md`/`.csv` | Issue history with first-seen/fixed and severity |
+| `keyword-report` | Suggest + SERP paste; `~~search console` striking distance | Keyword lifecycle types + per-keyword history |
+| `competitor-readout` | Wayback/on-page diffs of tracked competitors | Observation history + content-gap keywords |
+| `geo-report` | robots/llms.txt/extractability checks | Five-stage visibility funnel |
+| `authority-report` | Links export + Open PageRank context | Authority pillar, referring-domain snapshots, prospects |
+
+Report skills share one contract — [`shared/reporting.md`](shared/reporting.md): a fixed skeleton, a SHIP/FIX/BLOCK/UNDECIDED verdict where any veto forces BLOCK, and a Measured/User-provided/Estimated label on every figure.
 
 Skills name evidence categories (`~~search console`, `~~page speed`, `~~SEO tool`, `~~link database`, `~~analytics`, `~~AI monitor`), never vendors. [`shared/connectors.md`](shared/connectors.md) maps each category to a Tier 1 default that needs nothing (a pasted export, a public fetch, a keyless free tool), a Tier 2 direct provider the user already has (PSI key, a local GSC or GA4 MCP), and Tier 3 (TrustGrowth for own-site history and verification; Ahrefs / Semrush MCP or DataForSEO for any-domain breadth). Groundcrew never sets a connector up on the user's behalf. TrustGrowth content writes remain dark; Groundcrew does not expose or imply unavailable generation/publishing operations.
 
@@ -42,7 +50,7 @@ The TrustGrowth surface Groundcrew may call is generated, not hand-written: [`sk
 
 ## Install
 
-All 13 release skills live only under `skills/`; marketplace and plugin metadata is generated from that canonical source. Verify adapters, the exact public-file allowlist, and all multi-skill publisher previews without publishing:
+All 19 release skills live only under `skills/`; marketplace and plugin metadata is generated from that canonical source. Verify adapters, the exact public-file allowlist, and all multi-skill publisher previews without publishing:
 
 ```bash
 ./scripts/generate-adapters.py --check

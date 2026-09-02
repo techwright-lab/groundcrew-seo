@@ -18,7 +18,7 @@ def main() -> int:
     catalog = json.loads((ROOT / "marketplaces/catalog.json").read_text())
     expected = sorted(item["slug"] for item in catalog["skills"])
     actual = sorted(p.parent.name for p in (ROOT / "skills").glob("*/SKILL.md"))
-    if actual != expected or len(actual) != 13:
+    if actual != expected or len(actual) != 19:
         raise SystemExit("catalog/canonical skill mismatch")
     with tempfile.TemporaryDirectory(prefix="groundcrew-public-") as temp:
         stage = Path(temp)
