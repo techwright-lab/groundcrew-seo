@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "release": "0.6.0",
+  "release": "0.7.0",
   "canonicalRoot": "skills",
   "repository": "https://github.com/techwright-lab/groundcrew-seo",
   "skills": [
@@ -63,6 +63,11 @@
       "slug": "geo-report",
       "description": "Use when the user wants a generative-engine-optimization report — whether AI systems can reach, read, retrieve, and recall the site — as a document, from public checks or the TrustGrowth visibility funnel.",
       "path": "skills/geo-report"
+    },
+    {
+      "slug": "grow",
+      "description": "Use when the user wants the full Groundcrew growth loop on a site — survey, fix, verify, report — as one command, or one named phase of it (`--phase survey|fix|verify|report`).",
+      "path": "skills/grow"
     },
     {
       "slug": "keyword-report",

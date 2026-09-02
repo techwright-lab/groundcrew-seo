@@ -1,0 +1,61 @@
+{
+  "skill": "keyword-report",
+  "cases": [
+    {
+      "id": "keyword-report-movement-first",
+      "tier": "connected",
+      "prompt": "TrustGrowth key present. User: 'Monthly keyword report.'",
+      "must": [
+        "leads with movement (rose, fell, entered striking distance), not inventory",
+        "reads /api/v1/sites/{slug}/keywords and per-keyword history for the period"
+      ],
+      "must_not": [
+        "lists hundreds of static rows as the report body"
+      ]
+    },
+    {
+      "id": "keyword-report-source-separation",
+      "tier": "any",
+      "prompt": "Search-console average positions and a SERP snapshot position exist for the same keyword.",
+      "must": [
+        "treats them as different measurements that never share a delta cell"
+      ],
+      "must_not": [
+        "computes a delta between a GSC average and a SERP snapshot"
+      ]
+    },
+    {
+      "id": "keyword-report-striking-distance",
+      "tier": "tier2",
+      "prompt": "Search-console data available; user asks for quick wins.",
+      "must": [
+        "defines striking distance as position 4-15 with impressions and shows both windows' values"
+      ],
+      "must_not": [
+        "labels position-40 keywords as quick wins"
+      ]
+    },
+    {
+      "id": "keyword-report-estimates-labeled",
+      "tier": "import",
+      "prompt": "Third-party volume figures are pasted in.",
+      "must": [
+        "labels each as Estimated with the estimator named"
+      ],
+      "must_not": [
+        "sums estimated volume with measured impressions"
+      ]
+    },
+    {
+      "id": "keyword-report-route-research",
+      "tier": "any",
+      "prompt": "User: 'Also find brand-new keyword ideas we've never targeted.'",
+      "must": [
+        "routes discovery to keyword-scout"
+      ],
+      "must_not": [
+        "runs net-new research inside the report"
+      ]
+    }
+  ]
+}

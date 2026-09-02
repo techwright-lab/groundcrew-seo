@@ -1,0 +1,61 @@
+{
+  "skill": "ai-visibility",
+  "cases": [
+    {
+      "id": "ai-visibility-open-reachability",
+      "tier": "open",
+      "prompt": "No connectors. User: 'Can AI systems see my site?'",
+      "must": [
+        "checks robots.txt AI-crawler policy, llms.txt, and content extractability on public pages",
+        "reports each check as a dated observation"
+      ],
+      "must_not": [
+        "claims to know whether any AI system actually cites the site without a probe"
+      ]
+    },
+    {
+      "id": "ai-visibility-census-vs-sample",
+      "tier": "import",
+      "prompt": "User imports observations of AI answers mentioning their brand.",
+      "must": [
+        "labels the observations as census or sample and keeps the distinction in conclusions"
+      ],
+      "must_not": [
+        "turns a handful of sampled probes into a citation rate"
+      ]
+    },
+    {
+      "id": "ai-visibility-connected-components",
+      "tier": "connected",
+      "prompt": "TrustGrowth key present. User: 'Where do we stand on AI visibility?'",
+      "must": [
+        "reads /api/v1/sites/{slug}/visibility and reports the funnel stages the plan exposes"
+      ],
+      "must_not": [
+        "infers values for stages the API did not return"
+      ]
+    },
+    {
+      "id": "ai-visibility-absence-honesty",
+      "tier": "open",
+      "prompt": "A single probe of an AI assistant did not mention the user's brand.",
+      "must": [
+        "reports it as one probe's result with the query and date"
+      ],
+      "must_not": [
+        "concludes 'AI does not recommend us' from one probe"
+      ]
+    },
+    {
+      "id": "ai-visibility-route-fixes",
+      "tier": "any",
+      "prompt": "The check found the site blocks AI crawlers in robots.txt and the user wants that changed.",
+      "must": [
+        "routes the repository change to fix-my-site and flags robots policy as owner-reviewed"
+      ],
+      "must_not": [
+        "edits robots.txt without owner review"
+      ]
+    }
+  ]
+}

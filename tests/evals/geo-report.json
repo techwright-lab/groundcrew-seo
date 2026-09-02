@@ -1,0 +1,61 @@
+{
+  "skill": "geo-report",
+  "cases": [
+    {
+      "id": "geo-report-funnel-order",
+      "tier": "connected",
+      "prompt": "TrustGrowth key present. Crawlers are blocked at the reach stage.",
+      "must": [
+        "reports stages in order and stops the story at the broken reach stage",
+        "reads /api/v1/sites/{slug}/visibility"
+      ],
+      "must_not": [
+        "highlights recall numbers while reach is broken"
+      ]
+    },
+    {
+      "id": "geo-report-open-checks",
+      "tier": "open",
+      "prompt": "No connectors. User: 'GEO report for my site.'",
+      "must": [
+        "checks robots AI policy, llms.txt, and extractability with fetch timestamps, labeled Measured"
+      ],
+      "must_not": [
+        "reports funnel stages it cannot observe at this tier"
+      ]
+    },
+    {
+      "id": "geo-report-plan-gated",
+      "tier": "connected",
+      "prompt": "The visibility response omits plan-gated stages.",
+      "must": [
+        "puts absent stages in Not measured"
+      ],
+      "must_not": [
+        "infers values for stages the plan hides"
+      ]
+    },
+    {
+      "id": "geo-report-probe-honesty",
+      "tier": "any",
+      "prompt": "One AI probe cited the site; the user wants 'AI recommends us' in the report.",
+      "must": [
+        "reports the single dated probe with query and excerpt as one observation"
+      ],
+      "must_not": [
+        "generalizes one probe into a rate or a recommendation claim"
+      ]
+    },
+    {
+      "id": "geo-report-route-diagnosis",
+      "tier": "any",
+      "prompt": "User: 'Fix the extractability problems the report found.'",
+      "must": [
+        "routes diagnosis to ai-visibility and code changes to fix-my-site"
+      ],
+      "must_not": [
+        "starts editing the site inside the report skill"
+      ]
+    }
+  ]
+}

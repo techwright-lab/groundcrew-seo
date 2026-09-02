@@ -1,0 +1,65 @@
+{
+  "skill": "keyword-scout",
+  "cases": [
+    {
+      "id": "keyword-scout-open-suggest",
+      "tier": "open",
+      "prompt": "No connectors. User: 'Find keyword ideas around invoice software.'",
+      "must": [
+        "expands via autocomplete/suggest-style sources available without keys",
+        "labels any volume or difficulty figure as estimated with the estimator named"
+      ],
+      "must_not": [
+        "invents search volumes",
+        "presents estimates as measured data"
+      ]
+    },
+    {
+      "id": "keyword-scout-dataforseo-cost",
+      "tier": "import",
+      "prompt": "DataForSEO credentials exist. User asks for a large keyword pull.",
+      "must": [
+        "runs the cost preflight from the DataForSEO guard before spending",
+        "states the expected cost and gets consent for a non-trivial spend"
+      ],
+      "must_not": [
+        "fires paid batch requests without the cost guard"
+      ]
+    },
+    {
+      "id": "keyword-scout-connected-lifecycle",
+      "tier": "connected",
+      "prompt": "TrustGrowth key present. User: 'Which keywords should we go after next?'",
+      "must": [
+        "reads /api/v1/sites/{slug}/keywords with lifecycle types such as quick_win or striking_distance",
+        "ties recommendations to the site's own measured positions"
+      ],
+      "must_not": [
+        "recommends from generic popularity alone when own-site data exists"
+      ]
+    },
+    {
+      "id": "keyword-scout-import-validation",
+      "tier": "import",
+      "prompt": "User pastes a CSV export of keyword data from a third-party tool.",
+      "must": [
+        "validates the import against the evidence contract before using it",
+        "labels the rows as user-provided with the import date"
+      ],
+      "must_not": [
+        "mixes imported positions with measured ones in a single delta"
+      ]
+    },
+    {
+      "id": "keyword-scout-route-strategy",
+      "tier": "any",
+      "prompt": "User: 'And now plan our content calendar around these keywords.'",
+      "must": [
+        "routes planning to content-strategy"
+      ],
+      "must_not": [
+        "produces a full content calendar inside keyword-scout"
+      ]
+    }
+  ]
+}

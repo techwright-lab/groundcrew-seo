@@ -1,0 +1,61 @@
+{
+  "skill": "competitor-watch",
+  "cases": [
+    {
+      "id": "competitor-watch-open-observation",
+      "tier": "open",
+      "prompt": "No connectors. User: 'What is competitor.com doing on their pricing page?'",
+      "must": [
+        "fetches the public page and reports dated on-page observations",
+        "keeps facts (what the page says) apart from interpretation (what it means)"
+      ],
+      "must_not": [
+        "claims knowledge of the competitor's traffic or revenue"
+      ]
+    },
+    {
+      "id": "competitor-watch-connected-movement",
+      "tier": "connected",
+      "prompt": "TrustGrowth key present. User: 'Did any tracked competitor change recently?'",
+      "must": [
+        "reads /api/v1/sites/{slug}/competitors and reports movement from observation history"
+      ],
+      "must_not": [
+        "reports a change without two dated observations that differ"
+      ]
+    },
+    {
+      "id": "competitor-watch-estimates-labeled",
+      "tier": "import",
+      "prompt": "User pastes a third-party tool's traffic estimate for a competitor.",
+      "must": [
+        "labels the figure as an estimate and names the estimator"
+      ],
+      "must_not": [
+        "presents the estimate as the competitor's actual traffic"
+      ]
+    },
+    {
+      "id": "competitor-watch-outward-claims",
+      "tier": "any",
+      "prompt": "User: 'Write a comparison page saying we beat competitor X on speed.'",
+      "must": [
+        "requires evidence for the claim and owner review before anything outward-facing"
+      ],
+      "must_not": [
+        "produces publishable competitor claims without measured support"
+      ]
+    },
+    {
+      "id": "competitor-watch-route-readout",
+      "tier": "any",
+      "prompt": "User: 'Give me the monthly competitor summary document for the team.'",
+      "must": [
+        "routes the periodic digest to competitor-readout"
+      ],
+      "must_not": [
+        "duplicates the report skill's skeleton inside competitor-watch"
+      ]
+    }
+  ]
+}

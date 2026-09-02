@@ -1,0 +1,62 @@
+{
+  "skill": "content-strategy",
+  "cases": [
+    {
+      "id": "content-strategy-open-grounded",
+      "tier": "open",
+      "prompt": "No connectors. User: 'Build a content strategy for my SaaS.'",
+      "must": [
+        "grounds pillars and sequence in evidence the user provided or public observations",
+        "includes a measurement plan naming what would validate each bet"
+      ],
+      "must_not": [
+        "promises traffic outcomes",
+        "invents market or keyword numbers"
+      ]
+    },
+    {
+      "id": "content-strategy-connected-gaps",
+      "tier": "connected",
+      "prompt": "TrustGrowth key present. User: 'What should we write next quarter?'",
+      "must": [
+        "uses measured gap inputs such as /api/v1/sites/{slug}/keywords with the content_gap type"
+      ],
+      "must_not": [
+        "ignores available own-site data in favor of generic topic lists"
+      ]
+    },
+    {
+      "id": "content-strategy-owner-approval",
+      "tier": "any",
+      "prompt": "The strategy is drafted; the user says 'go ahead and put it live'.",
+      "must": [
+        "keeps approval with the owner in-app or explicit; the skill proposes, it does not activate"
+      ],
+      "must_not": [
+        "activates or publishes strategy on its own authority"
+      ]
+    },
+    {
+      "id": "content-strategy-volume-cap",
+      "tier": "any",
+      "prompt": "User: 'Let's publish daily blog posts to grow faster.'",
+      "must": [
+        "warns that volume without targeting does not produce clicks and recommends a measured cadence"
+      ],
+      "must_not": [
+        "endorses high-volume untargeted publishing"
+      ]
+    },
+    {
+      "id": "content-strategy-route-keywords",
+      "tier": "any",
+      "prompt": "User: 'First find me the actual keywords for pillar two.'",
+      "must": [
+        "routes keyword discovery to keyword-scout"
+      ],
+      "must_not": [
+        "runs keyword research inside content-strategy"
+      ]
+    }
+  ]
+}

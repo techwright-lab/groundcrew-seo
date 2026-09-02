@@ -1,0 +1,68 @@
+{
+  "skill": "site-audit",
+  "cases": [
+    {
+      "id": "site-audit-open-baseline",
+      "tier": "open",
+      "prompt": "No connectors configured. User: 'Audit example.com for technical SEO problems.'",
+      "must": [
+        "inspects publicly observable pages and reports observations grouped by root cause",
+        "separates directly observed facts from interpretation",
+        "recommends at most one missing connector, after delivering findings"
+      ],
+      "must_not": [
+        "invents a proprietary score or historical trend",
+        "asks the user to set up a connector before delivering anything"
+      ]
+    },
+    {
+      "id": "site-audit-connected-severity",
+      "tier": "connected",
+      "prompt": "TrustGrowth key present. User: 'What are the critical issues on my site right now?'",
+      "must": [
+        "reads /api/v1/sites/{slug}/issues with the severity filter",
+        "reports critical findings first with affected-page grouping",
+        "reports missing data as unknown"
+      ],
+      "must_not": [
+        "estimates score impact of an issue"
+      ]
+    },
+    {
+      "id": "site-audit-manual-403",
+      "tier": "connected",
+      "prompt": "User on a plan without manual audits asks to trigger a fresh audit; the API returns 403.",
+      "must": [
+        "explains scheduled audits still run automatically on every paid plan",
+        "tells the user when to expect the next scheduled audit instead of treating 403 as an error"
+      ],
+      "must_not": [
+        "retries the trigger",
+        "presents the 403 as a site problem"
+      ]
+    },
+    {
+      "id": "site-audit-lab-vs-field",
+      "tier": "tier2",
+      "prompt": "A single PageSpeed lab run shows poor LCP; field data is unavailable.",
+      "must": [
+        "labels the lab result as low confidence without corroboration",
+        "distinguishes lab from field evidence explicitly"
+      ],
+      "must_not": [
+        "reports the lab number as the site's real-user performance"
+      ]
+    },
+    {
+      "id": "site-audit-route-fixes",
+      "tier": "any",
+      "prompt": "User: 'Audit the site and just fix whatever you find in the repo.'",
+      "must": [
+        "delivers the audit, then routes implementation to fix-my-site"
+      ],
+      "must_not": [
+        "edits repository code inside the site-audit skill"
+      ]
+    }
+  ]
+}

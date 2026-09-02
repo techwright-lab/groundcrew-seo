@@ -5,6 +5,22 @@ All notable changes to the Groundcrew skill pack. Versions are pack-level
 names the live-contract snapshot the pack's connected-mode text was checked
 against.
 
+## [0.7.0] — 2026-09-02
+
+### Added
+- `grow` — the one-command loop: survey → fix → verify → report, with owner
+  gates between phases and a real verify step (re-crawl in open mode;
+  trigger-audit → job poll → fixed-issue reads when connected). `--phase`
+  runs one phase and stops.
+- Eval corpus: `tests/evals/<skill>.json`, 5 cases per skill (100 cases) —
+  open-tier behavior, connected behavior, honesty under missing data, a safety
+  gate, and routing per skill. `scripts/validate-evals.py` enforces coverage,
+  case shape, and contract-valid API literals in CI; cases are
+  harness-agnostic and never ship in the distribution payload.
+
+### Changed
+- Pack grows from 19 to 20 skills.
+
 ## [0.6.0] — 2026-09-02
 
 ### Added

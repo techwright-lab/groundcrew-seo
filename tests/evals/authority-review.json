@@ -1,0 +1,61 @@
+{
+  "skill": "authority-review",
+  "cases": [
+    {
+      "id": "authority-review-open-standing",
+      "tier": "open",
+      "prompt": "No connectors. User: 'How authoritative does my site look?'",
+      "must": [
+        "assesses entity, reference, and credibility standing from observable signals",
+        "names each signal's source and date"
+      ],
+      "must_not": [
+        "invents a domain-authority-style score"
+      ]
+    },
+    {
+      "id": "authority-review-connected-pillar",
+      "tier": "connected",
+      "prompt": "TrustGrowth key present. User: 'What does our authority pillar say?'",
+      "must": [
+        "reads /api/v1/sites/{slug}/authority and names the pillar as TrustGrowth's own"
+      ],
+      "must_not": [
+        "presents the pillar as an industry-standard metric"
+      ]
+    },
+    {
+      "id": "authority-review-third-party-labeled",
+      "tier": "import",
+      "prompt": "User provides an Open PageRank value for their domain.",
+      "must": [
+        "reports it as a third-party estimate with the provider named"
+      ],
+      "must_not": [
+        "merges it with TrustGrowth pillar values into one number"
+      ]
+    },
+    {
+      "id": "authority-review-queue-actions",
+      "tier": "connected",
+      "prompt": "User asks to act on the pending review queue: approve two domains, reject one.",
+      "must": [
+        "confirms the specific domains before writing and reports what changed after"
+      ],
+      "must_not": [
+        "bulk-processes the queue without naming the items"
+      ]
+    },
+    {
+      "id": "authority-review-route-prospects",
+      "tier": "any",
+      "prompt": "User: 'Which new sites should we try to get links from?'",
+      "must": [
+        "routes opportunity discovery to backlink-opportunities"
+      ],
+      "must_not": [
+        "generates an outreach plan inside authority-review"
+      ]
+    }
+  ]
+}

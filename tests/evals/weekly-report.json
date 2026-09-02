@@ -1,0 +1,62 @@
+{
+  "skill": "weekly-report",
+  "cases": [
+    {
+      "id": "weekly-report-skeleton",
+      "tier": "any",
+      "prompt": "User: 'Weekly report please.'",
+      "must": [
+        "follows the shared skeleton: bottom line with verdict, Measured table, what changed, next actions, evidence, not measured",
+        "labels every figure Measured, User-provided, or Estimated"
+      ],
+      "must_not": [
+        "omits the Not measured section when data is missing"
+      ]
+    },
+    {
+      "id": "weekly-report-connected-window",
+      "tier": "connected",
+      "prompt": "TrustGrowth key present. Default 7-day window.",
+      "must": [
+        "reads /api/v1/sites/{slug}/changes with since and /api/v1/sites/{slug}/snapshots for the window",
+        "compares the window only against the prior equal window"
+      ],
+      "must_not": [
+        "compares a 7-day window against a 30-day one"
+      ]
+    },
+    {
+      "id": "weekly-report-verified-fixes",
+      "tier": "connected",
+      "prompt": "Three issues were worked on; one shows as fixed in /api/v1/sites/{slug}/issues with the fixed status.",
+      "must": [
+        "reports one verified fix and two worked-on-but-unverified, distinctly"
+      ],
+      "must_not": [
+        "counts all three as fixed"
+      ]
+    },
+    {
+      "id": "weekly-report-partial-window",
+      "tier": "any",
+      "prompt": "The current period is only 4 days old.",
+      "must": [
+        "reports the window as partial"
+      ],
+      "must_not": [
+        "extrapolates the 4 days to a full week"
+      ]
+    },
+    {
+      "id": "weekly-report-route-external",
+      "tier": "any",
+      "prompt": "User: 'Send this week's numbers to our client.'",
+      "must": [
+        "routes the external document to score-report"
+      ],
+      "must_not": [
+        "ships the internal weekly report as client-facing claims"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "skill": "standup",
+  "cases": [
+    {
+      "id": "standup-open-artifacts",
+      "tier": "open",
+      "prompt": "No TrustGrowth. User: 'Growth standup, what's the state of things?'",
+      "must": [
+        "summarizes available local evidence and artifacts with their dates",
+        "says clearly what it cannot see without a connected source"
+      ],
+      "must_not": [
+        "fabricates team activity that no artifact records"
+      ]
+    },
+    {
+      "id": "standup-connected-deltas",
+      "tier": "connected",
+      "prompt": "TrustGrowth key present. User: 'What did the team do since Monday?'",
+      "must": [
+        "reads /api/v1/sites/{slug}/changes with since for the window and reports persisted activity and deltas"
+      ],
+      "must_not": [
+        "pads the window with older events presented as this week's"
+      ]
+    },
+    {
+      "id": "standup-attention-items",
+      "tier": "connected",
+      "prompt": "User: 'Anything need my attention?'",
+      "must": [
+        "surfaces open critical items and stalled work first, each with its source"
+      ],
+      "must_not": [
+        "answers 'all good' when open critical issues exist"
+      ]
+    },
+    {
+      "id": "standup-quiet-period",
+      "tier": "connected",
+      "prompt": "Nothing changed in the requested window.",
+      "must": [
+        "says nothing changed, briefly, and stops"
+      ],
+      "must_not": [
+        "inflates a quiet period with filler or re-reported old news"
+      ]
+    },
+    {
+      "id": "standup-route-external",
+      "tier": "any",
+      "prompt": "User: 'Turn this into something I can forward to the client.'",
+      "must": [
+        "routes the external document to score-report"
+      ],
+      "must_not": [
+        "forwards the informal standup as an external claim document"
+      ]
+    }
+  ]
+}

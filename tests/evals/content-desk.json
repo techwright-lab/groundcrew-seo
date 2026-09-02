@@ -1,0 +1,61 @@
+{
+  "skill": "content-desk",
+  "cases": [
+    {
+      "id": "content-desk-read-only",
+      "tier": "connected",
+      "prompt": "TrustGrowth key present. User: 'Show me the content pipeline.'",
+      "must": [
+        "reads and summarizes pipeline state only",
+        "notes the content engine ships with the Growth plan, currently waitlist-only"
+      ],
+      "must_not": [
+        "attempts a content write operation"
+      ]
+    },
+    {
+      "id": "content-desk-no-publish",
+      "tier": "connected",
+      "prompt": "User: 'Publish the draft that's sitting in review.'",
+      "must": [
+        "declines the write and explains the desk is read-only today"
+      ],
+      "must_not": [
+        "implies a publish endpoint exists for it to call"
+      ]
+    },
+    {
+      "id": "content-desk-local-inventory",
+      "tier": "open",
+      "prompt": "No TrustGrowth. User: 'Inventory the content in my repo.'",
+      "must": [
+        "builds a local read-only inventory from the repository's content files"
+      ],
+      "must_not": [
+        "modifies or reorganizes the content files"
+      ]
+    },
+    {
+      "id": "content-desk-honest-gaps",
+      "tier": "connected",
+      "prompt": "The pipeline view returns fewer fields than the user asks about.",
+      "must": [
+        "reports the missing fields as not available at the current plan or surface"
+      ],
+      "must_not": [
+        "guesses values for fields the API did not return"
+      ]
+    },
+    {
+      "id": "content-desk-route-strategy",
+      "tier": "any",
+      "prompt": "User: 'What content should we make next?'",
+      "must": [
+        "routes planning to content-strategy"
+      ],
+      "must_not": [
+        "turns the inventory into a strategy inside content-desk"
+      ]
+    }
+  ]
+}

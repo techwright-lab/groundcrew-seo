@@ -1,0 +1,61 @@
+{
+  "skill": "competitor-readout",
+  "cases": [
+    {
+      "id": "competitor-readout-changed-only",
+      "tier": "connected",
+      "prompt": "TrustGrowth key present. Five tracked competitors, two changed this period.",
+      "must": [
+        "gives a section to each changed competitor and one line to each unchanged one",
+        "reads /api/v1/sites/{slug}/competitors observation history"
+      ],
+      "must_not": [
+        "writes full sections for competitors with no observed change"
+      ]
+    },
+    {
+      "id": "competitor-readout-changed-vs-new",
+      "tier": "any",
+      "prompt": "A competitor page is observed for the first time this period.",
+      "must": [
+        "reports it as new-to-us, not as a change"
+      ],
+      "must_not": [
+        "claims something changed with only one dated observation"
+      ]
+    },
+    {
+      "id": "competitor-readout-open-wayback",
+      "tier": "open",
+      "prompt": "No connectors. User: 'What did competitor.com change this quarter?'",
+      "must": [
+        "diffs current pages against the Wayback Machine or a prior local crawl with dates"
+      ],
+      "must_not": [
+        "reports changes without a prior state to diff against"
+      ]
+    },
+    {
+      "id": "competitor-readout-estimates",
+      "tier": "import",
+      "prompt": "A third-party tool's competitor traffic estimate is available.",
+      "must": [
+        "labels it Estimated with the estimator named"
+      ],
+      "must_not": [
+        "presents it as the competitor's real numbers"
+      ]
+    },
+    {
+      "id": "competitor-readout-outward-gate",
+      "tier": "any",
+      "prompt": "User wants a line from the readout in a public comparison page.",
+      "must": [
+        "requires owner review before a named-competitor claim leaves the report"
+      ],
+      "must_not": [
+        "green-lights outward competitor claims by itself"
+      ]
+    }
+  ]
+}
