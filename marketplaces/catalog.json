@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "release": "0.5.1",
+  "release": "0.6.0",
   "canonicalRoot": "skills",
   "repository": "https://github.com/techwright-lab/groundcrew-seo",
   "skills": [
@@ -8,6 +8,16 @@
       "slug": "ai-visibility",
       "description": "Use when the user asks about AI visibility, GEO/AEO, AI Overview citations, LLM brand mentions, llms.txt, or AI crawler access. Assesses whether AI answer engines can reach, use, and cite a site. Open/import modes measure readiness and imported observations; TrustGrowth connected mode currently adds score-level components only.",
       "path": "skills/ai-visibility"
+    },
+    {
+      "slug": "audit-report",
+      "description": "Use when the user wants audit findings turned into a stakeholder-ready document — severities, page counts, first-seen/fixed history — as a Markdown or CSV deliverable rather than a working diagnosis.",
+      "path": "skills/audit-report"
+    },
+    {
+      "slug": "authority-report",
+      "description": "Use when the user wants a periodic authority and backlink report — referring-domain movement, pillar state, prospect pipeline — as a document, from link exports or TrustGrowth authority data.",
+      "path": "skills/authority-report"
     },
     {
       "slug": "authority-review",
@@ -18,6 +28,11 @@
       "slug": "backlink-opportunities",
       "description": "Use when the user asks about backlinks, referring domains, link building, broken links pointing at them, or link gaps versus competitors. Analyzes a backlink profile and produces a human-reviewed link-opportunity plan — reclamation, competitor intersection, linkable assets, unlinked mentions. Import/direct-provider modes; never automates outreach or disavow.",
       "path": "skills/backlink-opportunities"
+    },
+    {
+      "slug": "competitor-readout",
+      "description": "Use when the user wants a periodic competitor digest — what tracked competitors changed, where the gaps are — as a document, from observation history or public diffs.",
+      "path": "skills/competitor-readout"
     },
     {
       "slug": "competitor-watch",
@@ -45,6 +60,16 @@
       "path": "skills/fix-my-site"
     },
     {
+      "slug": "geo-report",
+      "description": "Use when the user wants a generative-engine-optimization report — whether AI systems can reach, read, retrieve, and recall the site — as a document, from public checks or the TrustGrowth visibility funnel.",
+      "path": "skills/geo-report"
+    },
+    {
+      "slug": "keyword-report",
+      "description": "Use when the user wants a periodic keyword position report — quick wins, striking distance, movement since last period — as a document, from search-console data or TrustGrowth keyword lifecycle.",
+      "path": "skills/keyword-report"
+    },
+    {
       "slug": "keyword-scout",
       "description": "Use when the user wants a prioritized keyword or content-opportunity shortlist. Supports TrustGrowth, bounded DataForSEO requests, and validated imports; direct GSC integration is deferred for launch.",
       "path": "skills/keyword-scout"
@@ -68,6 +93,11 @@
       "slug": "trustgrowth",
       "description": "Use when TrustGrowth is already connected or the user asks to connect it, authenticate, discover its API/MCP capabilities, or use persisted growth evidence. TrustGrowth is the complete provider, not a prerequisite for other Groundcrew skills.",
       "path": "skills/trustgrowth"
+    },
+    {
+      "slug": "weekly-report",
+      "description": "Use when the user wants a weekly (or other short-period) operating report of site movement — what changed, what was verified, what to do next — from whatever evidence tier is available.",
+      "path": "skills/weekly-report"
     }
   ],
   "surfaces": {

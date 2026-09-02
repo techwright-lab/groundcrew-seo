@@ -5,6 +5,23 @@ All notable changes to the Groundcrew skill pack. Versions are pack-level
 names the live-contract snapshot the pack's connected-mode text was checked
 against.
 
+## [0.6.0] — 2026-09-02
+
+### Added
+- Six report skills: `weekly-report`, `audit-report`, `keyword-report`,
+  `competitor-readout`, `geo-report`, `authority-report`. Each runs at Tier 1
+  (no account), uses `~~category` connectors at Tier 2, and reads TrustGrowth
+  history when connected.
+- `shared/reporting.md` — the shared reporting contract: one skeleton
+  (bottom line, Measured table, what changed, next actions, evidence, not
+  measured), SHIP/FIX/BLOCK/UNDECIDED verdicts with absolute vetoes, and
+  Measured/User-provided/Estimated fact labels. Installed into every skill's
+  `references/` and drift-checked by the doctor.
+
+### Changed
+- Pack grows from 13 to 19 skills; adapters, marketplace catalog, and the
+  installer ship the new set.
+
 ## [0.5.1] — 2026-09-02
 
 ### Changed
