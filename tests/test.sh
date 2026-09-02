@@ -13,7 +13,7 @@ preview="$($ROOT/scripts/preview-publishers.sh)"
 test "$(printf '%s\n' "$preview" | grep -c '^ClawHub preview:')" -eq 20
 test "$(printf '%s\n' "$preview" | grep -c '^SkillX scan:')" -eq 20
 test "$(printf '%s\n' "$preview" | grep -c '^Skilo pack:')" -eq 20
-test "$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["version"])' "$ROOT/.claude-plugin/plugin.json")" = 1.0.0-rc.2
+test "$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["version"])' "$ROOT/.claude-plugin/plugin.json")" = 1.0.0
 test "$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["skills"])' "$ROOT/.codex-plugin/plugin.json")" = ./skills/
 "$ROOT/scripts/groundcrew-doctor.py" --evidence "$ROOT/examples/evidence/valid-keyword.json"
 "$ROOT/scripts/groundcrew-doctor.py" --evidence "$ROOT/examples/evidence/valid-ai-visibility.json"
