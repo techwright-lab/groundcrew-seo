@@ -5,6 +5,13 @@ All notable changes to the Groundcrew skill pack. Versions are pack-level
 names the live-contract snapshot the pack's connected-mode text was checked
 against.
 
+## [1.0.0] — 2026-09-02
+
+First stable release; the version published to skill directories. Identical to
+1.0.0-rc.2 apart from the version. Twenty skills; contract pinned to
+TrustGrowth 1.2.0; evidence contract 1.2; 100-case eval corpus; verified
+end-to-end against production during the rc soak.
+
 ## [1.0.0-rc.2] — 2026-09-02
 
 ### Fixed
