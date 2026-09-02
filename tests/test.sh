@@ -1,18 +1,19 @@
 #!/usr/bin/env bash
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-python3 -m py_compile "$ROOT/scripts/groundcrew-doctor.py" "$ROOT/scripts/gen-contract.py" "$ROOT/scripts/validate-skills.py" "$ROOT/tests/test_timestamp.py" "$ROOT/tests/test_contract.py"
+python3 -m py_compile "$ROOT/scripts/groundcrew-doctor.py" "$ROOT/scripts/gen-contract.py" "$ROOT/scripts/validate-skills.py" "$ROOT/scripts/validate-evals.py" "$ROOT/tests/test_timestamp.py" "$ROOT/tests/test_contract.py"
 python3 "$ROOT/tests/test_timestamp.py"
 python3 "$ROOT/tests/test_contract.py"
 "$ROOT/scripts/gen-contract.py" --check
 "$ROOT/scripts/validate-skills.py"
+"$ROOT/scripts/validate-evals.py"
 "$ROOT/scripts/generate-adapters.py" --check
 "$ROOT/scripts/validate-distribution.py"
 preview="$($ROOT/scripts/preview-publishers.sh)"
-test "$(printf '%s\n' "$preview" | grep -c '^ClawHub preview:')" -eq 19
-test "$(printf '%s\n' "$preview" | grep -c '^SkillX scan:')" -eq 19
-test "$(printf '%s\n' "$preview" | grep -c '^Skilo pack:')" -eq 19
-test "$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["version"])' "$ROOT/.claude-plugin/plugin.json")" = 0.6.0
+test "$(printf '%s\n' "$preview" | grep -c '^ClawHub preview:')" -eq 20
+test "$(printf '%s\n' "$preview" | grep -c '^SkillX scan:')" -eq 20
+test "$(printf '%s\n' "$preview" | grep -c '^Skilo pack:')" -eq 20
+test "$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["version"])' "$ROOT/.claude-plugin/plugin.json")" = 0.7.0
 test "$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["skills"])' "$ROOT/.codex-plugin/plugin.json")" = ./skills/
 "$ROOT/scripts/groundcrew-doctor.py" --evidence "$ROOT/examples/evidence/valid-keyword.json"
 "$ROOT/scripts/groundcrew-doctor.py" --evidence "$ROOT/examples/evidence/valid-ai-visibility.json"

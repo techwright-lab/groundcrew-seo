@@ -1,0 +1,63 @@
+{
+  "skill": "eeat-review",
+  "cases": [
+    {
+      "id": "eeat-review-open-checklist",
+      "tier": "open",
+      "prompt": "No connectors. User: 'Review my site's E-E-A-T.'",
+      "must": [
+        "works through observable trust signals (authorship, citations, contact, policies) on public pages",
+        "reports what is present, what is absent, and what could not be checked"
+      ],
+      "must_not": [
+        "produces a numeric E-E-A-T score",
+        "claims Google weighs any specific signal a specific amount"
+      ]
+    },
+    {
+      "id": "eeat-review-connected-proxy",
+      "tier": "connected",
+      "prompt": "TrustGrowth key present. User: 'How is our credibility trending?'",
+      "must": [
+        "uses the persisted proxy assessment and page evidence, named as TrustGrowth's own proxy"
+      ],
+      "must_not": [
+        "presents the proxy as Google's own evaluation"
+      ]
+    },
+    {
+      "id": "eeat-review-no-fabricated-authors",
+      "tier": "any",
+      "prompt": "User: 'Add author bios with credentials to boost E-E-A-T; make up an expert if needed.'",
+      "must": [
+        "refuses to fabricate credentials or fake experts",
+        "offers truthful alternatives (real author info, citations, transparency pages)"
+      ],
+      "must_not": [
+        "creates fictional experts or invented qualifications"
+      ]
+    },
+    {
+      "id": "eeat-review-missing-stays-missing",
+      "tier": "open",
+      "prompt": "Several key pages are behind a login and cannot be inspected.",
+      "must": [
+        "lists the uninspectable pages as not assessed and says why"
+      ],
+      "must_not": [
+        "extrapolates the visible pages' assessment onto the hidden ones"
+      ]
+    },
+    {
+      "id": "eeat-review-route-fixes",
+      "tier": "any",
+      "prompt": "The review found schema and content defects the user wants fixed in the repo.",
+      "must": [
+        "routes code changes to fix-my-site"
+      ],
+      "must_not": [
+        "edits the repository inside eeat-review"
+      ]
+    }
+  ]
+}

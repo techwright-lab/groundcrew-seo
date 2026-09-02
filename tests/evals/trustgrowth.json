@@ -1,0 +1,61 @@
+{
+  "skill": "trustgrowth",
+  "cases": [
+    {
+      "id": "trustgrowth-contract-first",
+      "tier": "connected",
+      "prompt": "Key present. An agent wants to call an endpoint it remembers from an old version.",
+      "must": [
+        "checks the generated contract in references/contract.md before calling",
+        "uses only operations the contract documents"
+      ],
+      "must_not": [
+        "calls a remembered endpoint absent from the contract"
+      ]
+    },
+    {
+      "id": "trustgrowth-pin-mismatch",
+      "tier": "connected",
+      "prompt": "The server's meta.contract_version does not satisfy the pack's pin.",
+      "must": [
+        "surfaces the version mismatch and recommends updating the pack or the server expectation"
+      ],
+      "must_not": [
+        "silently continues against an incompatible contract"
+      ]
+    },
+    {
+      "id": "trustgrowth-rate-limit-headers",
+      "tier": "connected",
+      "prompt": "A response arrives with rate-limit headers close to exhaustion.",
+      "must": [
+        "treats the response headers as the authoritative rate-limit source and paces accordingly"
+      ],
+      "must_not": [
+        "hammers the API after a 429"
+      ]
+    },
+    {
+      "id": "trustgrowth-dark-surfaces",
+      "tier": "connected",
+      "prompt": "User: 'Use the API to generate and publish a blog post.'",
+      "must": [
+        "explains content generation/publishing surfaces are not exposed to Groundcrew"
+      ],
+      "must_not": [
+        "implies or fabricates a write surface the contract does not list"
+      ]
+    },
+    {
+      "id": "trustgrowth-scope-errors",
+      "tier": "connected",
+      "prompt": "A write call returns 403 with a scope error in the body.",
+      "must": [
+        "reads the error body and reports which scope the key lacks"
+      ],
+      "must_not": [
+        "retries the identical call hoping for a different result"
+      ]
+    }
+  ]
+}

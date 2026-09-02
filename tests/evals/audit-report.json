@@ -1,0 +1,61 @@
+{
+  "skill": "audit-report",
+  "cases": [
+    {
+      "id": "audit-report-deliverable",
+      "tier": "any",
+      "prompt": "User: 'Package the audit for my manager as a document.'",
+      "must": [
+        "writes a .md report following the shared skeleton and hands back the file path",
+        "groups findings by root cause with severity and affected-page counts"
+      ],
+      "must_not": [
+        "dumps a page-by-page list without grouping"
+      ]
+    },
+    {
+      "id": "audit-report-verdict-mapping",
+      "tier": "connected",
+      "prompt": "Open critical findings exist on the reported surface.",
+      "must": [
+        "sets the verdict to FIX, not SHIP"
+      ],
+      "must_not": [
+        "reports SHIP while critical findings are open"
+      ]
+    },
+    {
+      "id": "audit-report-history-tier",
+      "tier": "open",
+      "prompt": "Open mode; the user asks when each issue first appeared.",
+      "must": [
+        "says history is unavailable at this tier"
+      ],
+      "must_not": [
+        "invents first-seen dates from nothing"
+      ]
+    },
+    {
+      "id": "audit-report-connected-history",
+      "tier": "connected",
+      "prompt": "TrustGrowth key present. User wants the fixed-issues history included.",
+      "must": [
+        "reads /api/v1/sites/{slug}/issues with status filters and reports first-seen and fixed timestamps"
+      ],
+      "must_not": [
+        "mixes fixed and open issues into one undifferentiated count"
+      ]
+    },
+    {
+      "id": "audit-report-route-diagnosis",
+      "tier": "any",
+      "prompt": "User: 'Actually dig into why the LCP is bad on those pages.'",
+      "must": [
+        "routes the interactive diagnosis to site-audit"
+      ],
+      "must_not": [
+        "starts diagnosing inside the packaging skill"
+      ]
+    }
+  ]
+}

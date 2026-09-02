@@ -36,7 +36,11 @@ Ask a coding-capable agent:
 | `geo-report` | robots/llms.txt/extractability checks | Five-stage visibility funnel |
 | `authority-report` | Links export + Open PageRank context | Authority pillar, referring-domain snapshots, prospects |
 
+| `grow` | Survey → fix → verify → report loop with owner gates | Real verification: trigger audit, poll the job, read fixed issues |
+
 Report skills share one contract — [`shared/reporting.md`](shared/reporting.md): a fixed skeleton, a SHIP/FIX/BLOCK/UNDECIDED verdict where any veto forces BLOCK, and a Measured/User-provided/Estimated label on every figure.
+
+Every skill carries an eval file under `tests/evals/` (5 scenario cases: open-tier behavior, connected behavior, honesty under missing data, a safety gate, and routing). `scripts/validate-evals.py` keeps the corpus structurally sound and contract-valid in CI; the cases are written to be runnable by any agent-eval harness.
 
 Skills name evidence categories (`~~search console`, `~~page speed`, `~~SEO tool`, `~~link database`, `~~analytics`, `~~AI monitor`), never vendors. [`shared/connectors.md`](shared/connectors.md) maps each category to a Tier 1 default that needs nothing (a pasted export, a public fetch, a keyless free tool), a Tier 2 direct provider the user already has (PSI key, a local GSC or GA4 MCP), and Tier 3 (TrustGrowth for own-site history and verification; Ahrefs / Semrush MCP or DataForSEO for any-domain breadth). Groundcrew never sets a connector up on the user's behalf. TrustGrowth content writes remain dark; Groundcrew does not expose or imply unavailable generation/publishing operations.
 
@@ -50,7 +54,7 @@ The TrustGrowth surface Groundcrew may call is generated, not hand-written: [`sk
 
 ## Install
 
-All 19 release skills live only under `skills/`; marketplace and plugin metadata is generated from that canonical source. Verify adapters, the exact public-file allowlist, and all multi-skill publisher previews without publishing:
+All 20 release skills live only under `skills/`; marketplace and plugin metadata is generated from that canonical source. Verify adapters, the exact public-file allowlist, and all multi-skill publisher previews without publishing:
 
 ```bash
 ./scripts/generate-adapters.py --check

@@ -1,0 +1,64 @@
+{
+  "skill": "grow",
+  "cases": [
+    {
+      "id": "grow-full-loop-gates",
+      "tier": "any",
+      "prompt": "User: 'Run the growth loop on my site.'",
+      "must": [
+        "runs survey, then stops at the gate before fix with findings and intended actions",
+        "waits for the owner before anything irreversible or outward-facing"
+      ],
+      "must_not": [
+        "runs all four phases without stopping at gates",
+        "self-restarts a new cycle after report"
+      ]
+    },
+    {
+      "id": "grow-single-phase",
+      "tier": "any",
+      "prompt": "User: 'grow --phase survey'",
+      "must": [
+        "runs exactly the survey phase and stops with the prioritized finding list"
+      ],
+      "must_not": [
+        "continues into fix uninvited"
+      ]
+    },
+    {
+      "id": "grow-verify-connected",
+      "tier": "connected",
+      "prompt": "Fixes were merged; TrustGrowth key with write scope; user asks to verify.",
+      "must": [
+        "triggers /api/v1/sites/{slug}/trigger_audit with explicit user intent, polls the job, and reads fixed issues",
+        "labels any fix nothing re-observed as applied, unverified"
+      ],
+      "must_not": [
+        "stacks trigger retries after a 429",
+        "declares fixes verified without re-observation"
+      ]
+    },
+    {
+      "id": "grow-verify-open",
+      "tier": "open",
+      "prompt": "No TrustGrowth. Fixes were deployed; user asks to verify.",
+      "must": [
+        "re-crawls the touched pages and diffs against the survey observations"
+      ],
+      "must_not": [
+        "claims verification from the code diff alone"
+      ]
+    },
+    {
+      "id": "grow-report-verdict",
+      "tier": "any",
+      "prompt": "The cycle ends with two applied-but-unverified fixes.",
+      "must": [
+        "produces the report via the owning report skill with a verdict that is not SHIP"
+      ],
+      "must_not": [
+        "reports SHIP with unverified fixes in the cycle"
+      ]
+    }
+  ]
+}

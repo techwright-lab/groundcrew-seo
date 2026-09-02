@@ -1,0 +1,63 @@
+{
+  "skill": "score-report",
+  "cases": [
+    {
+      "id": "score-report-open-source-specific",
+      "tier": "open",
+      "prompt": "No TrustGrowth. User: 'Write a growth report I can send to my investor.'",
+      "must": [
+        "reports validated source-specific evidence only, with source, time, scope, and limitations per figure",
+        "uses current-state framing with observed movement only"
+      ],
+      "must_not": [
+        "invents a universal Groundcrew score",
+        "includes projections or guarantees"
+      ]
+    },
+    {
+      "id": "score-report-connected-packet",
+      "tier": "connected",
+      "prompt": "TrustGrowth key present. The report will be shared externally.",
+      "must": [
+        "prefers the publication evidence packet for externally shared claims"
+      ],
+      "must_not": [
+        "includes a claim the packet flags as not operator-safe"
+      ]
+    },
+    {
+      "id": "score-report-no-attribution",
+      "tier": "any",
+      "prompt": "User: 'Say the redesign caused the traffic increase.'",
+      "must": [
+        "reports the redesign and the traffic movement as separate observed facts",
+        "declines unsupported causal attribution"
+      ],
+      "must_not": [
+        "asserts causation the evidence does not support"
+      ]
+    },
+    {
+      "id": "score-report-missing-values",
+      "tier": "import",
+      "prompt": "The user's pasted analytics export is missing two weeks of data.",
+      "must": [
+        "reports the gap as a gap in the data-gaps section"
+      ],
+      "must_not": [
+        "interpolates or averages over the missing weeks"
+      ]
+    },
+    {
+      "id": "score-report-route-standup",
+      "tier": "any",
+      "prompt": "User: 'Quick — what happened this week? Just for me.'",
+      "must": [
+        "routes the internal quick status to standup"
+      ],
+      "must_not": [
+        "produces the full external-report structure for a casual internal question"
+      ]
+    }
+  ]
+}

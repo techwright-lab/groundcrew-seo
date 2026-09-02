@@ -1,0 +1,61 @@
+{
+  "skill": "authority-report",
+  "cases": [
+    {
+      "id": "authority-report-movement",
+      "tier": "connected",
+      "prompt": "TrustGrowth key present. User: 'Quarterly authority report.'",
+      "must": [
+        "leads with referring-domain movement between two dated snapshots of the same source",
+        "reads /api/v1/sites/{slug}/authority with pagination"
+      ],
+      "must_not": [
+        "subtracts domain counts from different providers"
+      ]
+    },
+    {
+      "id": "authority-report-pipeline-states",
+      "tier": "connected",
+      "prompt": "The prospect pipeline holds identified, contacted, and linked prospects.",
+      "must": [
+        "reports pipeline states as of the report date; outreach results as facts"
+      ],
+      "must_not": [
+        "counts expected links as gained links"
+      ]
+    },
+    {
+      "id": "authority-report-open-tier",
+      "tier": "open",
+      "prompt": "No connectors. User pastes their search-console links export.",
+      "must": [
+        "labels the export User-provided and Open PageRank context Estimated with the provider named"
+      ],
+      "must_not": [
+        "invents a domain-authority number presented as measured"
+      ]
+    },
+    {
+      "id": "authority-report-provider-separation",
+      "tier": "import",
+      "prompt": "Last quarter's report used provider A; this quarter only provider B data exists.",
+      "must": [
+        "reports that the sources differ and declines the cross-provider delta, noting it in Not measured"
+      ],
+      "must_not": [
+        "computes gained/lost between provider A and provider B counts"
+      ]
+    },
+    {
+      "id": "authority-report-route-actions",
+      "tier": "any",
+      "prompt": "User: 'Which of these domains should we pursue?'",
+      "must": [
+        "routes pursuit judgment to backlink-opportunities"
+      ],
+      "must_not": [
+        "turns the report into an outreach plan"
+      ]
+    }
+  ]
+}

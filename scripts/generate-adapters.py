@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = "0.6.0"
+VERSION = "0.7.0"
 
 
 def skill_metadata(path: Path) -> dict[str, str]:
@@ -28,12 +28,12 @@ def skill_metadata(path: Path) -> dict[str, str]:
 
 def outputs() -> dict[Path, object]:
     skills = [skill_metadata(p) for p in sorted((ROOT / "skills").glob("*/SKILL.md"))]
-    if len(skills) != 19:
-        raise ValueError(f"release {VERSION} requires exactly 19 skills, found {len(skills)}")
+    if len(skills) != 20:
+        raise ValueError(f"release {VERSION} requires exactly 20 skills, found {len(skills)}")
     common = {
         "name": "groundcrew-seo",
         "version": VERSION,
-        "description": "Nineteen open SEO and growth skills for AI agents — audit, fix, keywords, competitors, E-E-A-T, AI visibility, evidence-labeled reports — from TrustGrowth.",
+        "description": "Twenty open SEO and growth skills for AI agents — audit, fix, keywords, competitors, E-E-A-T, AI visibility, evidence-labeled reports, and the grow loop — from TrustGrowth.",
         "author": {"name": "TechWright", "url": "https://trustgrowth.ai"},
         "homepage": "https://github.com/techwright-lab/groundcrew-seo",
         "repository": "https://github.com/techwright-lab/groundcrew-seo",
