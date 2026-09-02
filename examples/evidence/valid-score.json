@@ -1,0 +1,12 @@
+{
+  "contract_version": "1.2",
+  "source": "trustgrowth",
+  "observed_at": "2026-09-02T09:16:30Z",
+  "subject": "example.com",
+  "evidence_type": "score",
+  "metrics": {"overall_before": 36, "overall_after": 43, "overall_delta": 7},
+  "provenance": {"retrieved_by": "trustgrowth-api", "reference": "GET /api/v1/sites/{slug}/changes?since=7d"},
+  "confidence": "high",
+  "limitations": ["Example fixture; provider-versioned score, comparable only within one provider and formula version"],
+  "raw_reference": null
+}

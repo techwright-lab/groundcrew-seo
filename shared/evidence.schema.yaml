@@ -6,11 +6,11 @@
   "additionalProperties": false,
   "required": ["contract_version", "source", "observed_at", "subject", "evidence_type", "metrics", "provenance", "confidence", "limitations"],
   "properties": {
-    "contract_version": {"enum": ["1.0", "1.1"]},
+    "contract_version": {"enum": ["1.0", "1.1", "1.2"]},
     "source": {"type": "string", "minLength": 1},
     "observed_at": {"type": "string", "format": "date-time"},
     "subject": {"type": "string", "minLength": 1},
-    "evidence_type": {"type": "string", "enum": ["audit", "analytics", "keyword", "competitor", "content_inventory", "repository", "report", "ai_visibility", "authority", "backlink", "content_strategy", "content_gap", "link_graph", "structured_data", "ai_referral"]},
+    "evidence_type": {"type": "string", "enum": ["audit", "analytics", "keyword", "score", "competitor", "content_inventory", "repository", "report", "ai_visibility", "authority", "backlink", "content_strategy", "content_gap", "link_graph", "structured_data", "ai_referral"]},
     "metrics": {"type": "object"},
     "provenance": {
       "type": "object",

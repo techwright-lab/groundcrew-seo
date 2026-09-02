@@ -5,6 +5,15 @@ All notable changes to the Groundcrew skill pack. Versions are pack-level
 names the live-contract snapshot the pack's connected-mode text was checked
 against.
 
+## [1.0.0-rc.2] — 2026-09-02
+
+### Fixed
+- rc.1 soak finding: the evidence contract could not represent a score
+  observation — the report skills' primary connected input. `evidence_type`
+  gains `score` (issue lifecycle maps to the existing `audit`, search metrics
+  to `analytics`); evidence `contract_version` gains `1.2`. Existing 1.0/1.1
+  records stay valid.
+
 ## [1.0.0-rc.1] — 2026-09-02
 
 Release candidate for the 1.0.0 directory publish. No content changes over
