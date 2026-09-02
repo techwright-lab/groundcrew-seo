@@ -9,6 +9,7 @@ Connect [TrustGrowth](https://trustgrowth.ai) when you want the work measured, s
 [![License: MIT](https://img.shields.io/badge/license-MIT-0e8a80.svg)](LICENSE)
 [![Skills](https://img.shields.io/badge/skills-20-0e8a80.svg)](#skills)
 [![TrustGrowth contract](https://img.shields.io/badge/TrustGrowth_contract-1.2.0-0e8a80.svg)](shared/contract-pin.json)
+[![smithery badge](https://smithery.ai/badge/trustgrowth/trustgrowth)](https://smithery.ai/servers/trustgrowth/trustgrowth)
 
 [Install](#install) · [Skills](#skills) · [The grow loop](#the-grow-loop) · [Tiers](#three-tiers-zero-lock-in) · [Contracts](#evidence-and-contracts) · [Ethics](ETHICS.md)
 
