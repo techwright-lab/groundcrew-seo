@@ -5,6 +5,12 @@ All notable changes to the Groundcrew skill pack. Versions are pack-level
 names the live-contract snapshot the pack's connected-mode text was checked
 against.
 
+## [1.0.0-rc.1] — 2026-09-02
+
+Release candidate for the 1.0.0 directory publish. No content changes over
+0.7.0 — version bump, plus the publisher preview now derives the skill count
+instead of hard-coding it. Verified against live contract 1.2.0.
+
 ## [0.7.0] — 2026-09-02
 
 ### Added

@@ -6,7 +6,7 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 
 release="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["release"])' "$ROOT/marketplaces/catalog.json")"
 mapfile -t skills < <(find "$ROOT/skills" -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort)
-printf 'skills.sh / Smithery Skills / SkillsMP / AgentSkillsHub: repository import https://github.com/techwright-lab/groundcrew-seo (13 canonical skills)\n'
+printf 'skills.sh / Smithery Skills / SkillsMP / AgentSkillsHub: repository import https://github.com/techwright-lab/groundcrew-seo (%s canonical skills)\n' "${#skills[@]}"
 for skill in "${skills[@]}"; do
   printf 'ClawHub preview: clawhub skill publish skills/%s --version "$release" --dry-run --json\n' "$skill"
   printf 'SkillX scan: skillx scan https://github.com/techwright-lab/groundcrew-seo/tree/v$release/skills/%s\n' "$skill"

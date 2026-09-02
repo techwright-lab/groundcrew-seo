@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = "0.7.0"
+VERSION = "1.0.0-rc.1"
 
 
 def skill_metadata(path: Path) -> dict[str, str]:
