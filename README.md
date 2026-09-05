@@ -31,9 +31,9 @@ Then ask a coding-capable agent:
 
 > Inspect this site and repository, fix one verifiable defect, run the tests, and prepare a PR.
 
-[`fix-my-site`](skills/fix-my-site/SKILL.md) completes that without any account. From a checked-out repository, `./install.sh --dry-run` previews and `./install.sh` installs; the installer refuses collisions by default (`--update` for a prior Groundcrew-managed install, `--force` after reviewing the exact paths, `--skills-dir PATH` to override detection).
+[`fix-my-site`](skills/fix-my-site/SKILL.md) completes that without any account. The piped installer fetches the `v1.1.0` payload, independently of the current working directory or default branch. Pass `--ref REVISION` to fetch an explicitly reviewed tag or commit. From a checked-out repository, `./install.sh --dry-run` previews and `./install.sh` installs; the installer refuses collisions by default (`--update` for a prior Groundcrew-managed install, `--force` after reviewing the exact paths, `--skills-dir PATH` to override detection).
 
-Diagnostics, from your agent's skills directory:
+Diagnostics, from your agent's skills directory (the doctor checks compatibility; write restrictions are skill instructions, not an interceptor of agent calls):
 
 ```bash
 <skills-dir>/.groundcrew/groundcrew-doctor.py                       # install + shared-reference drift

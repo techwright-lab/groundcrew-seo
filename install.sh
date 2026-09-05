@@ -2,11 +2,14 @@
 set -euo pipefail
 REPO_URL="https://github.com/techwright-lab/groundcrew-seo"
 SKILLS_DIR="${SKILLS_DIR:-}"
+install_ref="v1.1.0"
+explicit_ref=false
 dry_run=false; force=false; update=false
-usage() { echo "Usage: $0 [--dry-run] [--update|--force] [--skills-dir PATH]"; }
+usage() { echo "Usage: $0 [--dry-run] [--update|--force] [--skills-dir PATH] [--ref REVISION]"; }
 while [ "$#" -gt 0 ]; do
   case "$1" in
     --dry-run) dry_run=true;; --force) force=true;; --update) update=true;;
+    --ref) shift; install_ref="${1:?--ref requires a revision}"; explicit_ref=true;;
     --skills-dir) shift; SKILLS_DIR="${1:?--skills-dir requires a path}";;
     -h|--help) usage; exit 0;; *) echo "Unknown option: $1" >&2; usage >&2; exit 2;;
   esac; shift
@@ -18,9 +21,19 @@ if [ -z "$SKILLS_DIR" ]; then
 fi
 [ -n "$SKILLS_DIR" ] || { echo "Could not detect a skills directory; use --skills-dir PATH" >&2; exit 1; }
 workdir="$(mktemp -d)"; trap 'rm -rf "$workdir"' EXIT
-# BASH_SOURCE is unset when piped (curl | bash); $0 then points at the shell, and the checkout test below fails into the clone path.
-script_dir="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
-if [ -d "$script_dir/skills" ] && [ -d "$script_dir/shared" ]; then src="$script_dir"; else git clone --depth 1 --quiet "$REPO_URL" "$workdir/groundcrew"; src="$workdir/groundcrew"; fi
+# Only a script executed from disk can opt into its adjacent checkout.
+script_dir=""
+if [ -n "${BASH_SOURCE[0]:-}" ] && [ -f "${BASH_SOURCE[0]}" ]; then
+  script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+fi
+if ! $explicit_ref && [ -n "$script_dir" ] && [ -d "$script_dir/skills" ] && [ -d "$script_dir/shared" ]; then
+  src="$script_dir"
+else
+  src="$workdir/groundcrew"
+  git init --quiet "$src"
+  git -C "$src" fetch --depth 1 --quiet "$REPO_URL" "$install_ref"
+  git -C "$src" checkout --quiet --detach FETCH_HEAD
+fi
 collisions=()
 for skill in "$src"/skills/*/; do
   name="$(basename "$skill")"; dest="$SKILLS_DIR/$name"

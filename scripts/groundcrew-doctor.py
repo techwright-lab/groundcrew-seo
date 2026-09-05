@@ -154,7 +154,7 @@ def operation_available(manifest, method, endpoint):
 
 
 def operation_allowed(manifest, method, endpoint, mode):
-    if mode == "read_only_feature_detected" and method != "GET":
+    if mode not in ("full", "read_only_feature_detected") or (mode != "full" and method != "GET"):
         return False
     return operation_available(manifest, method, endpoint)
 
@@ -183,7 +183,7 @@ def check_contract(base, key, errors):
     if mode == "full":
         ok(f"TrustGrowth contract {live} supports full mode (target {pin['contract_version']})")
     elif mode == "read_only_feature_detected":
-        ok(f"TrustGrowth contract {live} uses read-only feature-detected compatibility mode (target {pin['contract_version']}; all writes blocked)")
+        ok(f"TrustGrowth contract {live} uses read-only feature-detected compatibility mode (target {pin['contract_version']}; skills must block all writes)")
     else:
         fail(f"TrustGrowth contract {live!r} is incompatible with target {pin['contract_version']} (a parseable same-major version is required)", errors)
 

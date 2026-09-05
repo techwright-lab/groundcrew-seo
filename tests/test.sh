@@ -4,6 +4,7 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 python3 -m py_compile "$ROOT/scripts/groundcrew-doctor.py" "$ROOT/scripts/gen-contract.py" "$ROOT/scripts/validate-skills.py" "$ROOT/scripts/validate-evals.py" "$ROOT/tests/test_timestamp.py" "$ROOT/tests/test_contract.py" "$ROOT/tests/test_remediation_guidance.py" "$ROOT/tests/test_remediation_consumers.py"
 python3 "$ROOT/tests/test_timestamp.py"
 python3 "$ROOT/tests/test_contract.py"
+python3 "$ROOT/tests/test_installer.py"
 python3 "$ROOT/tests/test_remediation_guidance.py"
 python3 "$ROOT/tests/test_remediation_consumers.py"
 "$ROOT/scripts/gen-contract.py" --check

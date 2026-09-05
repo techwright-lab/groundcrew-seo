@@ -71,6 +71,12 @@ assert not doctor.operation_allowed(
     "read_only_feature_detected",
 )
 
+for mode in (None, "incompatible", "unknown", "", False):
+    for operation in compatibility_manifest["operations"]:
+        assert not doctor.operation_allowed(
+            compatibility_manifest, operation["method"], operation["endpoint"], mode
+        ), (mode, operation)
+
 manifest = gen.normalize(json.loads((root / "shared/contract/capabilities.json").read_text()))
 pin = json.loads((root / "shared/contract-pin.json").read_text())
 assert pin["older_same_major"] == "read_only_feature_detected"
@@ -83,6 +89,17 @@ assert "| `trigger_audit` |" in first and "`/api/v1/sites/{slug}/trigger_audit`"
 assert "| `review_audit_issue` |" in first and "`/api/v1/sites/{slug}/issues/{issue_id}/reviews`" in first
 assert all(f"`{d['name']}`" in first for d in manifest["dark_surfaces"]), "dark surfaces must be listed"
 assert not any(f"| `{d['name']}` |" in first for d in manifest["dark_surfaces"]), "dark surfaces must not appear as tools"
+
+serp = next(o for o in manifest["operations"] if o["endpoint"] == "/api/v1/sites/{slug}/serp")
+history = next(o for o in manifest["operations"] if o["endpoint"] == "/api/v1/sites/{slug}/keywords/{keyword}/history")
+assert gen.params_cell(serp) == "`keyword`*", gen.params_cell(serp)
+assert gen.params_cell(history) == "`from`, `to`", gen.params_cell(history)
+assert gen.params_cell({"endpoint": "/api/v1/sites/{slug}/competitors/{domain}", "parameters": [
+    {"name": "slug"}, {"name": "domain", "required": True}, {"name": "keyword", "required": True},
+]}) == "`keyword`*"
+assert gen.params_cell({"endpoint": "/api/v1/sites/{slug}/competitors", "parameters": [
+    {"name": "slug"}, {"name": "domain", "required": True},
+]}) == "`domain`*"
 
 original_api_get = doctor.api_get
 try:

@@ -6,7 +6,7 @@ what Groundcrew may call. This file is never hand-edited: regenerate it from the
 vendored manifest during development, or refresh from the live server with
 --from-live before release, and commit both.
 """
-import argparse, json, os, pathlib, sys, urllib.request
+import argparse, json, os, pathlib, re, sys, urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / "shared" / "contract" / "capabilities.json"
@@ -23,8 +23,6 @@ ERROR_MEANINGS = {
     "422": "Invalid params. The message names the field; fix the call.",
     "429": "Rate limited. Honour `Retry-After` / `X-RateLimit-*` headers, then retry once.",
 }
-
-PATH_PARAMS = {"slug", "entry_uid", "campaign_uid", "review_uid", "job_id", "session_uid", "uid", "issue_id", "domain", "keyword"}
 
 
 def load_manifest(source):
@@ -54,7 +52,8 @@ def normalize(manifest):
 
 
 def params_cell(operation):
-    query = [p for p in operation.get("parameters", []) if p["name"] not in PATH_PARAMS]
+    path_params = set(re.findall(r"\{([^{}]+)\}", operation["endpoint"]))
+    query = [p for p in operation.get("parameters", []) if p["name"] not in path_params]
     if not query:
         return "—"
     return ", ".join(f"`{p['name']}`" + ("*" if p.get("required") else "") for p in query)
