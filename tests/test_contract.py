@@ -26,6 +26,7 @@ pin = json.loads((root / "shared/contract-pin.json").read_text())
 first, second = gen.render(manifest, pin), gen.render(manifest, pin)
 assert first == second, "render must be deterministic"
 assert "| `trigger_audit` |" in first and "`/api/v1/sites/{slug}/trigger_audit`" in first
+assert "| `review_audit_issue` |" in first and "`/api/v1/sites/{slug}/issues/{issue_id}/reviews`" in first
 assert all(f"`{d['name']}`" in first for d in manifest["dark_surfaces"]), "dark surfaces must be listed"
 assert not any(f"| `{d['name']}` |" in first for d in manifest["dark_surfaces"]), "dark surfaces must not appear as tools"
 

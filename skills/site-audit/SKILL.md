@@ -4,11 +4,11 @@ description: Use when the user wants a current site audit, technical SEO finding
 ---
 # Site Audit
 
-Read `references/provider-selection.md` before choosing a source. Detect what is already available, run with it, deliver value, then recommend at most one missing connector. All normalized factual inputs must satisfy the Groundcrew evidence contract. Locate the active skills root and run `<skills-root>/.groundcrew/groundcrew-doctor.py --evidence <record.json>` before using them in a conclusion.
+Read `references/provider-selection.md` before choosing a source and `references/reporting.md` before interpreting findings. Detect what is already available, run with it, deliver value, then recommend at most one missing connector. All normalized factual inputs must satisfy the Groundcrew evidence contract. Locate the active skills root and run `<skills-root>/.groundcrew/groundcrew-doctor.py --evidence <record.json>` before using them in a conclusion.
 
 ## Sources
 
-- Connected: TrustGrowth `issues` (open actionable by default; `?severity=critical|warning|info`, `?scope=backlog` for non-actionable open issues, `?status=fixed|all` for history), `summary`, and `changes`; manual audit only when explicitly requested and plan/scope allow it.
+- Connected: TrustGrowth `issues` (open actionable by default; `?severity=critical|warning|info`, `?scope=backlog` for optional, investigative, and no-change context, `?status=fixed|all` for history), `summary`, and `changes`; manual audit only when explicitly requested and plan/scope allow it. Paginate the requested scope and retain each issue's complete identity and `remediation` fields before batching or summarizing.
 - Import: validated crawl/audit evidence supplied by the user.
 - Open: inspect publicly observable pages and local artifacts. Report observations, not a proprietary score or historical trend.
 
@@ -16,7 +16,7 @@ Categories used: `~~web crawler`, `~~page speed`, `~~search console`. `reference
 
 ## Interpret
 
-Group pages by root cause. Separate directly observed facts from interpretation. Report `critical` findings first, `warning` next, `info` and externally owned/informational findings as context, and missing data as unknown. Do not estimate score impact. Treat one-off lab performance results as low confidence unless corroborated; distinguish lab from field evidence.
+Group pages by root cause. Separate directly observed facts, current policy interpretation, proposed action, owner review, and verification. Report `critical` findings first, `warning` next, `info` and externally owned/informational findings as context, and missing data as unknown, while labeling `classification: suggestion` and `automation: advisory_only` as optional advice. Preserve applicable `no_change_when` rules and current owner `keep_as_is`/`not_applicable` decisions. Missing `remediation` on an older server, unavailable guidance, unknown applicability, and missing required context all remain investigate/propose; never infer a repair from severity. Do not estimate score impact. Treat one-off lab performance results as low confidence unless corroborated; distinguish lab from field evidence.
 
 ## Manual TrustGrowth audit
 

@@ -8,7 +8,7 @@ Connect [TrustGrowth](https://trustgrowth.ai) when you want the work measured, s
 [![Release](https://img.shields.io/github/v/release/techwright-lab/groundcrew-seo?color=0e8a80&label=release)](https://github.com/techwright-lab/groundcrew-seo/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-0e8a80.svg)](LICENSE)
 [![Skills](https://img.shields.io/badge/skills-20-0e8a80.svg)](#skills)
-[![TrustGrowth contract](https://img.shields.io/badge/TrustGrowth_contract-1.2.0-0e8a80.svg)](shared/contract-pin.json)
+[![TrustGrowth contract](https://img.shields.io/badge/TrustGrowth_contract-1.7.0-0e8a80.svg)](shared/contract-pin.json)
 [![smithery badge](https://smithery.ai/badge/trustgrowth/trustgrowth)](https://smithery.ai/servers/trustgrowth/trustgrowth)
 
 [Install](#install) · [Skills](#skills) · [The grow loop](#the-grow-loop) · [Tiers](#three-tiers-zero-lock-in) · [Contracts](#evidence-and-contracts) · [Ethics](ETHICS.md)
@@ -24,7 +24,7 @@ Groundcrew SEO is a provider-flexible pack of **20 plain-Markdown skills** for a
 ## Install
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/techwright-lab/groundcrew-seo/v1.0.0/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/techwright-lab/groundcrew-seo/v1.1.0/install.sh | bash
 ```
 
 Then ask a coding-capable agent:
@@ -90,7 +90,7 @@ Groundcrew never opens with a connector menu: it detects what is present, runs, 
 | [`authority-report`](skills/authority-report/SKILL.md) | Links export + Open PageRank context | Authority pillar, referring-domain snapshots, prospects |
 | [`score-report`](skills/score-report/SKILL.md) | Source-specific evidence report | Score history + publication-safe packet |
 
-Every report follows one contract — [`shared/reporting.md`](shared/reporting.md): a fixed skeleton, a **SHIP / FIX / BLOCK / UNDECIDED** verdict where any veto forces BLOCK, and a **Measured / User-provided / Estimated** label on every figure. Missing values stay missing — never zero, never interpolated.
+Every report follows one contract — [`shared/reporting.md`](shared/reporting.md): a fixed skeleton, a **SHIP / FIX / BLOCK / UNDECIDED** verdict where any veto forces BLOCK, and a **Measured / User-provided / Estimated** label on every figure. Its remediation rules keep observations, current policy, proposals, owner decisions, and rendered verification separate. Missing values stay missing — never zero, never interpolated.
 
 ## The grow loop
 
@@ -109,8 +109,8 @@ flowchart LR
 Three contracts keep the pack honest, and CI enforces all of them:
 
 - **Evidence** — every normalized factual input satisfies [`shared/evidence.schema.yaml`](shared/evidence.schema.yaml) (source, observation time, provenance, confidence, limitations). `groundcrew-doctor` validates records and fails on drifted shared references.
-- **API surface** — the TrustGrowth surface skills may call is **generated, not hand-written**: [`skills/trustgrowth/references/contract.md`](skills/trustgrowth/references/contract.md) is rendered from the live capability manifest by `scripts/gen-contract.py`; `scripts/validate-skills.py` rejects any skill referencing a path outside it; `groundcrew-doctor --connectivity` fails when the server's `contract_version` no longer satisfies [`shared/contract-pin.json`](shared/contract-pin.json).
-- **Evals** — every skill carries 5 scenario cases under `tests/evals/` (open-tier behavior, connected behavior, honesty under missing data, a safety gate, routing); `scripts/validate-evals.py` keeps the 100-case corpus structurally sound and contract-valid. The cases are harness-agnostic and never ship in the distribution payload.
+- **API surface** — the TrustGrowth surface skills may call is **generated, not hand-written**: [`skills/trustgrowth/references/contract.md`](skills/trustgrowth/references/contract.md) is rendered from the vendored capability manifest by `scripts/gen-contract.py` and refreshed from the live manifest before release; `scripts/validate-skills.py` rejects any skill referencing a path outside it; `groundcrew-doctor --connectivity` fails when the server's `contract_version` no longer satisfies [`shared/contract-pin.json`](shared/contract-pin.json).
+- **Evals** — every skill carries at least 5 scenario cases under `tests/evals/` (open-tier behavior, connected behavior, honesty under missing data, a safety gate, routing); `scripts/validate-evals.py` keeps the 111-case corpus structurally sound and contract-valid. The cases are harness-agnostic and never ship in the distribution payload. Deterministic worked-example checks are separate and do not claim to execute agents.
 
 ## Optional providers
 

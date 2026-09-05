@@ -32,6 +32,12 @@ Prefer the MCP tool name (for example `get_site_score`, `list_site_issues`, `tri
 4. Report numbers as they are. Missing data comes back as `null`, never zero — don't convert nulls to zeros in summaries.
 5. Every response carries `meta.contract_version`. `groundcrew-doctor.py --connectivity` fails when the server's version does not satisfy `shared/contract-pin.json` (same major, at least the pinned minor.patch). Do not work around a failed pin check.
 
+## Audit remediation compatibility
+
+Issue consumers read the complete `remediation` object and follow the decision contract in `references/reporting.md`. Feature-detect that field on each response: older servers may omit it even when an issues endpoint exists. Missing guidance, `guidance_available: false`, unknown applicability, and absent required context mean investigate with explicit local evidence and, when justified, prepare a proposal for owner review. They never authorize a blanket repair or allow legacy severity to replace current policy.
+
+If the generated contract advertises `review_audit_issue`, call it only with explicit authorization to record the authenticated owner's decision. Copy the current evidence signature, policy version, and state token from `remediation.review`, supply a unique request key and reason, and re-read on a stale conflict. Preserve existing valid `keep_as_is` and `not_applicable` decisions; do not create acceptance decisions merely to empty a queue. Audit review remains separate from repair verification, scoring, and content-engine publication approval.
+
 ## Content boundary
 
 TrustGrowth content-engine writes are not available for the launch. Do not attempt, document, or imply content generation, approval, scheduling, publishing, review-queue, or lifecycle writes. `GET .../content` is read-only inventory.

@@ -1,5 +1,5 @@
 {
-  "contract_version": "1.2.0",
+  "contract_version": "1.7.0",
   "dark_surfaces": [
     {
       "availability": "dark",
@@ -128,6 +128,22 @@
     "dark_surface_allowlist"
   ],
   "operations": [
+    {
+      "availability": "public",
+      "endpoint": "/.well-known/oauth-authorization-server",
+      "error_codes": [],
+      "method": "GET",
+      "name": "getOauthAuthorizationServerMetadata",
+      "parameters": []
+    },
+    {
+      "availability": "public",
+      "endpoint": "/.well-known/oauth-protected-resource",
+      "error_codes": [],
+      "method": "GET",
+      "name": "getOauthProtectedResourceMetadata",
+      "parameters": []
+    },
     {
       "availability": "public",
       "endpoint": "/api/v1/capabilities/v1",
@@ -922,6 +938,7 @@
           "name": "target_keyword",
           "required": false,
           "schema": {
+            "nullable": true,
             "type": "string"
           }
         },
@@ -1017,6 +1034,35 @@
         },
         {
           "name": "note",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/content/{entry_uid}/claim_risk_floor",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "409",
+        "422"
+      ],
+      "method": "PATCH",
+      "name": "raiseContentEntryClaimRiskFloor",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "entry_uid",
           "required": true,
           "schema": {
             "type": "string"
@@ -1379,6 +1425,95 @@
           }
         },
         {
+          "name": "category",
+          "required": false,
+          "schema": {
+            "enum": [
+              "technical",
+              "performance",
+              "geo"
+            ],
+            "type": "string"
+          }
+        },
+        {
+          "name": "issue_type",
+          "required": false,
+          "schema": {
+            "enum": [
+              "meta_missing",
+              "meta_too_long",
+              "meta_too_short",
+              "meta_duplicate",
+              "meta_title_missing",
+              "meta_title_too_long",
+              "meta_title_too_short",
+              "meta_title_duplicate",
+              "meta_description_missing",
+              "meta_description_too_long",
+              "meta_description_too_short",
+              "meta_description_duplicate",
+              "broken_link",
+              "redirect_chain",
+              "no_alt_text",
+              "no_h1",
+              "multiple_h1",
+              "no_schema",
+              "invalid_schema",
+              "rich_results_error",
+              "slow_lcp",
+              "high_cls",
+              "no_canonical",
+              "no_sitemap",
+              "no_robots",
+              "thin_content",
+              "duplicate_content",
+              "no_ssl",
+              "mobile_unfriendly",
+              "orphan_page",
+              "missing_schema_types",
+              "incomplete_schema",
+              "missing_author_markup",
+              "missing_publish_date",
+              "missing_update_date",
+              "poor_heading_hierarchy",
+              "missing_faq_section",
+              "faq_not_marked_up",
+              "low_list_usage",
+              "low_outbound_authority_links",
+              "broken_backlink_reclamation",
+              "ai_crawler_blocked",
+              "ai_crawler_partial",
+              "llms_txt_missing",
+              "llms_txt_unusable",
+              "llms_txt_stub",
+              "llms_txt_unnoted_links",
+              "llms_txt_broken_links",
+              "llms_txt_drifted",
+              "llms_txt_offsite_heavy",
+              "lighthouse_opportunity",
+              "lighthouse_render_blocking_resources",
+              "lighthouse_unused_css_rules",
+              "lighthouse_unused_javascript",
+              "lighthouse_unminified_css",
+              "lighthouse_unminified_javascript",
+              "lighthouse_uses_text_compression",
+              "lighthouse_optimized_images",
+              "lighthouse_uses_responsive_images",
+              "lighthouse_legacy_javascript",
+              "lighthouse_offscreen_images",
+              "lighthouse_passive_event_listeners",
+              "lighthouse_modern_image_formats",
+              "lighthouse_long_cache_ttl",
+              "published_absent_from_gsc",
+              "in_gsc_never_crawled",
+              "crawled_indexed_zero_impressions",
+              "gone_earning_impressions"
+            ],
+            "type": "string"
+          }
+        },
+        {
           "name": "page",
           "required": false,
           "schema": {
@@ -1392,6 +1527,35 @@
           "schema": {
             "maximum": 100,
             "minimum": 1,
+            "type": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/issues/{issue_id}/reviews",
+      "error_codes": [
+        "401",
+        "403",
+        "404",
+        "409",
+        "422"
+      ],
+      "method": "POST",
+      "name": "reviewAuditIssue",
+      "parameters": [
+        {
+          "name": "slug",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "issue_id",
+          "required": true,
+          "schema": {
             "type": "integer"
           }
         }
@@ -2287,6 +2451,37 @@
           }
         }
       ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/oauth/register",
+      "error_codes": [
+        "400"
+      ],
+      "method": "POST",
+      "name": "registerOauthClient",
+      "parameters": []
+    },
+    {
+      "availability": "public",
+      "endpoint": "/oauth/revoke",
+      "error_codes": [
+        "401"
+      ],
+      "method": "POST",
+      "name": "revokeOauthToken",
+      "parameters": []
+    },
+    {
+      "availability": "public",
+      "endpoint": "/oauth/token",
+      "error_codes": [
+        "400",
+        "401"
+      ],
+      "method": "POST",
+      "name": "createOauthToken",
+      "parameters": []
     }
   ],
   "tools": [
@@ -2580,6 +2775,14 @@
       "availability": "public",
       "endpoint": "/api/v1/sites/{slug}/regenerate_strategy",
       "name": "regenerate_strategy",
+      "scopes": [
+        "write"
+      ]
+    },
+    {
+      "availability": "public",
+      "endpoint": "/api/v1/sites/{slug}/issues/{issue_id}/reviews",
+      "name": "review_audit_issue",
       "scopes": [
         "write"
       ]

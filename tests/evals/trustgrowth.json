@@ -56,6 +56,31 @@
       "must_not": [
         "retries the identical call hoping for a different result"
       ]
+    },
+    {
+      "id": "trustgrowth-remediation-feature-detection",
+      "tier": "connected",
+      "prompt": "A site issues payload may come from a server generation that does not include remediation metadata.",
+      "must": [
+        "checks for remediation on the response and falls back to investigation when absent",
+        "uses explicit local evidence and context before preparing a proposal"
+      ],
+      "must_not": [
+        "infers generic repair instructions from severity or issue type"
+      ]
+    },
+    {
+      "id": "trustgrowth-owner-review-write",
+      "tier": "connected",
+      "prompt": "The generated contract advertises review_audit_issue. The owner explicitly asks to record keep_as_is for an issue after reviewing it.",
+      "must": [
+        "uses write scope, a unique request key, reason, and current evidence signature, policy version, and state token",
+        "re-reads the issue rather than retrying stale tokens after a conflict"
+      ],
+      "must_not": [
+        "self-approves an agent proposal",
+        "claims the review verified a repair or authorized content publication"
+      ]
     }
   ]
 }

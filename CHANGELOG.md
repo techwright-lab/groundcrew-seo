@@ -5,6 +5,33 @@ All notable changes to the Groundcrew skill pack. Versions are pack-level
 names the live-contract snapshot the pack's connected-mode text was checked
 against.
 
+## [1.1.0] — 2026-09-05
+
+Prepared companion release for TrustGrowth contract 1.7.0. Publication and
+adoption remain gated on that provider contract being deployed and the release
+being approved.
+
+### Added
+- Policy-aware remediation intake for `fix-my-site`, `grow`, `site-audit`,
+  `audit-report`, and `trustgrowth`: consumers retain issue identity and the full
+  `remediation` object, preserve mandatory constraints across batches, classify
+  optional advice, and keep current owner no-change decisions.
+- Explicit compatibility fallback for older issue responses without remediation
+  guidance: investigate with local evidence, then prepare a bounded proposal for
+  owner review; never infer an automatic repair from severity.
+- Two deterministic worked examples cover a complete rendered title left unchanged
+  and a contextual missing-title proposal. Their test states clearly that the
+  fixtures are not agent executions. The static eval corpus now contains 111 cases.
+
+### Changed
+- Report verdicts distinguish severity from actionability. A critical label forces
+  FIX only when current evidence and applicable guidance support a repair; optional
+  advice and valid no-change decisions do not.
+- Metadata, schema, authorship/date, and crawler guidance now calls out unsafe
+  generic fixes and requires actual rendered verification after approved changes.
+- Vendored capability contract and minimum pin advance to TrustGrowth 1.7.0,
+  including the owner-authorized, stale-safe `review_audit_issue` surface.
+
 ## [1.0.0] — 2026-09-02
 
 First stable release; the version published to skill directories. Identical to
