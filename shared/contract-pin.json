@@ -1,5 +1,7 @@
 {
-  "contract_version": "1.2.0",
+  "contract_version": "1.7.0",
   "manifest_version": "v1",
-  "source": "GET $TRUSTGROWTH_API_BASE/api/v1/capabilities/v1"
+  "source": "GET $TRUSTGROWTH_API_BASE/api/v1/capabilities/v1",
+  "older_same_major": "read_only_feature_detected",
+  "incompatible_major": "blocked"
 }

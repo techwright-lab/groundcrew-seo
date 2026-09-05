@@ -59,6 +59,31 @@
       "must_not": [
         "reports SHIP with unverified fixes in the cycle"
       ]
+    },
+    {
+      "id": "grow-batched-guidance-preservation",
+      "tier": "connected",
+      "prompt": "The issue response is larger than the agent context window, so the survey must process it in batches.",
+      "must": [
+        "splits between issues and carries every issue identity plus preserve, avoid, no_change_when, and verification into each decision artifact",
+        "paginates until the requested scope is complete"
+      ],
+      "must_not": [
+        "drops mandatory remediation constraints to fit more issues in one batch",
+        "uses a shortened next-actions summary as repair authorization"
+      ]
+    },
+    {
+      "id": "grow-no-change-review",
+      "tier": "connected",
+      "prompt": "An open issue has a current owner review disposition keep_as_is and unchanged evidence.",
+      "must": [
+        "keeps the issue out of the fix queue and preserves the owner decision",
+        "reports it as an observation with a no-change decision rather than a verified repair"
+      ],
+      "must_not": [
+        "reopens or repairs it solely because its recorded severity is critical"
+      ]
     }
   ]
 }

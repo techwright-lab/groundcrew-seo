@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import importlib.util, json, subprocess, sys, tempfile
+import contextlib, importlib.util, io, json, subprocess, sys, tempfile
 from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
@@ -21,13 +21,103 @@ for live, pinned, expected in [
 ]:
     assert doctor.version_satisfies(live, pinned) is expected, (live, pinned, expected)
 
+for live, pinned, expected in [
+    ("1.7.0", "1.7.0", "full"),
+    ("1.8.0", "1.7.0", "full"),
+    ("1.6.9", "1.7.0", "read_only_feature_detected"),
+    ("1.0.0", "1.7.0", "read_only_feature_detected"),
+    ("2.0.0", "1.7.0", None),
+    ("v1", "1.7.0", None),
+    (None, "1.7.0", None),
+]:
+    assert doctor.compatibility_mode(live, pinned) == expected, (live, pinned, expected)
+
+compatibility_manifest = {
+    "operations": [
+        {
+            "availability": "public",
+            "method": "GET",
+            "endpoint": "/api/v1/sites/{slug}/issues",
+        },
+        {
+            "availability": "public",
+            "method": "POST",
+            "endpoint": "/api/v1/sites/{slug}/issues/{issue_id}/reviews",
+        },
+    ]
+}
+assert doctor.operation_allowed(
+    compatibility_manifest,
+    "GET",
+    "/api/v1/sites/{slug}/issues",
+    "read_only_feature_detected",
+)
+assert not doctor.operation_allowed(
+    compatibility_manifest,
+    "POST",
+    "/api/v1/sites/{slug}/issues/{issue_id}/reviews",
+    "read_only_feature_detected",
+)
+assert doctor.operation_allowed(
+    compatibility_manifest,
+    "POST",
+    "/api/v1/sites/{slug}/issues/{issue_id}/reviews",
+    "full",
+)
+assert not doctor.operation_allowed(
+    compatibility_manifest,
+    "GET",
+    "/api/v1/sites/{slug}/missing",
+    "read_only_feature_detected",
+)
+
+for mode in (None, "incompatible", "unknown", "", False):
+    for operation in compatibility_manifest["operations"]:
+        assert not doctor.operation_allowed(
+            compatibility_manifest, operation["method"], operation["endpoint"], mode
+        ), (mode, operation)
+
 manifest = gen.normalize(json.loads((root / "shared/contract/capabilities.json").read_text()))
 pin = json.loads((root / "shared/contract-pin.json").read_text())
+assert pin["older_same_major"] == "read_only_feature_detected"
+assert pin["incompatible_major"] == "blocked"
 first, second = gen.render(manifest, pin), gen.render(manifest, pin)
 assert first == second, "render must be deterministic"
+assert "full-mode target `1.7.0`" in first
+assert "Older same-major contracts run read-only" in first
 assert "| `trigger_audit` |" in first and "`/api/v1/sites/{slug}/trigger_audit`" in first
+assert "| `review_audit_issue` |" in first and "`/api/v1/sites/{slug}/issues/{issue_id}/reviews`" in first
 assert all(f"`{d['name']}`" in first for d in manifest["dark_surfaces"]), "dark surfaces must be listed"
 assert not any(f"| `{d['name']}` |" in first for d in manifest["dark_surfaces"]), "dark surfaces must not appear as tools"
+
+serp = next(o for o in manifest["operations"] if o["endpoint"] == "/api/v1/sites/{slug}/serp")
+history = next(o for o in manifest["operations"] if o["endpoint"] == "/api/v1/sites/{slug}/keywords/{keyword}/history")
+assert gen.params_cell(serp) == "`keyword`*", gen.params_cell(serp)
+assert gen.params_cell(history) == "`from`, `to`", gen.params_cell(history)
+assert gen.params_cell({"endpoint": "/api/v1/sites/{slug}/competitors/{domain}", "parameters": [
+    {"name": "slug"}, {"name": "domain", "required": True}, {"name": "keyword", "required": True},
+]}) == "`keyword`*"
+assert gen.params_cell({"endpoint": "/api/v1/sites/{slug}/competitors", "parameters": [
+    {"name": "slug"}, {"name": "domain", "required": True},
+]}) == "`domain`*"
+
+original_api_get = doctor.api_get
+try:
+    for live, expected_error, expected_text in [
+        ("1.8.0", False, "supports full mode"),
+        ("1.6.0", False, "read-only feature-detected compatibility mode"),
+        ("2.0.0", True, "is incompatible"),
+        ("broken", True, "is incompatible"),
+    ]:
+        doctor.api_get = lambda *_args, live=live: (200, {"contract_version": live})
+        errors = []
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            doctor.check_contract("https://example.test", "secret", errors)
+        assert bool(errors) is expected_error, (live, errors)
+        assert expected_text in output.getvalue(), (live, output.getvalue())
+finally:
+    doctor.api_get = original_api_get
 
 with tempfile.TemporaryDirectory() as tmp:
     skill = Path(tmp) / "skills/invented"

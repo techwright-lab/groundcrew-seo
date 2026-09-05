@@ -136,6 +136,29 @@ def version_satisfies(live, pinned):
     return bool(live_v and pin_v and live_v[0] == pin_v[0] and live_v >= pin_v)
 
 
+def compatibility_mode(live, pinned):
+    """Return full or read-only mode for a parseable same-major contract."""
+    live_v, pin_v = parse_version(live), parse_version(pinned)
+    if not live_v or not pin_v or live_v[0] != pin_v[0]:
+        return None
+    return "full" if live_v >= pin_v else "read_only_feature_detected"
+
+
+def operation_available(manifest, method, endpoint):
+    return any(
+        operation.get("availability") == "public"
+        and operation.get("method") == method
+        and operation.get("endpoint") == endpoint
+        for operation in manifest.get("operations", [])
+    )
+
+
+def operation_allowed(manifest, method, endpoint, mode):
+    if mode not in ("full", "read_only_feature_detected") or (mode != "full" and method != "GET"):
+        return False
+    return operation_available(manifest, method, endpoint)
+
+
 def api_get(base, key, path):
     req = urllib.request.Request(base + path, headers={
         "Authorization": f"Bearer {key}",
@@ -156,12 +179,13 @@ def check_contract(base, key, errors):
     except Exception as exc:
         fail(f"capability manifest fetch failed: {exc}", errors); return
     live = manifest.get("contract_version")
-    if live is None:
-        fail(f"server manifest has no contract_version; Groundcrew pins {pin['contract_version']} — upgrade the server or the pin", errors)
-    elif version_satisfies(live, pin["contract_version"]):
-        ok(f"TrustGrowth contract {live} satisfies pinned {pin['contract_version']}")
+    mode = compatibility_mode(live, pin["contract_version"])
+    if mode == "full":
+        ok(f"TrustGrowth contract {live} supports full mode (target {pin['contract_version']})")
+    elif mode == "read_only_feature_detected":
+        ok(f"TrustGrowth contract {live} uses read-only feature-detected compatibility mode (target {pin['contract_version']}; skills must block all writes)")
     else:
-        fail(f"TrustGrowth contract {live} does not satisfy pinned {pin['contract_version']} (same major, >= minor.patch)", errors)
+        fail(f"TrustGrowth contract {live!r} is incompatible with target {pin['contract_version']} (a parseable same-major version is required)", errors)
 
 
 def connectivity(errors):

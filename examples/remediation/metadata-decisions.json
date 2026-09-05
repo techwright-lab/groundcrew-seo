@@ -1,0 +1,264 @@
+{
+  "artifact_kind": "deterministic_worked_example",
+  "agent_executed": false,
+  "contract_version": "1.7.0",
+  "description": "Two policy-aware issue decisions split into one-issue batches. This is deterministic fixture evidence, not an agent run.",
+  "source_issue_order": [4201, 4202],
+  "batches": [
+    {
+      "number": 1,
+      "context_limit": 1,
+      "input_issue": {
+        "id": 4201,
+        "issue_type": "meta_title_too_long",
+        "page_url": "https://trustgrowth.ai/features/proof",
+        "status": "open",
+        "recorded_severity": "warning",
+        "severity": "info",
+        "classification": "suggestion",
+        "interpretation": "current_policy",
+        "policy_version": "audit-remediation-v3",
+        "detection_policy_version": "audit-remediation-v1",
+        "remediation": {
+          "guidance_available": true,
+          "applicability": "applicable",
+          "automation": "advisory_only",
+          "ownership": "crawler",
+          "material_policy_version": "meta_title_too_long:1",
+          "observation": "Title may be shortened in search results",
+          "recommended_action": "Keep it if it is clear and accurate. Length-only suggestion.",
+          "proposed_change": null,
+          "preserve": [
+            "Preserve complete authored meaning, meaningful qualifiers, page distinctiveness, and accurate branding composed once."
+          ],
+          "avoid": [
+            "Cut at 60/70 characters, cut mid-phrase, or bulk rewrite. Do not mechanically cut, pad, bulk rewrite, or introduce shared truncation rules. Character and pixel counts are observations, not mandatory editing ceilings."
+          ],
+          "no_change_when": [
+            "Keep the complete metadata when it is clear, accurate, relevant, and distinctive, regardless of character count or preview width."
+          ],
+          "verification": [
+            "Complete intended wording survives rendering; page remains distinctive; brand composed once."
+          ],
+          "required_context": ["page_purpose", "condition_confirmed"],
+          "scoring_policy": {
+            "version": "audit-remediation-v1",
+            "eligible": false,
+            "interpretation": "proposed_policy"
+          },
+          "review": {
+            "disposition": "review_needed",
+            "reason": "unreviewed",
+            "policy_version": "audit-remediation-v3",
+            "evidence_signature": "example-proof-title-signature",
+            "state_token": "example-proof-title-state"
+          },
+          "context": {
+            "page_purpose": "Explain TrustGrowth public Proof Pages",
+            "condition_confirmed": true
+          },
+          "evidence": {
+            "kind": "rendered_response_assertion",
+            "source": "TrustGrowth test/controllers/features_controller_test.rb",
+            "rendered_title": "Proof Pages — your score, in public, with the flaws left in — TrustGrowth"
+          }
+        }
+      },
+      "retained_issue_identity": {
+        "id": 4201,
+        "issue_type": "meta_title_too_long",
+        "page_url": "https://trustgrowth.ai/features/proof",
+        "status": "open",
+        "recorded_severity": "warning",
+        "severity": "info",
+        "classification": "suggestion",
+        "interpretation": "current_policy",
+        "policy_version": "audit-remediation-v3",
+        "detection_policy_version": "audit-remediation-v1"
+      },
+      "retained_remediation": {
+        "guidance_available": true,
+        "applicability": "applicable",
+        "automation": "advisory_only",
+        "ownership": "crawler",
+        "material_policy_version": "meta_title_too_long:1",
+        "observation": "Title may be shortened in search results",
+        "recommended_action": "Keep it if it is clear and accurate. Length-only suggestion.",
+        "proposed_change": null,
+        "preserve": [
+          "Preserve complete authored meaning, meaningful qualifiers, page distinctiveness, and accurate branding composed once."
+        ],
+        "avoid": [
+          "Cut at 60/70 characters, cut mid-phrase, or bulk rewrite. Do not mechanically cut, pad, bulk rewrite, or introduce shared truncation rules. Character and pixel counts are observations, not mandatory editing ceilings."
+        ],
+        "no_change_when": [
+          "Keep the complete metadata when it is clear, accurate, relevant, and distinctive, regardless of character count or preview width."
+        ],
+        "verification": [
+          "Complete intended wording survives rendering; page remains distinctive; brand composed once."
+        ],
+        "required_context": ["page_purpose", "condition_confirmed"],
+        "scoring_policy": {
+          "version": "audit-remediation-v1",
+          "eligible": false,
+          "interpretation": "proposed_policy"
+        },
+        "review": {
+          "disposition": "review_needed",
+          "reason": "unreviewed",
+          "policy_version": "audit-remediation-v3",
+          "evidence_signature": "example-proof-title-signature",
+          "state_token": "example-proof-title-state"
+        },
+        "context": {
+          "page_purpose": "Explain TrustGrowth public Proof Pages",
+          "condition_confirmed": true
+        },
+        "evidence": {
+          "kind": "rendered_response_assertion",
+          "source": "TrustGrowth test/controllers/features_controller_test.rb",
+          "rendered_title": "Proof Pages — your score, in public, with the flaws left in — TrustGrowth"
+        }
+      },
+      "decision": {
+        "action": "leave_unchanged",
+        "reason": "The complete title is clear, accurate, distinctive, and composes the brand once; length alone does not justify an edit.",
+        "rendered_title_before": "Proof Pages — your score, in public, with the flaws left in — TrustGrowth",
+        "rendered_title_after": "Proof Pages — your score, in public, with the flaws left in — TrustGrowth",
+        "verification": {
+          "status": "rendered_verified",
+          "method": "rendered_response_assertion",
+          "source": "TrustGrowth test/controllers/features_controller_test.rb"
+        }
+      }
+    },
+    {
+      "number": 2,
+      "context_limit": 1,
+      "input_issue": {
+        "id": 4202,
+        "issue_type": "meta_title_missing",
+        "page_url": "https://trustgrowth.ai/developers/mcp",
+        "status": "open",
+        "recorded_severity": "warning",
+        "severity": "warning",
+        "classification": "issue",
+        "interpretation": "current_policy",
+        "policy_version": "audit-remediation-v3",
+        "detection_policy_version": "audit-remediation-v3",
+        "remediation": {
+          "guidance_available": true,
+          "applicability": "applicable",
+          "automation": "propose_change",
+          "ownership": "crawler",
+          "material_policy_version": "meta_title_missing:1",
+          "observation": "No usable document title was observed",
+          "recommended_action": "Propose a concise, accurate, unique title derived from the page's real subject.",
+          "proposed_change": "Propose a concise, accurate, unique title derived from the page's real subject.",
+          "preserve": [
+            "Preserve complete authored meaning, accurate claims, accessibility, security, and intentional crawler/canonical policy."
+          ],
+          "avoid": [
+            "Invent claims, stuff keywords, copy one site-wide title, or change the H1/body to match a guessed title."
+          ],
+          "no_change_when": [
+            "Leave the page alone when it already renders a usable title or is not an HTML document."
+          ],
+          "verification": [
+            "Rendered `<title>` is nonblank, describes the page, and agrees with visible purpose."
+          ],
+          "required_context": [],
+          "scoring_policy": {
+            "version": "audit-remediation-v1",
+            "eligible": true,
+            "interpretation": "proposed_policy"
+          },
+          "review": {
+            "disposition": "review_needed",
+            "reason": "unreviewed",
+            "policy_version": "audit-remediation-v3",
+            "evidence_signature": "example-mcp-title-signature",
+            "state_token": "example-mcp-title-state"
+          },
+          "context": {
+            "page_purpose": "Developer documentation for connecting TrustGrowth to an agent over MCP",
+            "visible_h1": "Connect TrustGrowth to your agent",
+            "brand": "TrustGrowth"
+          },
+          "evidence": {
+            "kind": "worked_example_input",
+            "rendered_title": null,
+            "visible_h1": "Connect TrustGrowth to your agent"
+          }
+        }
+      },
+      "retained_issue_identity": {
+        "id": 4202,
+        "issue_type": "meta_title_missing",
+        "page_url": "https://trustgrowth.ai/developers/mcp",
+        "status": "open",
+        "recorded_severity": "warning",
+        "severity": "warning",
+        "classification": "issue",
+        "interpretation": "current_policy",
+        "policy_version": "audit-remediation-v3",
+        "detection_policy_version": "audit-remediation-v3"
+      },
+      "retained_remediation": {
+        "guidance_available": true,
+        "applicability": "applicable",
+        "automation": "propose_change",
+        "ownership": "crawler",
+        "material_policy_version": "meta_title_missing:1",
+        "observation": "No usable document title was observed",
+        "recommended_action": "Propose a concise, accurate, unique title derived from the page's real subject.",
+        "proposed_change": "Propose a concise, accurate, unique title derived from the page's real subject.",
+        "preserve": [
+          "Preserve complete authored meaning, accurate claims, accessibility, security, and intentional crawler/canonical policy."
+        ],
+        "avoid": [
+          "Invent claims, stuff keywords, copy one site-wide title, or change the H1/body to match a guessed title."
+        ],
+        "no_change_when": [
+          "Leave the page alone when it already renders a usable title or is not an HTML document."
+        ],
+        "verification": [
+          "Rendered `<title>` is nonblank, describes the page, and agrees with visible purpose."
+        ],
+        "required_context": [],
+        "scoring_policy": {
+          "version": "audit-remediation-v1",
+          "eligible": true,
+          "interpretation": "proposed_policy"
+        },
+        "review": {
+          "disposition": "review_needed",
+          "reason": "unreviewed",
+          "policy_version": "audit-remediation-v3",
+          "evidence_signature": "example-mcp-title-signature",
+          "state_token": "example-mcp-title-state"
+        },
+        "context": {
+          "page_purpose": "Developer documentation for connecting TrustGrowth to an agent over MCP",
+          "visible_h1": "Connect TrustGrowth to your agent",
+          "brand": "TrustGrowth"
+        },
+        "evidence": {
+          "kind": "worked_example_input",
+          "rendered_title": null,
+          "visible_h1": "Connect TrustGrowth to your agent"
+        }
+      },
+      "decision": {
+        "action": "propose_for_owner_review",
+        "reason": "The proposal uses the visible page purpose and composes the existing brand once.",
+        "proposed_title": "Connect TrustGrowth to your agent",
+        "applied": false,
+        "verification": {
+          "status": "pending_owner_and_rendered_verification",
+          "required_after_approval": "Fetch or browse the rendered HTML and assert the final `<title>` matches the approved wording."
+        }
+      }
+    }
+  ]
+}

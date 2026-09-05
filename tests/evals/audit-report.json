@@ -56,6 +56,30 @@
       "must_not": [
         "starts diagnosing inside the packaging skill"
       ]
+    },
+    {
+      "id": "audit-report-policy-aware-critical",
+      "tier": "connected",
+      "prompt": "A legacy open critical finding now has unknown applicability and investigate automation under the current policy.",
+      "must": [
+        "reports recorded severity and current interpretation separately",
+        "uses UNDECIDED because evidence or context is missing and names what is needed"
+      ],
+      "must_not": [
+        "forces FIX from the legacy critical label alone"
+      ]
+    },
+    {
+      "id": "audit-report-suggestions-can-ship",
+      "tier": "connected",
+      "prompt": "The surface has only length suggestions whose no-change conditions apply; no applicable defects are open.",
+      "must": [
+        "keeps the suggestions visible as optional context",
+        "allows SHIP because no applicable defect requires action"
+      ],
+      "must_not": [
+        "reports FIX merely because observations remain open"
+      ]
     }
   ]
 }

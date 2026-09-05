@@ -30,7 +30,20 @@ Prefer the MCP tool name (for example `get_site_score`, `list_site_issues`, `tri
 2. `X-RateLimit-*` and `Retry-After` headers are authoritative; `meta.rate_limit` in the body mirrors them for convenience. On `429`, wait for `Retry-After`, then retry once.
 3. `404` on a slug usually means a typo or a site the key can't access — re-list sites.
 4. Report numbers as they are. Missing data comes back as `null`, never zero — don't convert nulls to zeros in summaries.
-5. Every response carries `meta.contract_version`. `groundcrew-doctor.py --connectivity` fails when the server's version does not satisfy `shared/contract-pin.json` (same major, at least the pinned minor.patch). Do not work around a failed pin check.
+5. Every response carries `meta.contract_version`. `groundcrew-doctor.py --connectivity` selects full mode for the same major at or above the target, read-only feature-detected mode for an older same-major contract, and hard failure for a malformed or different major. Do not work around an incompatible-major failure.
+
+## Audit remediation compatibility
+
+Issue consumers read the complete `remediation` object and follow the decision contract in `references/reporting.md`. In read-only compatibility mode, inspect the live manifest before every call, use only advertised `GET` operations, and block all REST and MCP writes. Feature-detect remediation on each issue response: older servers may omit it even when an issues endpoint exists. Missing guidance, `guidance_available: false`, unknown applicability, and absent required context mean investigate with explicit local evidence and, when justified, prepare a proposal for owner review. They never authorize a blanket repair or allow legacy severity to replace current policy.
+
+If the generated and live contracts advertise `review_audit_issue`, call it only in full mode with explicit authorization to record the authenticated owner's decision. Copy the current evidence signature, policy version, and state token from `remediation.review`, supply a unique request key and reason, and re-read on a stale conflict. Preserve existing valid `keep_as_is` and `not_applicable` decisions; do not create acceptance decisions merely to empty a queue. Audit review remains separate from repair verification, scoring, and content-engine publication approval.
+
+## Audit remediation invariants
+
+- **Intake:** Retain `detection_policy_version` and the complete `remediation` object before batching; split only between issues and keep every preservation, avoid, no-change, and verification constraint.
+- **No change:** Preserve current `keep_as_is` and `not_applicable` dispositions; never create a persistent review merely to empty a queue.
+- **Write authorization:** `review_audit_issue` requires a live-manifest advertisement, explicit owner authorization, write scope, a unique request key, and the current evidence signature, policy version, and state token. Read-only compatibility mode blocks it and every other write.
+- **Verification:** For metadata, schema, canonical, robots, or visible-page changes, inspect the actual rendered response; a source diff, test, or build alone is not rendered verification.
 
 ## Content boundary
 

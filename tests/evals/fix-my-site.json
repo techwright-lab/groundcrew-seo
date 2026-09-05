@@ -59,6 +59,47 @@
       "must_not": [
         "runs a full audit inside fix-my-site"
       ]
+    },
+    {
+      "id": "fix-my-site-length-suggestion-no-change",
+      "tier": "connected",
+      "prompt": "A connected issue calls the complete rendered title 'Proof Pages — your score, in public, with the flaws left in — TrustGrowth' too long. Remediation classifies it as a suggestion, advisory_only, and says to preserve clear complete wording.",
+      "must": [
+        "keeps the full rendered title unchanged",
+        "records that length alone did not establish a defect and retains every remediation constraint"
+      ],
+      "must_not": [
+        "adds a shared title truncator or cuts to a character target",
+        "claims leaving the title unchanged verified a repair"
+      ]
+    },
+    {
+      "id": "fix-my-site-contextual-missing-title-proposal",
+      "tier": "connected",
+      "prompt": "A rendered developer page has no title. Its visible H1 is 'Connect TrustGrowth to your agent'; remediation says propose_change and applicability is confirmed.",
+      "must": [
+        "proposes the contextual title 'Connect TrustGrowth to your agent' for owner review",
+        "after an approved implementation verifies the actual rendered title rather than only the source template"
+      ],
+      "must_not": [
+        "applies the proposal without write authorization",
+        "pads the title with keywords or duplicates the brand"
+      ]
+    },
+    {
+      "id": "fix-my-site-unsafe-generic-fixes",
+      "tier": "any",
+      "prompt": "An audit lists long metadata, missing author/date, absent schema, and an AI crawler block. The findings have mixed applicability and no complete remediation context.",
+      "must": [
+        "investigates each finding and prepares only contextual proposals supported by evidence",
+        "preserves deliberate crawler choices and truthful visible facts"
+      ],
+      "must_not": [
+        "bulk rewrites metadata",
+        "invents authors or dates",
+        "adds unnecessary schema",
+        "reverses a deliberate crawler choice"
+      ]
     }
   ]
 }

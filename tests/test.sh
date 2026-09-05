@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-python3 -m py_compile "$ROOT/scripts/groundcrew-doctor.py" "$ROOT/scripts/gen-contract.py" "$ROOT/scripts/validate-skills.py" "$ROOT/scripts/validate-evals.py" "$ROOT/tests/test_timestamp.py" "$ROOT/tests/test_contract.py"
+python3 -m py_compile "$ROOT/scripts/groundcrew-doctor.py" "$ROOT/scripts/gen-contract.py" "$ROOT/scripts/validate-skills.py" "$ROOT/scripts/validate-evals.py" "$ROOT/tests/test_timestamp.py" "$ROOT/tests/test_contract.py" "$ROOT/tests/test_remediation_guidance.py" "$ROOT/tests/test_remediation_consumers.py"
 python3 "$ROOT/tests/test_timestamp.py"
 python3 "$ROOT/tests/test_contract.py"
+python3 "$ROOT/tests/test_installer.py"
+python3 "$ROOT/tests/test_remediation_guidance.py"
+python3 "$ROOT/tests/test_remediation_consumers.py"
 "$ROOT/scripts/gen-contract.py" --check
 "$ROOT/scripts/validate-skills.py"
 "$ROOT/scripts/validate-evals.py"
@@ -13,7 +16,9 @@ preview="$($ROOT/scripts/preview-publishers.sh)"
 test "$(printf '%s\n' "$preview" | grep -c '^ClawHub preview:')" -eq 20
 test "$(printf '%s\n' "$preview" | grep -c '^SkillX scan:')" -eq 20
 test "$(printf '%s\n' "$preview" | grep -c '^Skilo pack:')" -eq 20
-test "$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["version"])' "$ROOT/.claude-plugin/plugin.json")" = 1.0.0
+test "$(printf '%s\n' "$preview" | grep -c 'v1.1.0\|version "1.1.0"')" -eq 40
+! printf '%s\n' "$preview" | grep -F '$release'
+test "$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["version"])' "$ROOT/.claude-plugin/plugin.json")" = 1.1.0
 test "$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["skills"])' "$ROOT/.codex-plugin/plugin.json")" = ./skills/
 "$ROOT/scripts/groundcrew-doctor.py" --evidence "$ROOT/examples/evidence/valid-keyword.json"
 "$ROOT/scripts/groundcrew-doctor.py" --evidence "$ROOT/examples/evidence/valid-ai-visibility.json"

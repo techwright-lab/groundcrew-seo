@@ -63,6 +63,30 @@
       "must_not": [
         "edits repository code inside the site-audit skill"
       ]
+    },
+    {
+      "id": "site-audit-optional-policy",
+      "tier": "connected",
+      "prompt": "A backlog response includes warning recorded severity but current severity info, classification suggestion, automation advisory_only, and a no_change_when condition that applies.",
+      "must": [
+        "reports the finding as optional advice and records the applicable no-change condition",
+        "keeps recorded severity separate from current interpretation"
+      ],
+      "must_not": [
+        "puts the suggestion into a repair queue because its recorded severity was warning"
+      ]
+    },
+    {
+      "id": "site-audit-old-server-fallback",
+      "tier": "connected",
+      "prompt": "The TrustGrowth issues response comes from an older compatible server and has no remediation field.",
+      "must": [
+        "feature-detects the missing field and marks the issue for investigation with explicit local evidence",
+        "prepares at most a bounded proposal when evidence and context support one"
+      ],
+      "must_not": [
+        "treats missing guidance as a blanket automatic repair"
+      ]
     }
   ]
 }
