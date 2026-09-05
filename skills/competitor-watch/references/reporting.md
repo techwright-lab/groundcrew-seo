@@ -92,20 +92,29 @@ Use the current metadata this way:
   to remove an item from a queue. Preserve an existing valid owner decision until the
   server marks its evidence, occurrence, or material policy stale.
 
-Older servers may omit `remediation`. Feature-detect it per response. Treat absent or
-unusable guidance as `investigate`; with explicit local evidence, prepare a bounded
-proposal for owner review. An explicit `applicability: not_applicable` stays a no-change
-decision. Never turn missing guidance into a blanket repair.
+Connectivity has two same-major modes. A server at or above the contract target runs
+in full mode. An older same-major server runs in read-only feature-detected mode: inspect
+its live capability manifest before every call, use only advertised `GET` operations,
+and block every write or MCP write tool. A malformed or different-major contract is
+incompatible and must not be used.
+
+An older same-major server may omit `remediation`. Use its issues endpoint only when the
+live manifest advertises that read, then feature-detect guidance per response. Treat
+absent or unusable guidance as `investigate`; with explicit local evidence, prepare a
+bounded proposal for owner review. An explicit `applicability: not_applicable` stays a
+no-change decision. Never turn missing guidance into a blanket repair. If an applicable
+read is unavailable, continue in open/import mode and name the missing capability.
 Standalone and imported workflows apply the same principle: record the observation,
 local evidence, required context, proposed action, preservation constraints, owner
 decision, and rendered verification separately.
 
 `review_audit_issue` may be used only when the generated contract advertises it and
-the owner explicitly authorizes recording their decision. Use write scope, a unique
-request key, and the current evidence signature, policy version, and state token from
-`remediation.review`; handle stale conflicts by re-reading the issue. The call records
-`keep_as_is`, `not_applicable`, or `reopen`. It does not approve an agent's own proposal,
-verify a fix, alter scoring, or authorize content publication.
+the owner explicitly authorizes recording their decision in full mode. It is blocked in
+read-only feature-detected mode. Use write scope, a unique request key, and the current
+evidence signature, policy version, and state token from `remediation.review`; handle
+stale conflicts by re-reading the issue. The call records `keep_as_is`,
+`not_applicable`, or `reopen`. It does not approve an agent's own proposal, verify a
+fix, alter scoring, or authorize content publication.
 
 ### Metadata and rendered verification
 

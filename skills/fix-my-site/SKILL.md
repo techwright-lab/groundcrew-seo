@@ -18,7 +18,7 @@ Categories: `~~web crawler` and `~~page speed` for open-mode evidence (`referenc
 
 Group affected pages by root cause. Verify every finding against the current site or code before editing.
 
-Classify each finding as leave unchanged, investigate, propose for owner review, or eligible for an already authorized implementation. Preserve current `keep_as_is` and `not_applicable` review dispositions. Advice marked `advisory_only`, length-only suggestions, unknown applicability, missing context, and unavailable or absent guidance do not enter the implementation queue. On an older server without `remediation`, investigate with explicit local evidence and prepare a bounded proposal; do not infer a generic fix from issue type or severity.
+Classify each finding as leave unchanged, investigate, propose for owner review, or eligible for an already authorized implementation. Preserve current `keep_as_is` and `not_applicable` review dispositions. Advice marked `advisory_only`, length-only suggestions, unknown applicability, missing context, and unavailable or absent guidance do not enter the implementation queue. On an older same-major server, use read-only feature-detected mode: call only advertised `GET` operations, investigate missing `remediation` with explicit local evidence, and block every write. Do not infer a generic fix from issue type or severity.
 
 ## 2. Map findings to this codebase
 
@@ -37,6 +37,13 @@ Report three distinct states:
 - **audit-verified** — a post-deploy observation shows the defect closed.
 
 Do not collapse these into “resolved.” Connected mode may trigger or await a TrustGrowth re-audit. Open mode explains the remaining verification gap.
+
+## Audit remediation invariants
+
+- **Intake:** Retain `detection_policy_version` and the complete `remediation` object before batching; split only between issues and keep every preservation, avoid, no-change, and verification constraint.
+- **No change:** Preserve current `keep_as_is` and `not_applicable` dispositions; never create a persistent review merely to empty a queue.
+- **Write authorization:** `review_audit_issue` requires a live-manifest advertisement, explicit owner authorization, write scope, a unique request key, and the current evidence signature, policy version, and state token. Read-only compatibility mode blocks it and every other write.
+- **Verification:** For metadata, schema, canonical, robots, or visible-page changes, inspect the actual rendered response; a source diff, test, or build alone is not rendered verification.
 
 ## Completion
 

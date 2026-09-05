@@ -16,12 +16,14 @@ being approved.
   `audit-report`, and `trustgrowth`: consumers retain issue identity and the full
   `remediation` object, preserve mandatory constraints across batches, classify
   optional advice, and keep current owner no-change decisions.
-- Explicit compatibility fallback for older issue responses without remediation
-  guidance: investigate with local evidence, then prepare a bounded proposal for
-  owner review; never infer an automatic repair from severity.
+- Explicit read-only feature-detected compatibility for older same-major contracts:
+  use only live-manifest-advertised reads, block every write, and investigate issue
+  responses without remediation before preparing a bounded owner-reviewed proposal.
 - Two deterministic worked examples cover a complete rendered title left unchanged
   and a contextual missing-title proposal. Their test states clearly that the
-  fixtures are not agent executions. The static eval corpus now contains 111 cases.
+  fixtures are not agent executions. A separate deterministic instruction guard reads
+  all five consumers and pins mandatory intake, no-change, write-authorization, and
+  rendered-verification clauses. The static eval corpus now contains 111 cases.
 
 ### Changed
 - Report verdicts distinguish severity from actionability. A critical label forces
@@ -29,8 +31,9 @@ being approved.
   advice and valid no-change decisions do not.
 - Metadata, schema, authorship/date, and crawler guidance now calls out unsafe
   generic fixes and requires actual rendered verification after approved changes.
-- Vendored capability contract and minimum pin advance to TrustGrowth 1.7.0,
-  including the owner-authorized, stale-safe `review_audit_issue` surface.
+- Vendored capability contract and full-mode target advance to TrustGrowth 1.7.0,
+  including the owner-authorized, stale-safe `review_audit_issue` surface. Older
+  same-major contracts remain read-only; malformed or different majors are blocked.
 
 ## [1.0.0] — 2026-09-02
 

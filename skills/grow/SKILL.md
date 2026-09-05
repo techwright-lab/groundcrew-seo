@@ -15,6 +15,15 @@ Grow orchestrates other Groundcrew skills; it adds no data source of its own. In
 3. **verify** — prove what changed. Open mode: re-crawl the touched pages and diff actual rendered responses against the survey observations and preservation constraints. Connected: `POST /api/v1/sites/{slug}/trigger_audit` (write scope, explicit user intent; on `403` say when the next scheduled audit runs, on `429` wait — never stack retries), poll `GET /api/v1/sites/{slug}/jobs/{job_id}`, then read `GET /api/v1/sites/{slug}/issues?status=fixed` for closures. A fix nothing re-observed stays "applied, unverified".
 4. **report** — package the cycle with the owning report skill (`weekly-report` for the period, `audit-report` for findings depth). Verdict rules come from `references/reporting.md`; a cycle whose fixes are unverified cannot say SHIP.
 
+## Audit remediation invariants
+
+- **Intake:** Retain `detection_policy_version` and the complete `remediation` object before batching; split only between issues and keep every preservation, avoid, no-change, and verification constraint.
+- **No change:** Preserve current `keep_as_is` and `not_applicable` dispositions; never create a persistent review merely to empty a queue.
+- **Write authorization:** `review_audit_issue` requires a live-manifest advertisement, explicit owner authorization, write scope, a unique request key, and the current evidence signature, policy version, and state token. Read-only compatibility mode blocks it and every other write.
+- **Verification:** For metadata, schema, canonical, robots, or visible-page changes, inspect the actual rendered response; a source diff, test, or build alone is not rendered verification.
+
+On an older same-major TrustGrowth contract, run only advertised `GET` operations in read-only feature-detected mode. Missing remediation remains investigate/propose, and `trigger_audit`, `review_audit_issue`, and every other write are blocked; use open-mode rendered verification instead.
+
 ## Gates
 
 Between phases the loop presents what it found, what it intends next, and stops when the next phase would write anywhere outside a local branch. One full pass is one cycle; the loop never self-restarts — the user starts the next cycle.

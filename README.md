@@ -37,7 +37,7 @@ Diagnostics, from your agent's skills directory:
 
 ```bash
 <skills-dir>/.groundcrew/groundcrew-doctor.py                       # install + shared-reference drift
-<skills-dir>/.groundcrew/groundcrew-doctor.py --connectivity        # TrustGrowth reachability + contract pin
+<skills-dir>/.groundcrew/groundcrew-doctor.py --connectivity        # TrustGrowth reachability + full/read-only contract mode
 <skills-dir>/.groundcrew/groundcrew-doctor.py --evidence record.json # validate an evidence record
 ```
 
@@ -109,8 +109,8 @@ flowchart LR
 Three contracts keep the pack honest, and CI enforces all of them:
 
 - **Evidence** — every normalized factual input satisfies [`shared/evidence.schema.yaml`](shared/evidence.schema.yaml) (source, observation time, provenance, confidence, limitations). `groundcrew-doctor` validates records and fails on drifted shared references.
-- **API surface** — the TrustGrowth surface skills may call is **generated, not hand-written**: [`skills/trustgrowth/references/contract.md`](skills/trustgrowth/references/contract.md) is rendered from the vendored capability manifest by `scripts/gen-contract.py` and refreshed from the live manifest before release; `scripts/validate-skills.py` rejects any skill referencing a path outside it; `groundcrew-doctor --connectivity` fails when the server's `contract_version` no longer satisfies [`shared/contract-pin.json`](shared/contract-pin.json).
-- **Evals** — every skill carries at least 5 scenario cases under `tests/evals/` (open-tier behavior, connected behavior, honesty under missing data, a safety gate, routing); `scripts/validate-evals.py` keeps the 111-case corpus structurally sound and contract-valid. The cases are harness-agnostic and never ship in the distribution payload. Deterministic worked-example checks are separate and do not claim to execute agents.
+- **API surface** — the TrustGrowth surface skills may call is **generated, not hand-written**: [`skills/trustgrowth/references/contract.md`](skills/trustgrowth/references/contract.md) is rendered from the vendored capability manifest by `scripts/gen-contract.py` and refreshed from the live manifest before release; `scripts/validate-skills.py` rejects any skill referencing a path outside it. `groundcrew-doctor --connectivity` selects full mode for the target or a newer same-major contract, read-only feature-detected mode for an older same-major contract, and hard failure for a malformed or different major. Compatibility mode permits only operations advertised by the live manifest and blocks every write.
+- **Evals** — every skill carries at least 5 scenario cases under `tests/evals/` (open-tier behavior, connected behavior, honesty under missing data, a safety gate, routing); `scripts/validate-evals.py` keeps the 111-case corpus structurally sound and contract-valid. The cases are harness-agnostic and never ship in the distribution payload. Deterministic worked-example checks and the five-consumer instruction guard are separate and do not claim to execute agents.
 
 ## Optional providers
 

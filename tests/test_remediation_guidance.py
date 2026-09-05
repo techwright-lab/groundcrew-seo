@@ -22,6 +22,7 @@ ISSUE_FIELDS = {
     "classification",
     "interpretation",
     "policy_version",
+    "detection_policy_version",
 }
 GUIDANCE_FIELDS = {
     "guidance_available",
@@ -61,10 +62,10 @@ def assert_common(artifact):
         issue = batch["input_issue"]
         assert ISSUE_FIELDS <= issue.keys()
         assert GUIDANCE_FIELDS <= issue["remediation"].keys()
-        assert batch["retained_issue_identity"] == {key: issue[key] for key in ISSUE_FIELDS}
-        assert batch["retained_remediation"] == {
-            key: issue["remediation"][key] for key in GUIDANCE_FIELDS
+        assert batch["retained_issue_identity"] == {
+            key: value for key, value in issue.items() if key != "remediation"
         }
+        assert batch["retained_remediation"] == issue["remediation"]
         seen.append(issue["id"])
     assert seen == artifact["source_issue_order"]
 

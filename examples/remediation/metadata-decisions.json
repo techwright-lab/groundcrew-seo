@@ -73,7 +73,8 @@
         "severity": "info",
         "classification": "suggestion",
         "interpretation": "current_policy",
-        "policy_version": "audit-remediation-v3"
+        "policy_version": "audit-remediation-v3",
+        "detection_policy_version": "audit-remediation-v1"
       },
       "retained_remediation": {
         "guidance_available": true,
@@ -200,7 +201,8 @@
         "severity": "warning",
         "classification": "issue",
         "interpretation": "current_policy",
-        "policy_version": "audit-remediation-v3"
+        "policy_version": "audit-remediation-v3",
+        "detection_policy_version": "audit-remediation-v3"
       },
       "retained_remediation": {
         "guidance_available": true,
