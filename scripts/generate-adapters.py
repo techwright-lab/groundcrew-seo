@@ -41,6 +41,12 @@ def outputs() -> dict[Path, object]:
     }
     claude = {**common, "displayName": "Groundcrew SEO — TrustGrowth", "keywords": ["seo", "seo agent skills", "technical seo", "search console", "e-e-a-t", "geo", "ai visibility", "growth", "trustgrowth", "skills"]}
     codex = {**common, "skills": "./skills/"}
+    marketplace = {
+        "name": "groundcrew",
+        "description": "SEO and growth skills from TrustGrowth.",
+        "owner": {"name": "TechWright"},
+        "plugins": [{"name": common["name"], "source": "./", "version": VERSION}],
+    }
     catalog = {
         "schemaVersion": 1,
         "release": VERSION,
@@ -55,6 +61,7 @@ def outputs() -> dict[Path, object]:
     }
     return {
         ROOT / ".claude-plugin/plugin.json": claude,
+        ROOT / ".claude-plugin/marketplace.json": marketplace,
         ROOT / ".codex-plugin/plugin.json": codex,
         ROOT / "marketplaces/catalog.json": catalog,
     }

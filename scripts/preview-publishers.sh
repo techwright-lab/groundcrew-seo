@@ -12,4 +12,6 @@ for skill in "${skills[@]}"; do
   printf 'SkillX scan: skillx scan https://github.com/techwright-lab/groundcrew-seo/tree/v%s/skills/%s\n' "$release" "$skill"
   printf 'Skilo pack: skilo pack skills/%s --dry-run\n' "$skill"
 done
+printf 'Claude Code preview: /plugin marketplace add techwright-lab/groundcrew-seo; /plugin install groundcrew-seo@groundcrew\n'
+printf 'OpenAI plugin ZIP preview: python3 scripts/build-plugin.py (local build only)\n'
 printf 'No publication performed. Run each printed publisher command only after human approval.\n'

@@ -1,0 +1,14 @@
+{
+  "name": "groundcrew",
+  "description": "SEO and growth skills from TrustGrowth.",
+  "owner": {
+    "name": "TechWright"
+  },
+  "plugins": [
+    {
+      "name": "groundcrew-seo",
+      "source": "./",
+      "version": "1.1.0"
+    }
+  ]
+}

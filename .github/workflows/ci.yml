@@ -19,3 +19,7 @@ jobs:
         run: python3 -m py_compile scripts/groundcrew-doctor.py scripts/generate-adapters.py scripts/validate-distribution.py scripts/gen-contract.py scripts/validate-skills.py
       - name: Contracts, installer safety, and drift tests
         run: ./tests/test.sh
+      - name: Plugin packaging contracts
+        run: python3 tests/test_plugin_packaging.py
+      - name: Build skills-only plugin ZIP
+        run: python3 scripts/build-plugin.py
