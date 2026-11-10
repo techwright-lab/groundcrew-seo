@@ -11,6 +11,11 @@ ROOT = Path(__file__).resolve().parents[1]
 POLICY = runpy.run_path(str(ROOT / "scripts/validate-distribution.py"))
 
 
+def denied_path(path: Path) -> bool:
+    return (bool(POLICY["DENIED_PARTS"].intersection(path.parts))
+            or any(part.startswith(".") for part in path.parts[1:]))
+
+
 def payload_files() -> list[Path]:
     roots = [ROOT / ".codex-plugin/plugin.json", ROOT / "LICENSE",
              ROOT / "skills", ROOT / "shared"]
@@ -28,11 +33,9 @@ def payload_files() -> list[Path]:
                     raise ValueError(f"external symlink in payload: {relative}") from error
                 if (not target.is_file()
                         or resolved.parts[0] not in {"skills", "shared"}
-                        or POLICY["DENIED_PARTS"].intersection(resolved.parts)
-                        or target.name == ".mcp.json"):
+                        or denied_path(resolved)):
                     raise ValueError(f"unsafe symlink in payload: {relative}")
-            if (POLICY["DENIED_PARTS"].intersection(relative.parts)
-                    or path.name == ".mcp.json"):
+            if denied_path(relative):
                 raise ValueError(f"denied path in payload: {relative}")
             if relative.parts[0] not in (
                     POLICY["ALLOWED_DIRS"] | POLICY["ALLOWED_ROOT_FILES"]):

@@ -67,6 +67,16 @@ class PluginPackagingTests(unittest.TestCase):
         self.assertIn("denied", result.stderr)
         self.assertEqual(archive.read_bytes(), original)
 
+    def test_zip_rejects_hidden_files_in_payload(self):
+        for name in (".env.local", ".DS_Store"):
+            with self.subTest(name=name):
+                path = self.root / "shared" / name
+                path.write_text("private")
+                result = self.run_script("build-plugin.py")
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn("denied", result.stderr)
+                path.unlink()
+
     def test_zip_rejects_symlinks_and_mcp_configuration(self):
         (self.root / "shared/leak").symlink_to(self.root / "install.sh")
         result = self.run_script("build-plugin.py")
